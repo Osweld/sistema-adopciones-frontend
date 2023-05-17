@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@charset "UTF-8";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /*!
 * Start Bootstrap - Freelancer v7.0.7 (https://startbootstrap.com/theme/freelancer)
 * Copyright 2013-2023 Start Bootstrap
@@ -317,7 +320,7 @@ svg {
 
 table {
   caption-side: bottom;
-  border-collapse: collapse;
+  border-collapse: collapsee;
 }
 
 caption {
@@ -3170,7 +3173,7 @@ textarea.form-control-lg {
   opacity: 0;
 }
 
-.collapse:not(.show) {
+.collapsee:not(.show) {
   display: none;
 }
 
@@ -3817,7 +3820,7 @@ textarea.form-control-lg {
   color: var(--bs-navbar-active-color);
 }
 
-.navbar-collapse {
+.navbar-collapsee {
   flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
@@ -3881,7 +3884,7 @@ textarea.form-control-lg {
   .navbar-expand-sm .navbar-nav-scroll {
     overflow: visible;
   }
-  .navbar-expand-sm .navbar-collapse {
+  .navbar-expand-sm .navbar-collapsee {
     display: flex !important;
     flex-basis: auto;
   }
@@ -3928,7 +3931,7 @@ textarea.form-control-lg {
   .navbar-expand-md .navbar-nav-scroll {
     overflow: visible;
   }
-  .navbar-expand-md .navbar-collapse {
+  .navbar-expand-md .navbar-collapsee {
     display: flex !important;
     flex-basis: auto;
   }
@@ -3975,7 +3978,7 @@ textarea.form-control-lg {
   .navbar-expand-lg .navbar-nav-scroll {
     overflow: visible;
   }
-  .navbar-expand-lg .navbar-collapse {
+  .navbar-expand-lg .navbar-collapsee {
     display: flex !important;
     flex-basis: auto;
   }
@@ -4022,7 +4025,7 @@ textarea.form-control-lg {
   .navbar-expand-xl .navbar-nav-scroll {
     overflow: visible;
   }
-  .navbar-expand-xl .navbar-collapse {
+  .navbar-expand-xl .navbar-collapsee {
     display: flex !important;
     flex-basis: auto;
   }
@@ -4069,7 +4072,7 @@ textarea.form-control-lg {
   .navbar-expand-xxl .navbar-nav-scroll {
     overflow: visible;
   }
-  .navbar-expand-xxl .navbar-collapse {
+  .navbar-expand-xxl .navbar-collapsee {
     display: flex !important;
     flex-basis: auto;
   }
@@ -4115,7 +4118,7 @@ textarea.form-control-lg {
 .navbar-expand .navbar-nav-scroll {
   overflow: visible;
 }
-.navbar-expand .navbar-collapse {
+.navbar-expand .navbar-collapsee {
   display: flex !important;
   flex-basis: auto;
 }
@@ -11108,3 +11111,6 @@ html {
   justify-content: center;
 }
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

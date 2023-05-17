@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 
 @Component({
@@ -7,7 +8,14 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./pagina-de-bienvenida.component.css']
 })
 export class PaginaDeBienvenidaComponent implements OnInit {
-  constructor(private elementRef: ElementRef) {}
+
+  oneTimeSubscription: boolean = true;
+  chosenAmount?: number;
+
+  constructor(
+    private elementRef: ElementRef,
+    private _formBuilder: FormBuilder
+  ) {}
 
   public ngOnInit(): void {
     // Navbar shrink function
@@ -38,7 +46,7 @@ export class PaginaDeBienvenidaComponent implements OnInit {
       });
     };
 
-    // Collapse responsive navbar when toggler is visible
+    // collapsee responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler') as HTMLElement;
     const responsiveNavItems = [].slice.call(
       document.querySelectorAll('#navbarResponsive .nav-link')
@@ -52,4 +60,35 @@ export class PaginaDeBienvenidaComponent implements OnInit {
     });
   }
 
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: [null],
+  });
+
+  changeSubscription(type: string): void {
+    if(type === 'oneTimeSubscription'){
+      this.oneTimeSubscription = true;
+    } else {
+      this.oneTimeSubscription = false;
+    }
+  }
+
+  selectAmount(amount: number): void {
+    switch (amount) {
+      case 5:
+        this.chosenAmount = 5;
+        break;
+      case 10:
+        this.chosenAmount = 10;
+        break;
+      case 20:
+        this.chosenAmount = 20;
+        break;
+      case 30:
+        this.chosenAmount = 30;
+        break;
+      default:
+        this.chosenAmount = amount;
+        break;
+    }
+  }
 }

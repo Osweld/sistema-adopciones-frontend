@@ -1,7 +1,7 @@
 <body id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-      <div class="container">
+      <div class="container ">
           <label for="" class="logo1">
               <a href=""> <img src="assets/img/footprint-shape-svgrepo-com.svg" alt="" class="logo1"></a>
           </label>
@@ -10,7 +10,7 @@
               Menú
               <i class="fas fa-bars"></i>
           </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
+          <div class="collapse visible navbar-collapse" id="navbarResponsive">
               <ul class="navbar-nav ms-auto">
                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#adoptar">Adoptar</a></li>
                   <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Nuestra historia</a></li>
@@ -27,7 +27,8 @@
           <!-- Masthead Avatar Image-->
           <img class="masthead-avatar mb-5" src="assets/img/portada2.jpg" alt="..." />
           <!-- Masthead Heading-->
-          <div class="Section">
+          <div class="flex flex-col">
+            <div class="Section">
               <h1 class="masthead-heading text-uppercase mb-0" >Encuentra a un amigo fiel aquí!!</h1>
               <br><br/>
               <p class="masthead-text mb-5">
@@ -38,9 +39,11 @@
                   A cambio, la recompensa que vas a obtener es infinita, su capacidad de agradecimiento a medida que se habitúen
                   a tu familia o a ti llenará de felicidad su día a día.
               </p>
-
+            </div>
+            <div>
+              <button mat-raised-button routerLink="/Mascotas" class="text-white bg-yellow-400 h-10 w-36 rounded-lg text-xl hover:border-yellow-500 hover:border-2 hover:cursor-pointer">Ver mascotas</button>
+            </div>
           </div>
-
       </div>
   </header>
   <!-- Sección adoptar-->
@@ -194,7 +197,84 @@
               <div class="logo1"><a href=""> <img src="assets/img/footprint-shape-svgrepo-com-c2.svg" alt=""></a><i></i></div>
               <div class="divider-custom-line"></div>
           </div>
-
+          <div class="w-full flex gap-4 flex-col md:flex-row">
+            <div class="md:w-1/2 w-full flex flex-col justify-center">
+              <span class="pb-3 text-2xl w-full text-center text-yellow-600 font-medium">Construye un mundo mejor</span>
+              <img class="p-2 max-w-md m-auto" src="https://vetmarketportal.com.ar/uploads/noticias/5/20210308121030_perro_callejero_copia.jpg" alt="perritos de la calle">
+              <div class="pt-3 max-w-md m-auto text-justify text-yellow-600">¡Cambia vidas! Dona para ayudar a las mascotas callejeras. Tu aporte proporciona refugio, comida y atención médica. Juntos, salvamos vidas y llevamos alegría a corazones peludos necesitados. ¡Sé un héroe hoy!</div>
+            </div>
+            <div class="md:w-1/2 w-full flex flex-col justify-between">
+                <mat-stepper linear #stepper>
+                    <mat-step [completed]="false">
+                      <form [formGroup]="firstFormGroup" class="pt-4">
+                        <ng-template matStepLabel>Escoger un monto</ng-template>
+                        <div class="my-8 flex flex-row justify-center pb-4">
+                            <div
+                            (click)="changeSubscription('oneTimeSubscription')"
+                            class="py-2 hover:cursor-pointer w-1/4 text-center border-2 border-solid border-yellow-400 text-yellow-400"
+                            [ngClass]="{'bg-yellow-400 text-white' : oneTimeSubscription}">
+                                1 vez
+                            </div>
+                            <div
+                            (click)="changeSubscription('multipleTimeSubscription')"
+                            class="py-2 hover:cursor-pointer w-1/4 text-center border-2 border-solid border-yellow-400 text-yellow-400"
+                            [ngClass]="{'bg-yellow-400 text-white' : !oneTimeSubscription}">
+                                Mensual
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex flex-row gap-3 justify-between">
+                                <div
+                                class="border-solid border-2 border-yellow-400 text-yellow-400 w-1/3 text-center py-2 font-medium text-lg hover:cursor-pointer"
+                                [ngClass]="{'bg-yellow-400 text-white' : chosenAmount === 5}"
+                                (click)="selectAmount(5)">
+                                    $ 5
+                                </div>
+                                <div
+                                class="border-solid border-2 border-yellow-400 text-yellow-400 w-1/3 text-center py-2 font-medium text-lg hover:cursor-pointer"
+                                [ngClass]="{'bg-yellow-400 text-white' : chosenAmount === 10}"
+                                (click)="selectAmount(10)">
+                                    $ 10
+                                </div>
+                                <div
+                                class="border-solid border-2 border-yellow-400 text-yellow-400 w-1/3 text-center py-2 font-medium text-lg hover:cursor-pointer"
+                                [ngClass]="{'bg-yellow-400 text-white' : chosenAmount === 20}"
+                                (click)="selectAmount(20)">
+                                    $ 20
+                                </div>
+                            </div>
+                            <div class="flex flex-row gap-3 justify-between items-center">
+                                <div
+                                class="border-solid border-2 border-yellow-400 text-yellow-400 w-1/3 text-center h-14 font-medium text-lg flex justify-center items-center hover:cursor-pointer"
+                                [ngClass]="{'bg-yellow-400 text-white' : chosenAmount === 30}"
+                                (click)="selectAmount(30)">
+                                    $ 30
+                                </div>
+                                <mat-form-field appearance="outline" class="w-2/3 hover:cursor-pointer" (click)="selectAmount(0)">
+                                    <mat-label>Monto personalizado</mat-label>
+                                    <div class="flex flex-row">
+                                      <span *ngIf="firstFormGroup.controls.firstCtrl.value" class="" matTextPrefix>$&nbsp;</span>
+                                      <input type="number" matInput formControlName="firstCtrl">
+                                    </div>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                      </form>
+                    </mat-step>
+                    <mat-step>
+                      <ng-template matStepLabel>Completar donación</ng-template>
+                      <p>You are now done.</p>
+                      <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button (click)="stepper.reset()">Reset</button>
+                      </div>
+                    </mat-step>
+                  </mat-stepper>
+                  <div>
+                    <button mat-raised-button class="w-full h-16 text-white bg-yellow-400">Siguiente</button>
+                  </div>
+            </div>
+          </div>
       </div>
   </section>
   <!-- Footer-->
@@ -232,7 +312,7 @@
   </footer>
   <!-- Copyright Section-->
   <div class="copyright py-4 text-center text-white">
-      <div class="container"><small>Copyright &copy; Your Website 2023</small></div>
+      <div class="container"><small>Copyright &copy; Pet Care 2023</small></div>
   </div>
 
   <!-- Bootstrap core JS-->

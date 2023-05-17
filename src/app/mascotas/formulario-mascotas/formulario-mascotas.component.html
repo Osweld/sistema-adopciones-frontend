@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
+  <div class="flex flex-row gap-2 items-center ml-24">
+      <label for="" class="logo1">
+        <a href="#"> <img src="../../../assets/img/footprint-shape-svgrepo-com.svg" alt="" class="logo1"></a>
+      </label>
+      <a class="navbar-brand">PET-CARE</a>
+  </div>
+</nav>
+<div class="flex flex-row justify-center items-center m-10">
+  <mat-card class="w-full h-full">
+    <mat-card-content>
+      <div class="">
+        <div class="flex flex-row justify-between pb-5">
+          <div class="text-xl font-medium text-yellow-400">
+            Agregar una nueva Mascota
+          </div>
+          <div class="flex flex-row gap-4">
+            <div>
+              <button routerLink="../" mat-raised-button class="text-yellow-400">Regresar</button>
+            </div>
+            <div>
+              <button mat-raised-button class="bg-yellow-400 text-white">Guardar</button>
+            </div>
+            <div>
+              <button routerLink="../" mat-raised-button class="bg-yellow-400 text-white">Guardar y salir</button>
+            </div>
+          </div>
+        </div>
+        <div [formGroup]="formulario" class="flex flex-row flex-wrap">
+          <mat-form-field appearance="outline" class="w-1/2 p-2">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-1/2 p-2">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-1/2 p-2">
+            <mat-label>Raza</mat-label>
+            <input matInput formControlName="idRaza" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-1/2 p-2">
+            <mat-label>Color</mat-label>
+            <input matInput formControlName="color">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-1/2 p-2">
+            <mat-label>Estado de Salud</mat-label>
+            <input matInput formControlName="estadoSalud" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-1/2 p-2">
+            <mat-label>Especie</mat-label>
+            <input matInput formControlName="idEspecie" required>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full p-2">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="descripcion"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
