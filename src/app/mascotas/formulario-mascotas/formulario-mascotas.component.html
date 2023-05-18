@@ -11,18 +11,21 @@
     <mat-card-content>
       <div class="">
         <div class="flex flex-row justify-between pb-5">
-          <div class="text-xl font-medium text-yellow-400">
+          <div class="text-xl font-medium text-yellow-500">
             Agregar una nueva Mascota
           </div>
           <div class="flex flex-row gap-4">
             <div>
-              <button routerLink="../" mat-raised-button class="text-yellow-400">Regresar</button>
+              <button (click)="goBack()" mat-raised-button class="text-yellow-500">Regresar</button>
             </div>
-            <div>
-              <button mat-raised-button class="bg-yellow-400 text-white">Guardar</button>
+            <div *ngIf="!idRoute">
+              <button [disabled]="formulario.invalid" (click)="crearMascota()" mat-raised-button class="bg-yellow-500 text-white">Crear Mascota</button>
             </div>
-            <div>
-              <button routerLink="../" mat-raised-button class="bg-yellow-400 text-white">Guardar y salir</button>
+            <div *ngIf="idRoute">
+              <button (click)="guardarMascota(false)" mat-raised-button class="bg-yellow-500 text-white">Guardar</button>
+            </div>
+            <div *ngIf="idRoute">
+              <button (click)="guardarMascota(true)" mat-raised-button class="bg-yellow-500 text-white">Guardar y salir</button>
             </div>
           </div>
         </div>
@@ -34,14 +37,27 @@
 
           <mat-form-field appearance="outline" class="w-1/2 p-2">
             <mat-label>Fecha de Nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento" required>
+            <input matInput readonly="true" [matDatepicker]="picker" formControlName="fechaNacimiento" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-1/2 p-2">
+            <mat-label>Especie</mat-label>
+            <mat-select formControlName="especie">
+              <mat-option *ngFor="let especie of especies" [value]="especie">
+                {{especie.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-1/2 p-2">
             <mat-label>Raza</mat-label>
-            <input matInput formControlName="idRaza" required>
+            <mat-select formControlName="raza">
+              <mat-option *ngFor="let raza of razaSeleccionada" [value]="raza">
+                {{raza.label}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-1/2 p-2">
@@ -51,12 +67,11 @@
 
           <mat-form-field appearance="outline" class="w-1/2 p-2">
             <mat-label>Estado de Salud</mat-label>
-            <input matInput formControlName="estadoSalud" required>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-1/2 p-2">
-            <mat-label>Especie</mat-label>
-            <input matInput formControlName="idEspecie" required>
+            <mat-select formControlName="estadoSalud">
+              <mat-option *ngFor="let estadoSalud of estadosDeSalud" [value]="estadoSalud">
+                {{estadoSalud}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-full p-2">

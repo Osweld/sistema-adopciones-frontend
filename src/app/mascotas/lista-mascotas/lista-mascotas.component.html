@@ -6,12 +6,49 @@
       <a class="navbar-brand">PET-CARE</a>
   </div>
 </nav>
-<div class="">
+<div class="flex flex-col">
   <div class="flex flex-row justify-between m-10">
-    <div class="text-4xl font-semibold text-yellow-400">MASCOTAS DISPONIBLES</div>
+    <div class="text-4xl font-medium text-yellow-500">Mascotas</div>
     <div class="flex flex-row gap-4">
-      <button mat-raised-button routerLink="../" class="bg-white text-yellow-400 h-10 w-40 rounded-lg text-xl">Regresar</button>
-      <button mat-raised-button routerLink="Crear" class="text-white bg-yellow-400 h-10 w-full rounded-lg text-xl">Agregar Mascota</button>
+      <button mat-raised-button routerLink="../" class="bg-white text-yellow-500 h-10 w-40 rounded-lg">Regresar</button>
+      <button mat-raised-button routerLink="Crear" class="text-white bg-yellow-500 h-10 w-full rounded-lg">Agregar Mascota</button>
     </div>
+  </div>
+  <div class="flex justify-center items-center mx-10">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500"> Nombre </th>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.nombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="especie">
+        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500"> Especie </th>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.especie.label}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="raza">
+        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500"> Raza </th>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.raza.label}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estadoSalud">
+        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500"> Estado de Salud </th>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.estadoSalud}} </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500"> Acciones </th>
+        <td mat-cell *matCellDef="let element" class="w-1/5">
+          <div class="flex gap-2">
+            <button mat-raised-button>Editar</button>
+            <button mat-raised-button color="warn">Borrar</button>
+          </div>
+        </td>
+      </ng-container> -->
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
 </div>
