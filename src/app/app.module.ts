@@ -9,17 +9,21 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { AppComponent } from './app.component';
 import { PaginaDeBienvenidaComponent } from './pagina-de-bienvenida/pagina-de-bienvenida.component';
+import { LoginComponent } from './login/login.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Bienvenido', pathMatch: 'full'},
   { path: 'Bienvenido', component: PaginaDeBienvenidaComponent },
-  { path: 'Mascotas', loadChildren: () => import('./mascotas/mascotas.module').then(m => m.MascotasModule) }
+  { path: 'Mascotas', loadChildren: () => import('./mascotas/mascotas.module').then(m => m.MascotasModule) },
+  { path: 'Login', component: LoginComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     PaginaDeBienvenidaComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +34,7 @@ const routes: Routes = [
     MatInputModule,
     BrowserModule,
     RouterModule.forRoot(routes),
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

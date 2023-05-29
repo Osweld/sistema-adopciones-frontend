@@ -20,6 +20,20 @@
           </div>
       </div>
   </nav>
+
+    <div class="app">
+    <input type="checkbox" id="btn-mas">
+
+    <div class="redes">
+        <a href="#" routerLink="/Login" matTooltip="Ingresa a tu cuenta" matTooltipPosition="left"><i class="fas fa-user"></i></a>
+        <a href="#" matTooltip="Registrate" matTooltipPosition="left"><i class="fas fa-pen"></i></a>
+        <a href="#" routerLink="/Mascotas" matTooltip="Administrar mascotas" matTooltipPosition="left"><i class="fas fa-paw"></i></a>
+    </div>
+    <div class="btn-mas">
+        <label for="btn-mas" matTooltip="Ingresa a tu cuenta o crea una" matTooltipPosition="left"><i class="fas fa-heart"></i></label>
+    </div>
+    </div>
+
   <!-- Masthead-->
   <header class="masthead bg-primary text-palette2 text-center">
       <div class="container d-flex align-items-center">
@@ -39,11 +53,6 @@
                   A cambio, la recompensa que vas a obtener es infinita, su capacidad de agradecimiento a medida que se habitúen
                   a tu familia o a ti llenará de felicidad su día a día.
               </p>
-            </div>
-            <div>
-              <button mat-raised-button routerLink="/Mascotas" class="text-white bg-yellow-400 h-10 w-m px-2 rounded-lg text-xl hover:border-yellow-500 hover:border-2 hover:cursor-pointer">
-                Ver Registro de Mascotas
-              </button>
             </div>
           </div>
       </div>
