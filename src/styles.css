@@ -5568,6 +5568,7 @@ textarea.form-control-lg {
   font-size: var(--bs-tooltip-font-size);
   word-wrap: break-word;
   opacity: 0;
+  position: relative;
 }
 .tooltip.show {
   opacity: var(--bs-tooltip-opacity);
@@ -11135,11 +11136,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-align: center;
   border-radius: 50%;
   box-shadow: 0px 2px 10px var(--palette-2);
-  transition: all 500ms ease;
+  transition: all 300ms ease;
   font-size: 35px;
   margin-bottom: -15px;
   opacity: 0;
   visibility: hidden;
+}
+
+.redes:hover{
+  transform: scale(1.2);
+  transition: 0.5s;
 }
 
 #btn-mas:checked~.redes a{
@@ -11148,13 +11154,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   visibility: visible;
 }
 
-#btn-mas:checked~.btn-mas .fa-heart{
-  transform: rotate(360deg);
-  font-size: 23px;
-}
-
 .fa-heart{
-  
   cursor: pointer;
   display: block;
   text-decoration: none;
@@ -11167,7 +11167,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-radius: 50%;
   border-width: 3px;
   border-color: var(--bs-secondary);
-  box-shadow: 0px 2px 10px var(--palette-2);
+  box-shadow: 0px 2px 15px var(--palette-2);
   transition: all 1000ms ease;
   font-size: 20px;
+  animation: efecto 2s infinite;
+}
+
+@keyframes efecto{
+  0%{
+    box-shadow: 0 0 0 50 rgba(0,0, 0, 0.0);
+    transform: scale(1.0);
+    transform: rotate(-5deg);
+  }
+  50%{
+    box-shadow: 0 0 0 0 rgba(0,0, 0, 0.85);
+    transform: scale(1.1);
+    transform: rotate(10deg);
+  }
+  100%{
+    box-shadow: 0 0 0 50 rgba(0,0, 0, 0.0);
+    transform: scale(1.0);
+    transform: rotate(-5deg);
+  }
 }
