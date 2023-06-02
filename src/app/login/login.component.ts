@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { __values } from 'tslib';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,7 @@ import { __values } from 'tslib';
 })
 export class LoginComponent implements OnInit {
   public ingreso!: FormGroup;
+  public ingresar: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -24,16 +26,28 @@ export class LoginComponent implements OnInit {
 
   private createMyForm():FormGroup{
     return this.fb.group({
-      usuario:[],
-      password:[]
+      usuario:['',[Validators.required]],
+      password:['',Validators.required]
     });
   }
 
   public submitFormulario(){
-    alert("Se va a enviar el formulario");
+    console.log(this.ingreso);
+    if(this.ingreso.invalid){
+      Object.values(this.ingreso.controls).forEach(control=>{
+        control.markAllAsTouched();
+      });
+      return;
+    } else
     console.log(this.ingreso.value);
-    
   }
+
+  public get f():any{
+    
+    return this.ingreso.controls;
+  }
+
+
 
 }
 
