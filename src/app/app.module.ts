@@ -11,12 +11,14 @@ import { AppComponent } from './app.component';
 import { PaginaDeBienvenidaComponent } from './pagina-de-bienvenida/pagina-de-bienvenida.component';
 import { LoginComponent } from './login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RegistroComponent } from './registro/registro.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Bienvenido', pathMatch: 'full'},
   { path: 'Bienvenido', component: PaginaDeBienvenidaComponent },
   { path: 'Mascotas', loadChildren: () => import('./mascotas/mascotas.module').then(m => m.MascotasModule) },
-  { path: 'Login', component: LoginComponent}
+  { path: 'Login', component: LoginComponent},
+  { path: 'Registro', component: RegistroComponent}
 ];
 
 @NgModule({
@@ -24,6 +26,7 @@ const routes: Routes = [
     AppComponent,
     PaginaDeBienvenidaComponent,
     LoginComponent,
+    RegistroComponent,
   ],
   imports: [
     CommonModule,
