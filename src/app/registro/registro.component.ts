@@ -6,13 +6,12 @@ import { __values } from 'tslib';
 import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-registro',
+  templateUrl: './registro.component.html',
+  styleUrls: ['./registro.component.css']
 })
-export class LoginComponent implements OnInit {
-  public ingreso!: FormGroup;
-  public ingresar: boolean = false;
+export class RegistroComponent implements OnInit {
+  public reg!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -21,33 +20,35 @@ export class LoginComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.ingreso= this.createMyForm();
+    this.reg= this.createMyForm();
   }
 
   private createMyForm():FormGroup{
     return this.fb.group({
       usuario:['',[Validators.required]],
-      password:['',Validators.required]
+      password:['',Validators.required],
+      usuario2:['',[Validators.required]],
+      password2:['',Validators.required],
+      nombre:['',[Validators.required]],
+      apellido:['',Validators.required],
+      correo:['',Validators.required]
     });
   }
 
   public submitFormulario(){
-    console.log(this.ingreso);
-    if(this.ingreso.invalid){
-      Object.values(this.ingreso.controls).forEach(control=>{
+    console.log(this.reg);
+    if(this.reg.invalid){
+      Object.values(this.reg.controls).forEach(control=>{
         control.markAllAsTouched();
       });
       return;
     } else
-    console.log(this.ingreso.value);
+    console.log(this.reg.value);
   }
 
   public get f():any{
-    return this.ingreso.controls;
+    
+    return this.reg.controls;
   }
 
-
-
 }
-
-
