@@ -11,7 +11,11 @@ import { AppComponent } from './app.component';
 import { PaginaDeBienvenidaComponent } from './pagina-de-bienvenida/pagina-de-bienvenida.component';
 import { LoginComponent } from './login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { RegistroComponent } from './registro/registro.component';
+import { CustomSnackBarComponent } from './shared/custom-snack-bar/custom-snack-bar.component';
+import { DialogComponent } from './mascotas/lista-mascotas/lista-mascotas.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Bienvenido', pathMatch: 'full'},
@@ -27,6 +31,8 @@ const routes: Routes = [
     PaginaDeBienvenidaComponent,
     LoginComponent,
     RegistroComponent,
+    CustomSnackBarComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +41,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatStepperModule,
     MatInputModule,
+    MatIconModule,
+    MatDialogModule,
     BrowserModule,
     RouterModule.forRoot(routes),
     MatTooltipModule

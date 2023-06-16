@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { Mascota } from '../lista-mascotas/lista-mascotas.component';
+import { SharedService } from 'src/app/shared/Servicios/shared.service';
 
 @Component({
   selector: 'app-formulario-mascotas',
@@ -95,6 +96,7 @@ export class FormularioMascotasComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private _sharedService: SharedService
   ) {
     this.route.params.subscribe(params => {
       const uuid = params['id'];
@@ -105,12 +107,13 @@ export class FormularioMascotasComponent implements OnInit {
         if (mascotasString !== null) {
           DATA = JSON.parse(mascotasString);
           const mascota = DATA.find(masc => masc.id === this.idRoute);
-          console.log('mascota = ', mascota);
-
+          if(mascota !== undefined){
+          this.razaSeleccionada = this.razasGenerales[mascota.especie.label];
+          }
           this.formulario = this._formBuilder.group({
             nombre: [mascota?.nombre, Validators.required],
             fechaNacimiento: [mascota?.fechaNacimiento],
-            raza: [mascota?.raza],
+            raza: [mascota?.raza, Validators.required],
             color: [mascota?.color],
             estadoSalud: [mascota?.estadoSalud, Validators.required],
             descripcion: [mascota?.descripcion],
@@ -121,11 +124,11 @@ export class FormularioMascotasComponent implements OnInit {
         this.formulario = this._formBuilder.group({
           nombre: [null, Validators.required],
           fechaNacimiento: [null],
-          raza: [{id: '3', label: 'Conejo'}],
+          raza: [null, Validators.required],
           color: [null],
           estadoSalud: [null, Validators.required],
           descripcion: [null],
-          especie: [{id: '3', label: 'Conejo'}, Validators.required]
+          especie: [null, Validators.required]
         });
       }
       this.opcionSeleccionada$ = this.formulario.get('especie')?.valueChanges || new Observable<any>();
@@ -145,6 +148,8 @@ export class FormularioMascotasComponent implements OnInit {
     });
   }
 
+  compareFn = (especie1: any, especie2: any) => especie1 && especie2 && especie1.id === especie2.id;
+
   crearMascota(): void {
     if (this.formulario.valid) {
       const mascota = { ...this.formulario.value };
@@ -162,9 +167,38 @@ export class FormularioMascotasComponent implements OnInit {
     localStorage.setItem('mascotas', JSON.stringify(mascotasGuardadas));
     // this.router.navigateByUrl(`/Mascotas/${uuid}`);
     this.router.navigateByUrl(`/Mascotas`);
+    // Redireccionar a la lista de mascotas
+    this.mostrarMensajeDeExito('Mascota registrada correctamente en el sistema.');
    }
   }
+
+  actualizarMascota(): void {
+    // Obtener la lista de mascotas del localStorage
+    const mascotasData = localStorage.getItem('mascotas');
+    const mascotas = mascotasData ? JSON.parse(mascotasData) : [];
+
+    // Buscar el empleado a actualizar por su ID
+    const mascotaActualizado = mascotas.find((e: any) => e.id === this.idRoute);
+
+    if (mascotaActualizado) {
+      // Actualizar los datos del empleado con los datos del formulario
+      mascotaActualizado.nombre = this.formulario.get('nombre')?.value;
+      mascotaActualizado.fechaNacimiento = this.formulario.get('fechaNacimiento')?.value;
+      mascotaActualizado.raza = this.formulario.get('raza')?.value;
+      mascotaActualizado.color = this.formulario.get('color')?.value;
+      mascotaActualizado.estadoSalud = this.formulario.get('estadoSalud')?.value;
+      mascotaActualizado.descripcion = this.formulario.get('descripcion')?.value;
+      mascotaActualizado.especie = this.formulario.get('especie')?.value;
+
+      // Guardar la lista actualizada en localStorage
+      localStorage.setItem('mascotas', JSON.stringify(mascotas));
+      // Mostrar mensaje de exito
+      this.mostrarMensajeDeExito('Cambios aplicados correctamente.');
+    }
+  }
+
   guardarMascota(goBack: boolean): void {
+    this.actualizarMascota();
     if(goBack){
       this.goBack();
     }
@@ -172,5 +206,23 @@ export class FormularioMascotasComponent implements OnInit {
 
   goBack(): void {
     this.router.navigateByUrl('/Mascotas');
+  }
+
+  mostrarMensajeDeExito(descripcion: string): void {
+    this._sharedService.showSnackbar(
+      {
+        color: 'green',
+        title: 'Completado',
+        description: descripcion,
+        isVisible: true
+      }
+    );
+    setTimeout(() => {
+      this._sharedService.showSnackbar(
+        {
+          isVisible: false
+        }
+      );
+    }, 8000);
   }
 }

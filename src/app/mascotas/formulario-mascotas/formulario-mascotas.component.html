@@ -6,26 +6,26 @@
       <a class="navbar-brand">PET-CARE</a>
   </div>
 </nav>
-<div class="flex flex-row justify-center items-center m-10">
+<div class="flex flex-row justify-center items-center my-10 mx-24">
   <mat-card class="w-full h-full">
     <mat-card-content>
       <div class="">
         <div class="flex flex-row justify-between pb-5">
-          <div class="text-xl font-medium text-yellow-500">
+          <div class="text-2xl font-medium text-yellow-500">
             Agregar una nueva Mascota
           </div>
           <div class="flex flex-row gap-4">
             <div>
-              <button (click)="goBack()" mat-raised-button class="text-yellow-500">Regresar</button>
+              <button (click)="goBack()" mat-raised-button class="text-yellow-500 text-lg">Regresar</button>
             </div>
             <div *ngIf="!idRoute">
-              <button [disabled]="formulario.invalid" (click)="crearMascota()" mat-raised-button class="bg-yellow-500 text-white">Crear Mascota</button>
+              <button [disabled]="formulario.invalid" (click)="crearMascota()" mat-raised-button class="bg-yellow-500 text-white text-lg">Crear Mascota</button>
             </div>
             <div *ngIf="idRoute">
-              <button (click)="guardarMascota(false)" mat-raised-button class="bg-yellow-500 text-white">Guardar</button>
+              <button (click)="guardarMascota(false)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
             </div>
             <div *ngIf="idRoute">
-              <button (click)="guardarMascota(true)" mat-raised-button class="bg-yellow-500 text-white">Guardar y salir</button>
+              <button (click)="guardarMascota(true)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar y salir</button>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
 
           <mat-form-field appearance="outline" class="w-1/2 p-2">
             <mat-label>Especie</mat-label>
-            <mat-select formControlName="especie">
+            <mat-select formControlName="especie" [compareWith]="compareFn">
               <mat-option *ngFor="let especie of especies" [value]="especie">
                 {{especie.label}}
               </mat-option>
@@ -53,7 +53,7 @@
 
           <mat-form-field appearance="outline" class="w-1/2 p-2">
             <mat-label>Raza</mat-label>
-            <mat-select formControlName="raza">
+            <mat-select formControlName="raza" [compareWith]="compareFn">
               <mat-option *ngFor="let raza of razaSeleccionada" [value]="raza">
                 {{raza.label}}
               </mat-option>

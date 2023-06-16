@@ -2,7 +2,6 @@
   background-color: rgb(202 138 4);
 }
 
-
 ::ng-deep .mat-horizontal-stepper-header-container {
   background-color: rgb(234 179 8);
 }
@@ -16,17 +15,17 @@
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #9e7c1c !important;
+  color: rgb(250,204,21) !important;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
-  border-color: #9e7c1c !important;
+  border-color: rgb(250,204,21) !important;
 }
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
-  border-color: #9e7c1c !important;
+  border-color: rgb(250,204,21) !important;
 }
 
 ::ng-deep .mat-form-field-label {
-  color: #9e7c1c !important;
+  color: rgb(250,204,21) !important;
 }
