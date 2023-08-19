@@ -1,9 +1,6 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as bootstrap from 'bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
 import { __values } from 'tslib';
-import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +12,7 @@ export class LoginComponent implements OnInit {
   public ingresar: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
+    private fb: FormBuilder
   ) { }
 
   public ngOnInit(): void {

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SharedService } from '../Servicios/shared.service';
+import { SharedService } from '../../Servicios/shared.service';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

@@ -1,0 +1,88 @@
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content" class="bg-secondary">
+    <main class="mb-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-header">
+                <h1 class="text-center palette-5 font-weight-light my-4">Registro</h1>
+              </div>
+              <div class="card-body">
+                <form [formGroup]="reg" (ngSubmit)="submitFormulario()">
+                  <div>
+                    <div class="d-flex align-items-center justify-content-between p-2">
+                      <mat-form-field appearance="outline" class="w-full p-2">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text"
+                          [class.is-invalid]="f.nombre.errors && f.nombre.touched" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                          Nombre obligatorio
+                        </div>
+                      </mat-form-field>
+                      <mat-form-field appearance="outline" class="w-full p-2">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput formControlName="apellido" type="text"
+                          [class.is-invalid]="f.apellido.errors && f.apellido.touched" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                          Apellido obligatoria
+                        </div>
+                      </mat-form-field>
+                    </div>
+
+                    <mat-form-field appearance="outline" class="w-full p-2">
+                      <mat-label>Correo electrónico</mat-label>
+                      <input matInput formControlName="correo" type="email"
+                        [class.is-invalid]="f.correo.errors && f.correo.touched" required>
+                      <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        Correo electrónico obligatorio
+                      </div>
+                    </mat-form-field>
+
+                    <div class="d-flex align-items-center justify-content-between p-2">
+                      <mat-form-field appearance="outline" class="w-full p-2">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput formControlName="usuario" type="text"
+                          [class.is-invalid]="f.usuario.errors && f.usuario.touched" required>
+                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                          Usuario obligatorio
+                        </div>
+                      </mat-form-field>
+
+                    </div>
+                  </div>
+                  <div class="d-flex card-footer align-items-center  p-2">
+                    <mat-form-field appearance="outline" class="w-full p-2">
+                      <mat-label>Contraseña</mat-label>
+                      <input matInput formControlName="password" type="password"
+                        [class.is-invalid]="f.password.errors && f.password.touched" required>
+                      <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        Contraseña obligatoria
+                      </div>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-full p-2">
+                      <mat-label>Repite tu contraseña</mat-label>
+                      <input matInput formControlName="password2" type="password"
+                        [class.is-invalid]="f.password2.errors && f.password2.touched" required>
+                      <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        Contraseña obligatoria
+                      </div>
+                    </mat-form-field>
+                  </div>
+                  <div class="d-flex card-footer align-items-center justify-content-between py-3">
+                    <button class="btn btn-primary" routerLink='/Bienvenido'>Guardar</button>
+                    <button class="btn btn-secondary" routerLink="/Bienvenido">Volver</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div id="layoutAuthentication_footer">
+    <app-footer></app-footer>
+  </div>
+</div>
