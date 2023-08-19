@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { ListaMascotasComponent } from './lista-mascotas/lista-mascotas.component';
-import { FormularioMascotasComponent } from './formulario-mascotas/formulario-mascotas.component';
-import { ReactiveFormsModule } from '@angular/forms';
+
+import { PetsRoutingModule } from './pets-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
@@ -15,25 +13,23 @@ import {MatTableModule} from '@angular/material/table';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DialogComponent, ListaMascotasComponent } from './pages/lista-mascotas/lista-mascotas.component';
+import { FormularioMascotasComponent } from './pages/formulario-mascotas/formulario-mascotas.component';
+import { PetsComponent } from './components/pets/pets.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
-const routes: Routes = [
-  {
-    path: '',
-    children: [
-      { path: '', component: ListaMascotasComponent },
-      { path: 'Crear', component: FormularioMascotasComponent },
-      { path: ':id', component: FormularioMascotasComponent }
-    ]
-  }
-];
 
 @NgModule({
   declarations: [
     ListaMascotasComponent,
     FormularioMascotasComponent,
+    PetsComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
+    PetsRoutingModule,
     MatCardModule,
     MatButtonModule,
     MatDividerModule,
@@ -45,7 +41,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatTableModule,
     MatIconModule,
-    RouterModule.forChild(routes)
-  ],
+    MatDialogModule
+  ]
 })
-export class MascotasModule { }
+export class PetsModule { }
