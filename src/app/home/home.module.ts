@@ -6,6 +6,9 @@ import { PaginaDeBienvenidaComponent } from './pages/pagina-de-bienvenida/pagina
 import { MatStepperModule } from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {SharedModule} from "../shared/shared.module";
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     HomeRoutingModule,
     ReactiveFormsModule,
     MatStepperModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    SharedModule
 
   ]
 })

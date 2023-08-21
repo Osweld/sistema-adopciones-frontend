@@ -4,6 +4,8 @@ import { FloatingButtonComponent } from './components/floating-button/floating-b
 import { CustomSnackBarComponent } from './components/custom-snack-bar/custom-snack-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -15,6 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     CommonModule,
+    RouterModule,
+    MatTooltipModule,
     MatIconModule
   ],
   exports: [
