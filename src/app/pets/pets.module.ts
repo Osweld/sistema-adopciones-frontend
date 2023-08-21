@@ -18,6 +18,7 @@ import { DialogComponent, ListaMascotasComponent } from './pages/lista-mascotas/
 import { FormularioMascotasComponent } from './pages/formulario-mascotas/formulario-mascotas.component';
 import { PetsComponent } from './components/pets/pets.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     MatTableModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    SharedModule
   ]
 })
 export class PetsModule { }

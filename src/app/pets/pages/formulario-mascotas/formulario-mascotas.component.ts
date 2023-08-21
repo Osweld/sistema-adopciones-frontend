@@ -205,7 +205,7 @@ export class FormularioMascotasComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigateByUrl('/Mascotas');
+    this.router.navigateByUrl('/pets');
   }
 
   mostrarMensajeDeExito(descripcion: string): void {
