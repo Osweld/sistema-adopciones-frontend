@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from '../../interfaces/shared.interface';
 
 @Component({
   selector: 'app-floating-button',
@@ -8,6 +9,24 @@ import { Component, OnInit } from '@angular/core';
 export class FloatingButtonComponent implements OnInit {
 
   constructor() { }
+
+  menu:MenuItem[] = [
+    {
+      nombre:"Ingresa a tú cuenta",
+      url:"/login",
+      icon:"fas fa-user"
+    },
+    {
+      nombre:"Registrate",
+      url:"/register",
+      icon:"fas fa-pen"
+    },
+    {
+      nombre:"Administra las mascotas",
+      url:"/pets",
+      icon:"fas fa-camera"
+    }
+  ]
 
   ngOnInit(): void {
   }
