@@ -1,19 +1,10 @@
-<nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
-  <div class="flex flex-row gap-2 items-center ml-24">
-      <label for="" class="logo1">
-        <a href="#"> <img src="../../../assets/img/footprint-shape-svgrepo-com.svg" alt="" class="logo1"></a>
-      </label>
-      <a class="navbar-brand">PET-CARE</a>
-  </div>
-</nav>
-
 
 <div class="flex flex-col">
   <div class="flex flex-row justify-between my-10 mx-24">
     <div class="text-4xl font-medium text-yellow-500">Mascotas</div>
     <div class="flex flex-row gap-4">
       <button mat-raised-button routerLink="../" class="bg-white text-yellow-500 h-10 w-40 rounded-lg text-lg">Regresar</button>
-      <button mat-raised-button routerLink="Crear" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Mascota</button>
+      <button mat-raised-button routerLink="new" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Mascota</button>
     </div>
   </div>
   <div class="flex justify-center items-center mx-24" *ngIf="dataSource.length !== 0; else noRegistros">
@@ -43,7 +34,7 @@
         <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Acciones </th>
         <td mat-cell *matCellDef="let element" class="w-1/5">
           <div class="flex gap-2">
-            <button mat-raised-button class="text-base" [routerLink]="'/Mascotas/' + element.id">Editar</button>
+            <button mat-raised-button class="text-base" [routerLink]="'/pets/edit/' + element.id">Editar</button>
             <button mat-raised-button class="bg-yellow-500 text-white text-base" (click)="openDialog(element.id)">Borrar</button>
           </div>
         </td>

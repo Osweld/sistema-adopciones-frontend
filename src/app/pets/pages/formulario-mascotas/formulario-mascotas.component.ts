@@ -189,7 +189,6 @@ export class FormularioMascotasComponent implements OnInit {
       mascotaActualizado.estadoSalud = this.formulario.get('estadoSalud')?.value;
       mascotaActualizado.descripcion = this.formulario.get('descripcion')?.value;
       mascotaActualizado.especie = this.formulario.get('especie')?.value;
-
       // Guardar la lista actualizada en localStorage
       localStorage.setItem('mascotas', JSON.stringify(mascotas));
       // Mostrar mensaje de exito
@@ -225,4 +224,5 @@ export class FormularioMascotasComponent implements OnInit {
       );
     }, 8000);
   }
+
 }

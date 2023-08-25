@@ -5,18 +5,11 @@ import { FormularioMascotasComponent } from './pages/formulario-mascotas/formula
 import { PetsComponent } from './components/pets/pets.component';
 
 const routes: Routes = [
-  {
-    path:'',component: ListaMascotasComponent,
-
-    // path: '',component:PetsComponent,
-    // children: [
-    //   { path: '', component: ListaMascotasComponent },
-    //   { path: 'Crear', component: FormularioMascotasComponent },
-    //   { path: ':id', component: FormularioMascotasComponent }
-    // ]
-  },
-  { path: '', component: ListaMascotasComponent },
-  { path: ':id', component: FormularioMascotasComponent }
+  { path:'',component: PetsComponent,children : [
+    { path: '', component: ListaMascotasComponent },
+    { path: 'new', component: FormularioMascotasComponent },
+    { path: 'edit/:id', component: FormularioMascotasComponent }
+  ]},
 ];
 
 @NgModule({
