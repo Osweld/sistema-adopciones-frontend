@@ -22,6 +22,11 @@ export class FloatingButtonComponent implements OnInit {
       icon:"fas fa-pen"
     },
     {
+      nombre:"ListaUsuario",
+      url:"/listaUsuario",
+      icon:"fas fa-list"
+    },
+    {
       nombre:"Administra las mascotas",
       url:"/pets",
       icon:"fas fa-camera"
