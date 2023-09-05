@@ -1,9 +1,9 @@
 <div class="flex flex-col">
     <div class="flex flex-row justify-between my-10 mx-24">
-      <div class="text-4xl font-medium text-yellow-500">Mascotas</div>
+      <div class="text-4xl font-medium text-yellow-500">Usuarios</div>
       <div class="flex flex-row gap-4">
         <button mat-raised-button routerLink="../" class="bg-white text-yellow-500 h-10 w-40 rounded-lg text-lg">Regresar</button>
-        <button mat-raised-button routerLink="new" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Mascota</button>
+        <button mat-raised-button routerLink="formUsuario" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Usuario</button>
       </div>
     </div>
     <div class="flex justify-center items-center mx-24" *ngIf="dataSource.length !== 0; else noRegistros">

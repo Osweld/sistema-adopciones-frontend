@@ -166,7 +166,7 @@ export class FormularioMascotasComponent implements OnInit {
     // Guardar el array de mascotas en el localStorage
     localStorage.setItem('mascotas', JSON.stringify(mascotasGuardadas));
     // this.router.navigateByUrl(`/Mascotas/${uuid}`);
-    this.router.navigateByUrl('/pets');
+    this.router.navigateByUrl(`/pets`);
     // Redireccionar a la lista de mascotas
     this.mostrarMensajeDeExito('Mascota registrada correctamente en el sistema.');
    }
