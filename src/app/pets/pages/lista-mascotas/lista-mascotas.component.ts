@@ -63,7 +63,7 @@ export class ListaMascotasComponent implements OnInit {
       // Mostrar mensaje de éxito
       this.mostrarMensajeDeExito('Mascota eliminada correctamente.');
       //Recargar pagina
-      this.router.navigateByUrl('/Mascotas', { skipLocationChange: true }).then(() => {
+      this.router.navigateByUrl('/pets', { skipLocationChange: true }).then(() => {
         setTimeout(()=> {
           window.location.reload();
         }, 2000);

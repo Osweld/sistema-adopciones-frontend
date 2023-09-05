@@ -20,7 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { AuthComponent } from './components/auth/auth.component';
 
 
 
@@ -30,6 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     LoginComponent,
     ListaUsuariosComponent,
     FormularioUsuariosComponent,
+    AuthComponent,
     DialogComponent
   ],
   imports: [

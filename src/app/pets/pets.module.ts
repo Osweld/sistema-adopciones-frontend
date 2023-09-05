@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DialogComponent, ListaMascotasComponent } from './pages/lista-mascotas/lista-mascotas.component';
 import { FormularioMascotasComponent } from './pages/formulario-mascotas/formulario-mascotas.component';
-import { PetsComponent } from '../auth/components/auth.component';
+import { PetsComponent } from './components/pets/pets.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from '../shared/shared.module';
 
