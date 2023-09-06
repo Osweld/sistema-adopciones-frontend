@@ -3,7 +3,7 @@
       <div class="text-4xl font-medium text-yellow-500">Usuarios</div>
       <div class="flex flex-row gap-4">
         <button mat-raised-button routerLink="../" class="bg-white text-yellow-500 h-10 w-40 rounded-lg text-lg">Regresar</button>
-        <button mat-raised-button routerLink="formUsuario" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Usuario</button>
+        <button mat-raised-button routerLink="/formUsuario" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Usuario</button>
       </div>
     </div>
     <div class="flex justify-center items-center mx-24" *ngIf="dataSource.length !== 0; else noRegistros">
@@ -15,17 +15,17 @@
         </ng-container>
   
         <ng-container matColumnDef="especie">
-          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Especie </th>
+          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Email </th>
           <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.especie.label}} </td>
         </ng-container>
   
         <ng-container matColumnDef="raza">
-          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Raza </th>
+          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Usuario </th>
           <td mat-cell *matCellDef="let element" class="w-1/5"> {{element?.raza?.label}} </td>
         </ng-container>
   
         <ng-container matColumnDef="estadoSalud">
-          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Estado de Salud </th>
+          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Contraseña </th>
           <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.estadoSalud}} </td>
         </ng-container>
   
@@ -33,7 +33,7 @@
           <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Acciones </th>
           <td mat-cell *matCellDef="let element" class="w-1/5">
             <div class="flex gap-2">
-              <button mat-raised-button class="text-base" [routerLink]="'/pets/edit/' + element.id">Editar</button>
+              <button mat-raised-button class="text-base" [routerLink]="'/edit/' + element.id">Editar</button>
               <button mat-raised-button class="bg-yellow-500 text-white text-base" (click)="openDialog(element.id)">Borrar</button>
             </div>
           </td>

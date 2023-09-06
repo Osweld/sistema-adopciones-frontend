@@ -4,20 +4,20 @@
         <div class="">
           <div class="flex flex-row justify-between pb-5">
             <div class="text-2xl font-medium text-yellow-500">
-              Agregar una nueva Mascota
+              Agregar un nuevo usuario
             </div>
             <div class="flex flex-row gap-4">
               <div>
                 <button (click)="goBack()" mat-raised-button class="text-yellow-500 text-lg">Regresar</button>
               </div>
               <div *ngIf="!idRoute">
-                <button [disabled]="formulario.invalid" (click)="crearMascota()" mat-raised-button class="bg-yellow-500 text-white text-lg">Crear Mascota</button>
+                <button [disabled]="formulario.invalid" (click)="crearUsuario()" mat-raised-button class="bg-yellow-500 text-white text-lg">Crear Usuario</button>
               </div>
               <div *ngIf="idRoute">
-                <button (click)="guardarMascota(false)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
+                <button (click)="guardarUsuario(false)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
               </div>
               <div *ngIf="idRoute">
-                <button (click)="guardarMascota(true)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar y salir</button>
+                <button (click)="guardarUsuario(true)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar y salir</button>
               </div>
             </div>
           </div>

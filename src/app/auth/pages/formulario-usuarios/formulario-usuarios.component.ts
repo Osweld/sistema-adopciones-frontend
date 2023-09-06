@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
-import { Mascota } from '../lista-usuarios/lista-usuarios.component';
+import { Usuario } from '../lista-usuarios/lista-usuarios.component';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
 
 @Component({
@@ -102,22 +102,22 @@ export class FormularioUsuariosComponent implements OnInit {
       const uuid = params['id'];
       if (uuid) {
         this.idRoute = uuid;
-        let DATA: Mascota[] = [];
-        const mascotasString = localStorage.getItem('mascotas');
-        if (mascotasString !== null) {
-          DATA = JSON.parse(mascotasString);
-          const mascota = DATA.find(masc => masc.id === this.idRoute);
-          if(mascota !== undefined){
-          this.razaSeleccionada = this.razasGenerales[mascota.especie.label];
+        let DATA: Usuario[] = [];
+        const usuariosString = localStorage.getItem('usuarios');
+        if (usuariosString !== null) {
+          DATA = JSON.parse(usuariosString);
+          const usuario = DATA.find(masc => masc.id === this.idRoute);
+          if(usuario !== undefined){
+          this.razaSeleccionada = this.razasGenerales[usuario.especie.label];
           }
           this.formulario = this._formBuilder.group({
-            nombre: [mascota?.nombre, Validators.required],
-            fechaNacimiento: [mascota?.fechaNacimiento],
-            raza: [mascota?.raza, Validators.required],
-            color: [mascota?.color],
-            estadoSalud: [mascota?.estadoSalud, Validators.required],
-            descripcion: [mascota?.descripcion],
-            especie: [mascota?.especie, Validators.required]
+            nombre: [usuario?.nombre, Validators.required],
+            fechaNacimiento: [usuario?.fechaNacimiento],
+            raza: [usuario?.raza, Validators.required],
+            color: [usuario?.color],
+            estadoSalud: [usuario?.estadoSalud, Validators.required],
+            descripcion: [usuario?.descripcion],
+            especie: [usuario?.especie, Validators.required]
           });
         }
       } else {
@@ -150,61 +150,61 @@ export class FormularioUsuariosComponent implements OnInit {
 
   compareFn = (especie1: any, especie2: any) => especie1 && especie2 && especie1.id === especie2.id;
 
-  crearMascota(): void {
+
+  crearUsuario(): void {
     if (this.formulario.valid) {
-      const mascota = { ...this.formulario.value };
+      const usuario = { ...this.formulario.value };
       const uuid = uuidv4();
-      mascota.id = uuid;
-    // Obtener mascotas del localStorage
-    let mascotasGuardadas: any[] = [];
-    const mascotasString = localStorage.getItem('mascotas');
-    if (mascotasString !== null) {
-      mascotasGuardadas = JSON.parse(mascotasString);
+      usuario.id = uuid;
+    // Obtener usarios del localStorage
+    let usuariosGuardados: any[] = [];
+    const usuariosString = localStorage.getItem('usuarios');
+    if (usuariosString !== null) {
+      usuariosGuardados = JSON.parse(usuariosString);
     }
-    // Agregar la nueva mascota al array
-    mascotasGuardadas.push(mascota);
-    // Guardar el array de mascotas en el localStorage
-    localStorage.setItem('mascotas', JSON.stringify(mascotasGuardadas));
-    // this.router.navigateByUrl(`/Mascotas/${uuid}`);
-    this.router.navigateByUrl('/pets');
-    // Redireccionar a la lista de mascotas
-    this.mostrarMensajeDeExito('Mascota registrada correctamente en el sistema.');
+    // Agregar el nuevo usuario al array
+    usuariosGuardados.push(usuario);
+    // Guardar el array de usuarios en el localStorage
+    localStorage.setItem('usuarios', JSON.stringify(usuariosGuardados));
+    this.router.navigateByUrl('/listaUsuario');
+    // Redireccionar a la lista de usuarios
+    this.mostrarMensajeDeExito('Usuario registrado correctamente en el sistema.');
    }
   }
 
-  actualizarMascota(): void {
-    // Obtener la lista de mascotas del localStorage
-    const mascotasData = localStorage.getItem('mascotas');
-    const mascotas = mascotasData ? JSON.parse(mascotasData) : [];
+  actualizarUsuario(): void {
+    // Obtener la lista de usuarios del localStorage
+    const usuariosData = localStorage.getItem('usuarios');
+    const usuarios = usuariosData ? JSON.parse(usuariosData) : [];
 
     // Buscar el empleado a actualizar por su ID
-    const mascotaActualizado = mascotas.find((e: any) => e.id === this.idRoute);
+    const usuarioActualizado = usuarios.find((e: any) => e.id === this.idRoute);
 
-    if (mascotaActualizado) {
-      // Actualizar los datos del empleado con los datos del formulario
-      mascotaActualizado.nombre = this.formulario.get('nombre')?.value;
-      mascotaActualizado.fechaNacimiento = this.formulario.get('fechaNacimiento')?.value;
-      mascotaActualizado.raza = this.formulario.get('raza')?.value;
-      mascotaActualizado.color = this.formulario.get('color')?.value;
-      mascotaActualizado.estadoSalud = this.formulario.get('estadoSalud')?.value;
-      mascotaActualizado.descripcion = this.formulario.get('descripcion')?.value;
-      mascotaActualizado.especie = this.formulario.get('especie')?.value;
+    if (usuarioActualizado) {
+      // Actualizar los datos del usuario con los datos del formulario
+      usuarioActualizado.nombre = this.formulario.get('nombre')?.value;
+      usuarioActualizado.fechaNacimiento = this.formulario.get('fechaNacimiento')?.value;
+      usuarioActualizado.raza = this.formulario.get('raza')?.value;
+      usuarioActualizado.color = this.formulario.get('color')?.value;
+      usuarioActualizado.estadoSalud = this.formulario.get('estadoSalud')?.value;
+      usuarioActualizado.descripcion = this.formulario.get('descripcion')?.value;
+      usuarioActualizado.especie = this.formulario.get('especie')?.value;
       // Guardar la lista actualizada en localStorage
-      localStorage.setItem('mascotas', JSON.stringify(mascotas));
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
       // Mostrar mensaje de exito
       this.mostrarMensajeDeExito('Cambios aplicados correctamente.');
     }
   }
 
-  guardarMascota(goBack: boolean): void {
-    this.actualizarMascota();
+  guardarUsuario(goBack: boolean): void {
+    this.actualizarUsuario();
     if(goBack){
       this.goBack();
     }
   }
 
   goBack(): void {
-    this.router.navigateByUrl('/pets');
+    this.router.navigateByUrl('/listaUsuario');
   }
 
   mostrarMensajeDeExito(descripcion: string): void {
