@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
 import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { UserService } from '../../services/user.service';
 
 
 export interface Catalog {
@@ -31,7 +32,8 @@ export class ListaUsuariosComponent implements OnInit {
   constructor(
     private router: Router,
     private _sharedService: SharedService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private userService:UserService
   ) {
     let DATA: Usuario[] = [];
     const usuariosString = localStorage.getItem('usuarios');
@@ -42,6 +44,9 @@ export class ListaUsuariosComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.userService.getAllMarcas(0).subscribe(page =>{
+      console.log(page.content)
+    })
   }
 
   eliminarUsuario(usuarioId: string): void {
