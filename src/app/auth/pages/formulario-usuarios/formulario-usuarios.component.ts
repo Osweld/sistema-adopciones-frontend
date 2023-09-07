@@ -17,80 +17,8 @@ export class FormularioUsuariosComponent implements OnInit {
   opcionSeleccionada$!: Observable<any>;
   private unsubscribeAll!: Subject<void>;
 
-  razaSeleccionada: { id: number; label: string }[]= [];
-  idRoute!: string;
-  razasGenerales: any =
-    {
-      Perro: [
-        { id: 1, label: 'Labrador Retriever' },
-        { id: 2, label: 'Pastor Alemán' },
-        { id: 3, label: 'Golden Retriever' },
-        { id: 4, label: 'Bulldog Francés' },
-        { id: 5, label: 'Maya' },
-        { id: 6, label: 'Otro' }
-      ],
-      Gato: [
-        { id: 1, label: 'Gato doméstico' },
-        { id: 2, label: 'Siamese' },
-        { id: 3, label: 'Persa' },
-        { id: 4, label: 'Maine Coon' },
-        { id: 5, label: 'Bengal' },
-        { id: 6, label: 'Otro' }
 
-      ],
-      Conejo: [
-        { id: 1, label: 'Conejo enano holandés' },
-        { id: 2, label: 'Conejo mini lop' },
-        { id: 3, label: 'Conejo cabeza de león' },
-        { id: 4, label: 'Conejo belier' },
-        { id: 5, label: 'Conejo mini rex' },
-        { id: 6, label: 'Otro' }
-      ],
-      Hamster: [
-        { id: 1, label: 'Hamster Sirio' },
-        { id: 2, label: 'Hamster Roborovski' },
-        { id: 3, label: 'Hamster Ruso' },
-        { id: 4, label: 'Hamster Chino' },
-        { id: 5, label: 'Hamster Campbell' },
-        { id: 6, label: 'Otro' }
-      ],
-      Ave: [
-        { id: 1, label: 'Periquito común' },
-        { id: 2, label: 'Canario ' },
-        { id: 3, label: 'Cacatúa ninfa' },
-        { id: 4, label: 'Agapornis' },
-        { id: 5, label: 'Guacamayo azul' },
-        { id: 6, label: 'Otro' }
-      ],
-      Pez: [
-        { id: 1, label: 'Goldfish' },
-        { id: 2, label: 'Guppy' },
-        { id: 3, label: 'Betta' },
-        { id: 4, label: 'Pez ángel' },
-        { id: 5, label: 'Tetra neón' },
-        { id: 6, label: 'Otro' }
-      ]
-    };
-    estadosDeSalud: string[] = [
-      'Sano',
-      'Enfermo',
-      'Estable',
-      'Grave',
-      'En tratamiento',
-      'Recuperado',
-      'Herido',
-      'En observación',
-      'Rehabilitación',
-      'Listo para adopción'
-    ]
-    especies: any[] = [
-      { id: '1', label: 'Perro' },
-      { id: '2', label: 'Gato' },
-      { id: '3', label: 'Conejo' },
-      { id: '4', label: 'Hamster' },
-      { id: '5', label: 'Ave' },
-      { id: '6', label: 'Pez' }
-    ];
+  idRoute!: string;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -107,31 +35,31 @@ export class FormularioUsuariosComponent implements OnInit {
         if (usuariosString !== null) {
           DATA = JSON.parse(usuariosString);
           const usuario = DATA.find(masc => masc.id === this.idRoute);
-          if(usuario !== undefined){
+          /*if(usuario !== undefined){
           this.razaSeleccionada = this.razasGenerales[usuario.especie.label];
-          }
+          }*/
           this.formulario = this._formBuilder.group({
             nombre: [usuario?.nombre, Validators.required],
-            fechaNacimiento: [usuario?.fechaNacimiento],
-            raza: [usuario?.raza, Validators.required],
-            color: [usuario?.color],
-            estadoSalud: [usuario?.estadoSalud, Validators.required],
-            descripcion: [usuario?.descripcion],
-            especie: [usuario?.especie, Validators.required]
+            //fechaNacimiento: [usuario?.fechaNacimiento],
+            //raza: [usuario?.raza, Validators.required],
+            alias: [usuario?.alias],
+            clave: [usuario?.clave, Validators.required],
+            //descripcion: [usuario?.descripcion],
+            email: [usuario?.email, Validators.required]
           });
         }
       } else {
         this.formulario = this._formBuilder.group({
           nombre: [null, Validators.required],
-          fechaNacimiento: [null],
-          raza: [null, Validators.required],
-          color: [null],
-          estadoSalud: [null, Validators.required],
-          descripcion: [null],
-          especie: [null, Validators.required]
+          //fechaNacimiento: [null],
+          //raza: [null, Validators.required],
+          alias: [null, Validators.required],
+          clave: [null, Validators.required],
+          //descripcion: [null],
+          email: [null, Validators.required]
         });
       }
-      this.opcionSeleccionada$ = this.formulario.get('especie')?.valueChanges || new Observable<any>();
+      this.opcionSeleccionada$ = this.formulario.get('email')?.valueChanges || new Observable<any>();
     });
     this.unsubscribeAll = new Subject<void>();
    }
@@ -139,17 +67,14 @@ export class FormularioUsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.opcionSeleccionada$.pipe(
       takeUntil(this.unsubscribeAll)
-    ).subscribe((especie: { id: number; label: string }) => {
-      const raza = especie.label;
+    ).subscribe((email: { id: number; label: string }) => {
+      /*const raza = especie.label;
       this.razaSeleccionada = this.razasGenerales[raza];
       this.formulario.patchValue({
         raza: null
-      });
+      });*/
     });
   }
-
-  compareFn = (especie1: any, especie2: any) => especie1 && especie2 && especie1.id === especie2.id;
-
 
   crearUsuario(): void {
     if (this.formulario.valid) {
@@ -183,12 +108,12 @@ export class FormularioUsuariosComponent implements OnInit {
     if (usuarioActualizado) {
       // Actualizar los datos del usuario con los datos del formulario
       usuarioActualizado.nombre = this.formulario.get('nombre')?.value;
-      usuarioActualizado.fechaNacimiento = this.formulario.get('fechaNacimiento')?.value;
-      usuarioActualizado.raza = this.formulario.get('raza')?.value;
-      usuarioActualizado.color = this.formulario.get('color')?.value;
-      usuarioActualizado.estadoSalud = this.formulario.get('estadoSalud')?.value;
-      usuarioActualizado.descripcion = this.formulario.get('descripcion')?.value;
-      usuarioActualizado.especie = this.formulario.get('especie')?.value;
+      //usuarioActualizado.fechaNacimiento = this.formulario.get('fechaNacimiento')?.value;
+      //usuarioActualizado.raza = this.formulario.get('raza')?.value;
+      usuarioActualizado.alias = this.formulario.get('alias')?.value;
+      usuarioActualizado.clave = this.formulario.get('clave')?.value;
+      //usuarioActualizado.descripcion = this.formulario.get('descripcion')?.value;
+      usuarioActualizado.email = this.formulario.get('email')?.value;
       // Guardar la lista actualizada en localStorage
       localStorage.setItem('usuarios', JSON.stringify(usuarios));
       // Mostrar mensaje de exito
