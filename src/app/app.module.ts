@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from "./shared/shared.module";
@@ -18,6 +19,7 @@ import { SharedModule } from "./shared/shared.module";
     imports: [
         CommonModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         AppRoutingModule,
         BrowserModule,
         SharedModule
