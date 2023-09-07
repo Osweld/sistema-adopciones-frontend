@@ -12,13 +12,10 @@ export interface Catalog {
 
 export interface Usuario {
   id?: string;
-  fechaNacimiento?: Date;
-  color?: string;
-  descripcion?: string;
+  alias: string;
   nombre: string;
-  especie: Catalog;
-  raza: Catalog;
-  estadoSalud: string;
+  email: string;
+  clave: string;
 }
 
 @Component({
@@ -28,7 +25,7 @@ export interface Usuario {
 })
 export class ListaUsuariosComponent implements OnInit {
 
-  displayedColumns: string[] = ['nombre', 'especie', 'raza', 'estadoSalud', 'actions'];
+  displayedColumns: string[] = ['nombre', 'email', 'alias', 'clave', 'actions'];
   dataSource: any;
 
   constructor(
