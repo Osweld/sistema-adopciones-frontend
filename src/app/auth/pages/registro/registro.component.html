@@ -20,24 +20,19 @@
                           Nombre obligatorio
                         </div>
                       </mat-form-field>
+                      
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between p-2">
                       <mat-form-field appearance="outline" class="w-full p-2">
-                        <mat-label>Apellido</mat-label>
-                        <input matInput formControlName="apellido" type="text"
-                          [class.is-invalid]="f.apellido.errors && f.apellido.touched" required>
+                        <mat-label>Correo electrónico</mat-label>
+                        <input matInput formControlName="correo" type="email"
+                          [class.is-invalid]="f.correo.errors && f.correo.touched" required>
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                          Apellido obligatoria
+                          Correo electrónico obligatorio
                         </div>
                       </mat-form-field>
                     </div>
-
-                    <mat-form-field appearance="outline" class="w-full p-2">
-                      <mat-label>Correo electrónico</mat-label>
-                      <input matInput formControlName="correo" type="email"
-                        [class.is-invalid]="f.correo.errors && f.correo.touched" required>
-                      <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Correo electrónico obligatorio
-                      </div>
-                    </mat-form-field>
 
                     <div class="d-flex align-items-center justify-content-between p-2">
                       <mat-form-field appearance="outline" class="w-full p-2">

@@ -4,30 +4,28 @@ import { SharedService } from 'src/app/shared/Servicios/shared.service';
 import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
+
 export interface Catalog {
   id: number;
   label: string;
 }
 
-export interface Mascota {
+export interface Usuario {
   id?: string;
-  fechaNacimiento?: Date;
-  color?: string;
-  descripcion?: string;
+  alias: string;
   nombre: string;
-  especie: Catalog;
-  raza: Catalog;
-  estadoSalud: string;
+  email: string;
+  clave: string;
 }
 
 @Component({
-  selector: 'app-lista-mascotas',
-  templateUrl: './lista-mascotas.component.html',
-  styleUrls: ['./lista-mascotas.component.css']
+  selector: 'app-lista-usuarios',
+  templateUrl: './lista-usuarios.component.html',
+  styleUrls: ['./lista-usuarios.component.css']
 })
-export class ListaMascotasComponent implements OnInit {
+export class ListaUsuariosComponent implements OnInit {
 
-  displayedColumns: string[] = ['nombre', 'especie', 'raza', 'estadoSalud', 'actions'];
+  displayedColumns: string[] = ['nombre', 'email', 'alias', 'clave', 'actions'];
   dataSource: any;
 
   constructor(
@@ -35,35 +33,35 @@ export class ListaMascotasComponent implements OnInit {
     private _sharedService: SharedService,
     public dialog: MatDialog
   ) {
-    let DATA: Mascota[] = [];
-    const mascotasString = localStorage.getItem('mascotas');
-    if (mascotasString !== null) {
-      DATA = JSON.parse(mascotasString);
+    let DATA: Usuario[] = [];
+    const usuariosString = localStorage.getItem('usuarios');
+    if (usuariosString !== null) {
+      DATA = JSON.parse(usuariosString);
       this.dataSource = DATA;
     }
-  }
+   }
 
   ngOnInit(): void {
   }
 
-  eliminarMascota(mascotaId: string): void {
-    // Obtener la lista de mascotas del localStorage
-    const mascotasData = localStorage.getItem('mascotas');
-    const mascotas = mascotasData ? JSON.parse(mascotasData) : [];
+  eliminarUsuario(usuarioId: string): void {
+    // Obtener la lista de usuarios del localStorage
+    const usuariosData = localStorage.getItem('usuarios');
+    const usuarios = usuariosData ? JSON.parse(usuariosData) : [];
 
-    // Buscar la mascota a eliminar por su ID
-    const mascotaToDeleteIndex = mascotas.findIndex((e: any) => e.id === mascotaId);
+    // Buscar el usuario a eliminar por su ID
+    const usuarioToDeleteIndex = usuarios.findIndex((e: any) => e.id === usuarioId);
 
-    if (mascotaToDeleteIndex !== -1) {
-      // Eliminar la mascota que se encontró
-      mascotas.splice(mascotaToDeleteIndex, 1);
+    if (usuarioToDeleteIndex !== -1) {
+      // Eliminar el usuario que se encontró
+      usuarios.splice(usuarioToDeleteIndex, 1);
 
       // Guardar la lista actualizada en localStorage
-      localStorage.setItem('mascotas', JSON.stringify(mascotas));
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
       // Mostrar mensaje de éxito
-      this.mostrarMensajeDeExito('Mascota eliminada correctamente.');
+      this.mostrarMensajeDeExito('Usuario eliminado correctamente.');
       //Recargar pagina
-      this.router.navigateByUrl('/pets', { skipLocationChange: true }).then(() => {
+      this.router.navigateByUrl('/listaUsuario', { skipLocationChange: true }).then(() => {
         setTimeout(()=> {
           window.location.reload();
         }, 2000);
@@ -89,24 +87,23 @@ export class ListaMascotasComponent implements OnInit {
     }, 8000);
   }
 
-  openDialog(mascotaId: string): void {
+  openDialog(usuarioId: string): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '400px',
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.eliminarMascota(mascotaId);
+        this.eliminarUsuario(usuarioId);
       }
     });
   }
 
 }
 
-
 @Component({
   selector: 'dialog-animations-example-dialog',
   template: `
-    <h1 mat-dialog-title class="text-yellow-500 font-medium">Eliminar Mascota</h1>
+    <h1 mat-dialog-title class="text-yellow-500 font-medium">Eliminar Usuario</h1>
     <div mat-dialog-content>
       ¿Seguro que quiere eliminar el registro?
     </div>
