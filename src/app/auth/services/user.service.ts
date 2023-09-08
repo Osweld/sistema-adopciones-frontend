@@ -1,20 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserPage } from '../interfaces/auth.interface';
+import { User, UserPage } from '../interfaces/auth.interface';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  baseUrl:string = "http://localhost:8080/api/v1/usuarios"
+  baseUrl:string = environment.baseUrl+"/api/v1/usuarios"
 
   constructor(private http:HttpClient) { }
 
-  getAllMarcas(page:Number):Observable<UserPage>{
+  getUserWithPagination(page:Number):Observable<UserPage>{
     const url = `${this.baseUrl}?page=${page}&size=10`;
     return this.http.get<UserPage>(url)
+  }
+
+  getUserById(id:Number):Observable<User>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.get<User>(url)
+  }
+
+  saveUser(user:User):Observable<User>{
+    const url = `${this.baseUrl}`;
+    return this.http.post<User>(url,user)
+  }
+
+  editUser(id:number,user:User):Observable<User>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.put<User>(url,user)
+  }
+
+  deleteUserById(id:Number):Observable<User>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.delete<User>(url)
   }
 
 }

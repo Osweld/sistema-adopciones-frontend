@@ -13,7 +13,7 @@ export interface UserPage {
 }
 
 export interface User {
-  id:              number;
+  id?:              number;
   nombres:         string;
   apellidos:       string;
   fechaNacimiento: Date;
@@ -24,12 +24,17 @@ export interface User {
   username:        string;
   password:        string;
   genero:          Genero;
-  rol:             Genero;
+  rol:             Rol;
 }
 
 export interface Genero {
   id:     number;
-  nombre: string;
+  nombre?: string;
+}
+
+export interface Rol {
+  id:     number;
+  nombre?: string;
 }
 
 export interface Pageable {

@@ -10,27 +10,32 @@
     </div>
     <div class="flex justify-center items-center mx-24" *ngIf="dataSource.length !== 0; else noRegistros">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
-  
-        <ng-container matColumnDef="nombre">
-          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Nombre </th>
-          <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.nombre}} </td>
+
+        <ng-container matColumnDef="nombres">
+          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Nombres </th>
+          <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.nombres}} </td>
         </ng-container>
-  
+
+        <ng-container matColumnDef="apellidos">
+          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Apellidos </th>
+          <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.apellidos}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Email </th>
           <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.email}} </td>
         </ng-container>
-  
+
         <ng-container matColumnDef="alias">
           <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Usuario </th>
-          <td mat-cell *matCellDef="let element" class="w-1/5"> {{element?.alias}} </td>
+          <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.username}} </td>
         </ng-container>
-  
-        <ng-container matColumnDef="clave">
-          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Contraseña eventual </th>
-          <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.clave}} </td>
+
+        <ng-container matColumnDef="genero">
+          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Genero</th>
+          <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.genero.nombre}} </td>
         </ng-container>
-  
+
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Acciones </th>
           <td mat-cell *matCellDef="let element" class="w-1/5">
@@ -40,7 +45,7 @@
             </div>
           </td>
         </ng-container>
-  
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>

@@ -4,6 +4,7 @@ import { SharedService } from 'src/app/shared/Servicios/shared.service';
 import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../../services/user.service';
+import { User } from '../../interfaces/auth.interface';
 
 
 export interface Catalog {
@@ -26,8 +27,8 @@ export interface Usuario {
 })
 export class ListaUsuariosComponent implements OnInit {
 
-  displayedColumns: string[] = ['nombre', 'email', 'alias', 'clave', 'actions'];
-  dataSource: any;
+  displayedColumns: string[] = ['nombres','apellidos', 'email', 'alias', 'genero', 'actions'];
+  dataSource: User[] = [];
 
   constructor(
     private router: Router,
@@ -39,58 +40,34 @@ export class ListaUsuariosComponent implements OnInit {
     const usuariosString = localStorage.getItem('usuarios');
     if (usuariosString !== null) {
       DATA = JSON.parse(usuariosString);
-      this.dataSource = DATA;
+
     }
    }
 
   ngOnInit(): void {
-    this.userService.getAllMarcas(0).subscribe(page =>{
-      console.log(page.content)
+    this.userService.getUserWithPagination(0).subscribe(page =>{
+      this.dataSource = page.content
     })
   }
 
   eliminarUsuario(usuarioId: string): void {
-    // Obtener la lista de usuarios del localStorage
-    const usuariosData = localStorage.getItem('usuarios');
-    const usuarios = usuariosData ? JSON.parse(usuariosData) : [];
-
-    // Buscar el usuario a eliminar por su ID
-    const usuarioToDeleteIndex = usuarios.findIndex((e: any) => e.id === usuarioId);
-
-    if (usuarioToDeleteIndex !== -1) {
-      // Eliminar el usuario que se encontró
-      usuarios.splice(usuarioToDeleteIndex, 1);
-
-      // Guardar la lista actualizada en localStorage
-      localStorage.setItem('usuarios', JSON.stringify(usuarios));
-      // Mostrar mensaje de éxito
-      this.mostrarMensajeDeExito('Usuario eliminado correctamente.');
-      //Recargar pagina
-      this.router.navigateByUrl('/listaUsuario', { skipLocationChange: true }).then(() => {
-        setTimeout(()=> {
-          window.location.reload();
-        }, 2000);
-      });
-    }
-  }
-
-  mostrarMensajeDeExito(descripcion: string): void {
-    this._sharedService.showSnackbar(
-      {
-        color: 'green',
-        title: 'Completado',
-        description: descripcion,
-        isVisible: true
+    this.userService.deleteUserById(parseInt(usuarioId)).subscribe({
+      next: user =>{
+        this._sharedService.mostrarMensaje("green","Eliminado","El usuario fue eliminado exitosamente!!");
+        this.router.navigateByUrl('/listaUsuario', { skipLocationChange: true }).then(() => {
+          setTimeout(()=> {
+            window.location.reload();
+          }, 2000);
+        });
+      },
+      error: error =>{
+        this._sharedService.mostrarMensaje("red","Error","El usuario no pudo ser eliminado!!");
       }
-    );
-    setTimeout(() => {
-      this._sharedService.showSnackbar(
-        {
-          isVisible: false
-        }
-      );
-    }, 8000);
+    })
+
+
   }
+
 
   openDialog(usuarioId: string): void {
     const dialogRef = this.dialog.open(DialogComponent, {
