@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
-import { Usuario } from '../lista-usuarios/lista-usuarios.component';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
+import { Genero, Rol, User } from '../../interfaces/auth.interface';
+import { UserService } from '../../services/user.service';
+import { GeneroService } from '../../services/genero.service';
+import { RolService } from '../../services/rol.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
 @Component({
   selector: 'app-formulario-usuarios',
@@ -13,10 +16,75 @@ import { SharedService } from 'src/app/shared/Servicios/shared.service';
 })
 export class FormularioUsuariosComponent implements OnInit {
 
-  formulario!: FormGroup;
-  opcionSeleccionada$!: Observable<any>;
-  private unsubscribeAll!: Subject<void>;
+  user!: User;
+  roles: Rol[] = [];
+  generos: Genero[] = [];
 
+
+  userForm: FormGroup = this._formBuilder.group({
+    nombres: ["", [Validators.required, Validators.maxLength(40)]],
+    apellidos: ["", [Validators.required, Validators.maxLength(40)]],
+    fechaNacimiento: [, [Validators.required, this.validatorService.birthdateValidation]],
+    numeroDui: ["", [Validators.required, Validators.pattern(/^\d{8}-\d{1}$/)]],
+    direccion: ["", [Validators.required, Validators.maxLength(150)]],
+    email: ["", [Validators.required, Validators.pattern(this.validatorService.emailPattern)]],
+    telefono: ["", [Validators.required, Validators.pattern(/^\d{8}$/)]],
+    username: ["", [Validators.required, Validators.minLength(5), Validators.maxLength(15)]],
+    password: ["", [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+    confirmPassword: ["", [Validators.required]],
+    genero: [, Validators.required],
+    rol: [, Validators.required],
+  }, { validators: this.validatorService.samePassword('password', 'confirmPassword') });
+
+  userFormValidationMessage = {
+    'nombres': [
+      { type: 'required', message: 'El nombre no puede quedar vacio.' },
+      { type: 'maxlength', message: 'El nombre no puede sobrepasar los 40 caracteres.' }
+    ],
+    'apellidos': [
+      { type: 'required', message: 'El apellido no puede quedar vacio.' },
+      { type: 'maxlength', message: 'El apellido no puede sobrepasar los 40 caracteres.' }
+    ],
+    'fechaNacimiento': [
+      { type: 'required', message: 'La fecha de nacimiento no puede quedar vacia.' },
+      { type: 'birthdateValidation', message: 'La fecha de nacimiento no puede ser en el futuro.' }
+    ],
+    'numeroDui': [
+      { type: 'required', message: 'El DUI no puede quedar vacio.' },
+      { type: 'pattern', message: 'Introduzca un formato valido para el DUI (Debe agregar el guion -).' }
+    ],
+    'direccion': [
+      { type: 'required', message: 'La direccion no puede quedar vacia.' }
+    ],
+    'email': [
+      { type: 'required', message: 'El email no puede quedar vacio.' },
+      { type: 'pattern', message: 'El formato de email no es valido.' }
+    ],
+    'telefono': [
+      { type: 'required', message: 'El telefono no puede quedar vacio.' },
+      { type: 'pattern', message: 'Introduzca un formato valido para el telefono (son 8 digitos).' }
+    ],
+    'username': [
+      { type: 'required', message: 'El username no puede quedar vacio.' },
+      { type: 'maxlength', message: 'El username no puede sobrepasar los 15 caracteres.' },
+      { type: 'minlength', message: 'El username no puede ser inferior a los 5 caracteres.' }
+    ],
+    'password': [
+      { type: 'required', message: 'El password no puede quedar vacio.' },
+      { type: 'maxlength', message: 'El password no puede sobrepasar los 20 caracteres.' },
+      { type: 'minlength', message: 'El password no puede ser inferior a los 8 caracteres.' }
+    ],
+    'confirmPassword': [
+      { type: 'required', message: 'El password no puede quedar vacio.' },
+      { type: 'samePassword', message: 'Los password no coinciden' }
+    ],
+    'genero': [
+      { type: 'required', message: 'La direccion no puede quedar vacia.' }
+    ],
+    'rol': [
+      { type: 'required', message: 'La direccion no puede quedar vacia.' }
+    ],
+  }
 
   idRoute!: string;
 
@@ -24,129 +92,117 @@ export class FormularioUsuariosComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private _sharedService: SharedService
+    private _sharedService: SharedService,
+    private userService: UserService,
+    private generoService: GeneroService,
+    private rolService: RolService,
+    private validatorService: ValidatorsService
   ) {
     this.route.params.subscribe(params => {
-      const uuid = params['id'];
-      if (uuid) {
-        this.idRoute = uuid;
-        let DATA: Usuario[] = [];
-        const usuariosString = localStorage.getItem('usuarios');
-        if (usuariosString !== null) {
-          DATA = JSON.parse(usuariosString);
-          const usuario = DATA.find(masc => masc.id === this.idRoute);
-          /*if(usuario !== undefined){
-          this.razaSeleccionada = this.razasGenerales[usuario.especie.label];
-          }*/
-          this.formulario = this._formBuilder.group({
-            nombre: [usuario?.nombre, Validators.required],
-            //fechaNacimiento: [usuario?.fechaNacimiento],
-            //raza: [usuario?.raza, Validators.required],
-            alias: [usuario?.alias],
-            clave: [usuario?.clave, Validators.required],
-            //descripcion: [usuario?.descripcion],
-            email: [usuario?.email, Validators.required]
-          });
+      if (params["id"]) {
+        this.idRoute = params["id"];
+        this.userService.getUserById(parseInt(this.idRoute)).subscribe({
+          next: user => {
+            this.user = user;
+            this.userForm.reset({
+              nombres: user.nombres,
+              apellidos: user.apellidos,
+              fechaNacimiento: user.fechaNacimiento,
+              numeroDui: user.numeroDui,
+              direccion: user.direccion,
+              email: user.email,
+              telefono: user.telefono,
+              username: user.username,
+              genero: user.genero.id,
+              rol: user.rol.id
+            })
+            this.userForm.get('password')?.clearValidators();
+            this.userForm.get('password')?.updateValueAndValidity();
+          }
         }
-      } else {
-        this.formulario = this._formBuilder.group({
-          nombre: [null, Validators.required],
-          //fechaNacimiento: [null],
-          //raza: [null, Validators.required],
-          alias: [null, Validators.required],
-          clave: [null, Validators.required],
-          //descripcion: [null],
-          email: [null, Validators.required]
-        });
+        )
       }
-      this.opcionSeleccionada$ = this.formulario.get('email')?.valueChanges || new Observable<any>();
-    });
-    this.unsubscribeAll = new Subject<void>();
-   }
+    })
+  }
 
   ngOnInit(): void {
-    this.opcionSeleccionada$.pipe(
-      takeUntil(this.unsubscribeAll)
-    ).subscribe((email: { id: number; label: string }) => {
-      /*const raza = especie.label;
-      this.razaSeleccionada = this.razasGenerales[raza];
-      this.formulario.patchValue({
-        raza: null
-      });*/
-    });
+    this.generoService.getAllGeneros().subscribe(generos => {
+      this.generos = generos;
+    })
+
+    this.rolService.getAllRoles().subscribe(roles => {
+      this.roles = roles;
+    })
   }
 
   crearUsuario(): void {
-    if (this.formulario.valid) {
-      const usuario = { ...this.formulario.value };
-      const uuid = uuidv4();
-      usuario.id = uuid;
-    // Obtener usarios del localStorage
-    let usuariosGuardados: any[] = [];
-    const usuariosString = localStorage.getItem('usuarios');
-    if (usuariosString !== null) {
-      usuariosGuardados = JSON.parse(usuariosString);
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
+      return;
     }
-    // Agregar el nuevo usuario al array
-    usuariosGuardados.push(usuario);
-    // Guardar el array de usuarios en el localStorage
-    localStorage.setItem('usuarios', JSON.stringify(usuariosGuardados));
-    this.router.navigateByUrl('/listaUsuario');
-    // Redireccionar a la lista de usuarios
-    this.mostrarMensajeDeExito('Usuario registrado correctamente en el sistema.');
-   }
-  }
 
+    this.fillUser();
+    this.userService.saveUser(this.user).subscribe({
+      next: user => {
+        this._sharedService.mostrarMensaje("green", "Guardado", "Se a guardado exitosamente el usuario!!")
+        console.log(user)
+      },
+      error: error => {
+        this._sharedService.mostrarMensaje("red", "Error", "Hubo problemas al guardar el usuario!!")
+      }
+    })
+
+  }
   actualizarUsuario(): void {
-    // Obtener la lista de usuarios del localStorage
-    const usuariosData = localStorage.getItem('usuarios');
-    const usuarios = usuariosData ? JSON.parse(usuariosData) : [];
-
-    // Buscar el empleado a actualizar por su ID
-    const usuarioActualizado = usuarios.find((e: any) => e.id === this.idRoute);
-
-    if (usuarioActualizado) {
-      // Actualizar los datos del usuario con los datos del formulario
-      usuarioActualizado.nombre = this.formulario.get('nombre')?.value;
-      //usuarioActualizado.fechaNacimiento = this.formulario.get('fechaNacimiento')?.value;
-      //usuarioActualizado.raza = this.formulario.get('raza')?.value;
-      usuarioActualizado.alias = this.formulario.get('alias')?.value;
-      usuarioActualizado.clave = this.formulario.get('clave')?.value;
-      //usuarioActualizado.descripcion = this.formulario.get('descripcion')?.value;
-      usuarioActualizado.email = this.formulario.get('email')?.value;
-      // Guardar la lista actualizada en localStorage
-      localStorage.setItem('usuarios', JSON.stringify(usuarios));
-      // Mostrar mensaje de exito
-      this.mostrarMensajeDeExito('Cambios aplicados correctamente.');
+    if (this.userForm.invalid) {
+      this.userForm.markAllAsTouched();
+      return;
     }
+
+    this.fillUser();
+    this.userService.editUser(parseInt(this.idRoute),this.user).subscribe({
+      next: user => {
+        this._sharedService.mostrarMensaje("green", "Modificado", "Se a modificado exitosamente el usuario!!")
+        console.log(user)
+      },
+      error: error => {
+        this._sharedService.mostrarMensaje("red", "Error", "No se pudo modificar el usuario!!")
+        console.log(error);
+        console.log(this.user)
+      }
+    })
   }
 
+  // cuando se actualice el usuario este se llamara primero
   guardarUsuario(goBack: boolean): void {
     this.actualizarUsuario();
-    if(goBack){
+    if (goBack) {
       this.goBack();
     }
   }
 
+
+  fillUser(): void {
+    this.user = {
+      nombres: this.userForm.value.nombres,
+      apellidos: this.userForm.value.apellidos,
+      fechaNacimiento: this.userForm.value.fechaNacimiento,
+      numeroDui: this.userForm.value.numeroDui,
+      direccion: this.userForm.value.direccion,
+      email: this.userForm.value.email,
+      telefono: this.userForm.value.telefono,
+      username: this.userForm.value.username,
+      password: this.userForm.value.password,
+      genero: {id: this.userForm.value.genero},
+      rol: {id:this.userForm.value.rol }
+
+    }
+  }
+
+
+  //no tocarlo...
   goBack(): void {
     this.router.navigateByUrl('/listaUsuario');
   }
 
-  mostrarMensajeDeExito(descripcion: string): void {
-    this._sharedService.showSnackbar(
-      {
-        color: 'green',
-        title: 'Completado',
-        description: descripcion,
-        isVisible: true
-      }
-    );
-    setTimeout(() => {
-      this._sharedService.showSnackbar(
-        {
-          isVisible: false
-        }
-      );
-    }, 8000);
-  }
 }

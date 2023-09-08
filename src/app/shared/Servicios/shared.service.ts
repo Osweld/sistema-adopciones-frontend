@@ -15,6 +15,25 @@ export class SharedService {
     this.snackbarSubject.next(data);
   }
   constructor() { }
+// Se peude mejorar mas por el momento asi para no hacer que las otras clases
+// que lo implementan generen errorer
+  mostrarMensaje(color:string,title:string,descripcion: string): void {
+    this.showSnackbar(
+      {
+        color: color,
+        title: title,
+        description: descripcion,
+        isVisible: true
+      }
+    );
+    setTimeout(() => {
+      this.showSnackbar(
+        {
+          isVisible: false
+        }
+      );
+    }, 8000);
+  }
 }
 
 export interface SnackbarData {
