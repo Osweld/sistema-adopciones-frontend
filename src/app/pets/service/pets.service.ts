@@ -13,12 +13,8 @@ export class PetsService {
 
   constructor(private http:HttpClient) { }
 
-  getAllMarcas(page:Number):Observable<MascotasPage>{
+  getAllMascotasByPagination(page:Number):Observable<MascotasPage>{
     const url = `${this.baseUrl}?page=${page}&size=10`;
     return this.http.get<MascotasPage>(url)
-  }
-
-  getPets(): Observable<any>{
-    return this.http.get<Mascota>(this.baseUrl);
   }
 }

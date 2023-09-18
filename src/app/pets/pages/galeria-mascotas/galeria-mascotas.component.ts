@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { PetsService } from '../../service/pets.service';
+import { Mascota } from '../../interfaces/pets.interface';
+
 
 
 @Component({
@@ -11,17 +13,18 @@ import { PetsService } from '../../service/pets.service';
 })
 export class GaleriaMascotasComponent implements OnInit {
 
-  Mascota: any[] = [];
+  mascotas: Mascota[] = [];
 
 
   constructor(
     private PetsService: PetsService) { }
 
   ngOnInit(){
-    this.PetsService.getPets()
+    this.PetsService.getAllMascotasByPagination(0)
     .subscribe(
-      res => {
-        this.Mascota = res;
+      mascotasPage => {
+        this.mascotas = mascotasPage.content;
+        console.log(this.mascotas)
       },
       err => console.log(err)
     )
