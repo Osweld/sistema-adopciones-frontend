@@ -36,13 +36,8 @@ export class ListaUsuariosComponent implements OnInit {
     public dialog: MatDialog,
     private userService:UserService
   ) {
-    let DATA: Usuario[] = [];
-    const usuariosString = localStorage.getItem('usuarios');
-    if (usuariosString !== null) {
-      DATA = JSON.parse(usuariosString);
 
-    }
-   }
+  }
 
   ngOnInit(): void {
     this.userService.getUserWithPagination(0).subscribe(page =>{
