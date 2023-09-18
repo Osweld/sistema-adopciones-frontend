@@ -20,6 +20,8 @@ import { FormularioMascotasComponent } from './pages/formulario-mascotas/formula
 import { PetsComponent } from './components/pets/pets.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from '../shared/shared.module';
+import { GaleriaMascotasComponent } from './pages/galeria-mascotas/galeria-mascotas.component';
+import { PreviewMascotasComponent } from './pages/preview-mascotas/preview-mascotas.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { SharedModule } from '../shared/shared.module';
     ListaMascotasComponent,
     FormularioMascotasComponent,
     PetsComponent,
-    DialogComponent
+    DialogComponent,
+    GaleriaMascotasComponent,
+    PreviewMascotasComponent
   ],
   imports: [
     CommonModule,

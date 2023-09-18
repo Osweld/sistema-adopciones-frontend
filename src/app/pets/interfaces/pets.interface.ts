@@ -13,7 +13,7 @@ export interface MascotasPage {
 }
 
 export interface Mascota {
-  id:              number;
+  id:              number; //number
   nombre:          string;
   fechaNacimiento: Date;
   color:           string;

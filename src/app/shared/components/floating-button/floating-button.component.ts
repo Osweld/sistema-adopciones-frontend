@@ -27,6 +27,16 @@ export class FloatingButtonComponent implements OnInit {
       icon:"fas fa-list"
     },
     {
+      nombre:"GaleriaMascotas",
+      url:"/pets/galeria",
+      icon:"fas fa-th"
+    },
+    {
+      nombre:"PreviewMascotas",
+      url:"/pets/preview",
+      icon:"fas fa-external-link"
+    },
+    {
       nombre:"Administra las mascotas",
       url:"/pets",
       icon:"fas fa-camera"
