@@ -16,10 +16,10 @@ export class PetsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.petsService.getAllMascotasByPagination(0).subscribe(page =>{
-    //   this.mascotas = page.content
-    //   console.log(this.mascotas)
-    // })
+     this.petsService.getAllMascotasByPagination(0).subscribe(page =>{
+       this.mascotas = page.content
+       console.log(this.mascotas)
+     })
   }
 
 }

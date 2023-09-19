@@ -11,7 +11,7 @@ const routes: Routes = [
     { path: '', component: ListaMascotasComponent },
     { path: 'new', component: FormularioMascotasComponent },
     { path: 'galeria', component: GaleriaMascotasComponent },
-    { path: 'preview', component: PreviewMascotasComponent },
+    { path: 'preview/:id', component: PreviewMascotasComponent },
     { path: 'edit/:id', component: FormularioMascotasComponent }
   ]},
 ];

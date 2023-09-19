@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PetsService } from '../../service/pets.service';
+import { Mascota } from '../../interfaces/pets.interface';
+
 
 @Component({
   selector: 'app-preview-mascotas',
@@ -6,10 +10,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./preview-mascotas.component.css']
 })
 export class PreviewMascotasComponent implements OnInit {
+  
+  mascota: Mascota[] = [];
+  id=0;
 
-  constructor() { }
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private PetsService: PetsService
+    
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
+    
+    this.activeRoute.params.subscribe(params=>{
+      this.id=params['id'];
+      this.PetsService.getMascota(this.id)
+    .subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    )
+    })
+    /* Guardar datos de la mascota con el "id" a mascota[]
+    this.activeRoute.params.subscribe(params=>{
+      this.id=params['id'];
+      this.PetsService.getMascota(this.id)
+    .subscribe(
+      res => {
+        this.mascota=res;
+      },
+      err => console.log(err)
+    )
+    })
+    */
+
   }
 
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-
 import { PetsService } from '../../service/pets.service';
 import { Mascota } from '../../interfaces/pets.interface';
+import { Router } from '@angular/router';
 
 
 
@@ -14,10 +13,13 @@ import { Mascota } from '../../interfaces/pets.interface';
 export class GaleriaMascotasComponent implements OnInit {
 
   mascotas: Mascota[] = [];
+  
 
 
   constructor(
-    private PetsService: PetsService) { }
+    private PetsService: PetsService,
+    private router: Router)
+    { }
 
   ngOnInit(){
     this.PetsService.getAllMascotasByPagination(0)
@@ -28,6 +30,10 @@ export class GaleriaMascotasComponent implements OnInit {
       },
       err => console.log(err)
     )
+  }
+
+  selectedCard(id: number){
+    this.router.navigate(['pets/preview',id])
   }
 
 }

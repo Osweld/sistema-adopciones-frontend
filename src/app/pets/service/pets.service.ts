@@ -17,4 +17,8 @@ export class PetsService {
     const url = `${this.baseUrl}?page=${page}&size=10`;
     return this.http.get<MascotasPage>(url)
   }
+  getMascota(id:number){
+
+    return this.http.get<Mascota>(this.baseUrl+'/'+id);
+  }
 }
