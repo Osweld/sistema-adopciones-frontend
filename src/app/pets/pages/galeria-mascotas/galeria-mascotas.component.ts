@@ -13,8 +13,6 @@ import { Router } from '@angular/router';
 export class GaleriaMascotasComponent implements OnInit {
 
   mascotas: Mascota[] = [];
-  
-
 
   constructor(
     private PetsService: PetsService,
@@ -31,6 +29,8 @@ export class GaleriaMascotasComponent implements OnInit {
       err => console.log(err)
     )
   }
+
+  
 
   selectedCard(id: number){
     this.router.navigate(['pets/preview',id])
