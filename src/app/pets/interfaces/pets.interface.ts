@@ -12,17 +12,22 @@ export interface MascotasPage {
   empty:            boolean;
 }
 
-export interface Mascota 
+export interface Mascota {
   id?:              number;
   nombre:          string;
   fechaNacimiento: Date;
   color:           string;
   descripcion:     string;
   fotoPrincipal?:   string;
-  genero:          Especie;
+  genero:          Genero;
   especie:         Especie;
   raza:            Raza;
   estadoSalud:     EstadoSalud;
+}
+
+export interface Genero {
+  id:     number;
+  nombre?: string;
 }
 
 export interface Especie {

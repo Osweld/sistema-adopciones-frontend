@@ -20,7 +20,7 @@ export class GaleriaMascotasComponent implements OnInit {
     { }
 
   ngOnInit(){
-    this.PetsService.getAllMascotasByPagination(0)
+    this.PetsService.getAllMascotasPage(0)
     .subscribe(
       mascotasPage => {
         this.mascotas = mascotasPage.content;
@@ -30,7 +30,7 @@ export class GaleriaMascotasComponent implements OnInit {
     )
   }
 
-  
+
 
   selectedCard(id: number){
     this.router.navigate(['pets/preview',id])
