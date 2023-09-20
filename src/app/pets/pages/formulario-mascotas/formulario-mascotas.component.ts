@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, takeUntil } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
-import { Mascota } from '../lista-mascotas/lista-mascotas.component';
+import { Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
+import { Especie, EstadoSalud, Mascota, Raza } from '../../interfaces/pets.interface';
+import { Genero } from 'src/app/auth/interfaces/auth.interface';
+import { PetsService } from '../../service/pets.service';
+import { GeneroService } from '../../service/genero.service';
+import { RazaService } from '../../service/raza.service';
+import { EspecieService } from '../../service/especie.service';
+import { EstadoSaludService } from '../../service/estado-salud.service';
+import { ValidatorsService } from 'src/app/shared/services/validators.service';
 
 @Component({
   selector: 'app-formulario-mascotas',
@@ -13,216 +19,193 @@ import { SharedService } from 'src/app/shared/Servicios/shared.service';
 })
 export class FormularioMascotasComponent implements OnInit {
 
-  formulario!: FormGroup;
-  opcionSeleccionada$!: Observable<any>;
-  private unsubscribeAll!: Subject<void>;
-
-  razaSeleccionada: { id: number; label: string }[]= [];
+  mascota!: Mascota;
+  generos: Genero[] = [];
+  razas: Raza[] = [];
+  estadoSalud: EstadoSalud[] = [];
+  especies: Especie[] = [];
   idRoute!: string;
-  razasGenerales: any =
-    {
-      Perro: [
-        { id: 1, label: 'Labrador Retriever' },
-        { id: 2, label: 'Pastor Alemán' },
-        { id: 3, label: 'Golden Retriever' },
-        { id: 4, label: 'Bulldog Francés' },
-        { id: 5, label: 'Maya' },
-        { id: 6, label: 'Otro' }
-      ],
-      Gato: [
-        { id: 1, label: 'Gato doméstico' },
-        { id: 2, label: 'Siamese' },
-        { id: 3, label: 'Persa' },
-        { id: 4, label: 'Maine Coon' },
-        { id: 5, label: 'Bengal' },
-        { id: 6, label: 'Otro' }
 
-      ],
-      Conejo: [
-        { id: 1, label: 'Conejo enano holandés' },
-        { id: 2, label: 'Conejo mini lop' },
-        { id: 3, label: 'Conejo cabeza de león' },
-        { id: 4, label: 'Conejo belier' },
-        { id: 5, label: 'Conejo mini rex' },
-        { id: 6, label: 'Otro' }
-      ],
-      Hamster: [
-        { id: 1, label: 'Hamster Sirio' },
-        { id: 2, label: 'Hamster Roborovski' },
-        { id: 3, label: 'Hamster Ruso' },
-        { id: 4, label: 'Hamster Chino' },
-        { id: 5, label: 'Hamster Campbell' },
-        { id: 6, label: 'Otro' }
-      ],
-      Ave: [
-        { id: 1, label: 'Periquito común' },
-        { id: 2, label: 'Canario ' },
-        { id: 3, label: 'Cacatúa ninfa' },
-        { id: 4, label: 'Agapornis' },
-        { id: 5, label: 'Guacamayo azul' },
-        { id: 6, label: 'Otro' }
-      ],
-      Pez: [
-        { id: 1, label: 'Goldfish' },
-        { id: 2, label: 'Guppy' },
-        { id: 3, label: 'Betta' },
-        { id: 4, label: 'Pez ángel' },
-        { id: 5, label: 'Tetra neón' },
-        { id: 6, label: 'Otro' }
-      ]
-    };
-    estadosDeSalud: string[] = [
-      'Sano',
-      'Enfermo',
-      'Estable',
-      'Grave',
-      'En tratamiento',
-      'Recuperado',
-      'Herido',
-      'En observación',
-      'Rehabilitación',
-      'Listo para adopción'
+
+  mascotaForm:FormGroup = this.fb.group({
+    nombre: ["", [Validators.required, Validators.maxLength(40)]],
+    fechaNacimiento: [, [Validators.required, this.validatorService.birthdateValidation]],
+    color: ["", [Validators.required, Validators.maxLength(60)]],
+    descripcion: ["", [Validators.maxLength(250)]],
+    genero: [, Validators.required],
+    raza: [, Validators.required],
+    estadoSalud: [, Validators.required],
+    especie: [, Validators.required],
+
+  })
+
+  mascotaFormValidationMessage = {
+    'nombre': [
+      { type: 'required', message: 'El nombre no puede quedar vacio.' },
+      { type: 'maxlength', message: 'El nombre no puede sobrepasar los 40 caracteres.' }
+    ],
+    'fechaNacimiento': [
+      { type: 'required', message: 'La fecha de nacimiento no puede quedar vacia.' },
+      { type: 'birthdateValidation', message: 'La fecha de nacimiento no puede ser en el futuro.' }
+    ],
+    'color': [
+      { type: 'required', message: 'El color de la mascota no puede quedar vacio.' },
+      { type: 'maxlength', message: 'El color no puede sobrepasar los 60 caracteres.' }
+    ],
+    'descripcion': [
+      { type: 'maxlength', message: 'La descripcion no puede sobrepasar los 250 caracteres.' }
+    ],
+    'genero': [
+      { type: 'required', message: 'El genero no puede quedar vacio.' }
+    ],
+    'estadoSalud': [
+      { type: 'required', message: 'El estado de salud no puede quedar vacio.' }
+    ],
+    'especie': [
+      { type: 'required', message: 'La especie no puede quedar vacia.' }
+    ],
+    'raza': [
+      { type: 'required', message: 'La raza no puede quedar vacia.' }
     ]
-    especies: any[] = [
-      { id: '1', label: 'Perro' },
-      { id: '2', label: 'Gato' },
-      { id: '3', label: 'Conejo' },
-      { id: '4', label: 'Hamster' },
-      { id: '5', label: 'Ave' },
-      { id: '6', label: 'Pez' }
-    ];
+  }
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private petService: PetsService,
+    private generoService: GeneroService,
+    private razaService: RazaService,
+    private estadoSaludService: EstadoSaludService,
+    private especieService: EspecieService,
+    private fb:FormBuilder,
+    private validatorService: ValidatorsService,
     private router: Router,
     private route: ActivatedRoute,
-    private _sharedService: SharedService
+    private sharedService:SharedService
   ) {
     this.route.params.subscribe(params => {
-      const uuid = params['id'];
-      if (uuid) {
-        this.idRoute = uuid;
-        let DATA: Mascota[] = [];
-        const mascotasString = localStorage.getItem('mascotas');
-        if (mascotasString !== null) {
-          DATA = JSON.parse(mascotasString);
-          const mascota = DATA.find(masc => masc.id === this.idRoute);
-          if(mascota !== undefined){
-          this.razaSeleccionada = this.razasGenerales[mascota.especie.label];
+      if (params["id"]) {
+        this.idRoute = params["id"];
+        this.petService.getMascotaById(parseInt(this.idRoute)).subscribe({
+          next: mascota => {
+            this.mascota = this.mascota;
+            this.mascotaForm.reset({
+              nombre: mascota.nombre,
+              color: mascota.color,
+              fechaNacimiento: mascota.fechaNacimiento,
+              descripcion: mascota.descripcion,
+              genero: mascota.genero.id,
+              estadoSalud: mascota.estadoSalud.id,
+              especie: mascota.especie.id,
+              raza: mascota.raza.id,
+            })
           }
-          this.formulario = this._formBuilder.group({
-            nombre: [mascota?.nombre, Validators.required],
-            fechaNacimiento: [mascota?.fechaNacimiento],
-            raza: [mascota?.raza, Validators.required],
-            color: [mascota?.color],
-            estadoSalud: [mascota?.estadoSalud, Validators.required],
-            descripcion: [mascota?.descripcion],
-            especie: [mascota?.especie, Validators.required]
-          });
         }
-      } else {
-        this.formulario = this._formBuilder.group({
-          nombre: [null, Validators.required],
-          fechaNacimiento: [null],
-          raza: [null, Validators.required],
-          color: [null],
-          estadoSalud: [null, Validators.required],
-          descripcion: [null],
-          especie: [null, Validators.required]
-        });
+        )
       }
-      this.opcionSeleccionada$ = this.formulario.get('especie')?.valueChanges || new Observable<any>();
-    });
-    this.unsubscribeAll = new Subject<void>();
-  }
+    })
+   }
+
+
 
   ngOnInit(): void {
-    this.opcionSeleccionada$.pipe(
-      takeUntil(this.unsubscribeAll)
-    ).subscribe((especie: { id: number; label: string }) => {
-      const raza = especie.label;
-      this.razaSeleccionada = this.razasGenerales[raza];
-      this.formulario.patchValue({
-        raza: null
-      });
+    this.generoService.getAllGeneros().subscribe({
+      next: generos => this.generos = generos
+    })
+
+    this.especieService.getAllEspecies().subscribe({
+      next: especies => this.especies = especies
+    })
+
+    this.estadoSaludService.getAllEstadoSalud().subscribe({
+      next: estadoSalud => this.estadoSalud = estadoSalud
+    })
+
+    this.razaService.getAllRazaByEspecieId(1).subscribe({
+      next: razas => console.log(razas)
+    })
+
+    this.razaService.getAllRazaByEspecieId(2).subscribe({
+      next: razas => console.log(razas)
+    })
+
+    this.mascotaForm.get('especie')?.valueChanges.pipe(
+      switchMap(especieId => {
+        this.razas = [];
+        return this.razaService.getAllRazaByEspecieId(especieId);
+      })
+    ).subscribe(razas => {
+      this.razas = razas;
     });
+
   }
 
-  compareFn = (especie1: any, especie2: any) => especie1 && especie2 && especie1.id === especie2.id;
 
-  crearMascota(): void {
-    if (this.formulario.valid) {
-      const mascota = { ...this.formulario.value };
-      const uuid = uuidv4();
-      mascota.id = uuid;
-    // Obtener mascotas del localStorage
-    let mascotasGuardadas: any[] = [];
-    const mascotasString = localStorage.getItem('mascotas');
-    if (mascotasString !== null) {
-      mascotasGuardadas = JSON.parse(mascotasString);
+  crearUsuario(): void {
+    if (this.mascotaForm.invalid) {
+      this.mascotaForm.markAllAsTouched();
+      return;
     }
-    // Agregar la nueva mascota al array
-    mascotasGuardadas.push(mascota);
-    // Guardar el array de mascotas en el localStorage
-    localStorage.setItem('mascotas', JSON.stringify(mascotasGuardadas));
-    // this.router.navigateByUrl(`/Mascotas/${uuid}`);
-    this.router.navigateByUrl(`/pets`);
-    // Redireccionar a la lista de mascotas
-    this.mostrarMensajeDeExito('Mascota registrada correctamente en el sistema.');
-   }
+
+    this.fillMascota();
+    this.petService.saveMascota(this.mascota).subscribe({
+      next: mascota => {
+        this.sharedService.mostrarMensaje("green", "Guardado", "Se a guardado exitosamente la mascota!!")
+        console.log(mascota)
+      },
+      error: error => {
+        this.sharedService.mostrarMensaje("red", "Error", "Hubo problemas al guardar la mascota!!")
+      }
+    })
+
   }
-
-  actualizarMascota(): void {
-    // Obtener la lista de mascotas del localStorage
-    const mascotasData = localStorage.getItem('mascotas');
-    const mascotas = mascotasData ? JSON.parse(mascotasData) : [];
-
-    // Buscar el empleado a actualizar por su ID
-    const mascotaActualizado = mascotas.find((e: any) => e.id === this.idRoute);
-
-    if (mascotaActualizado) {
-      // Actualizar los datos del empleado con los datos del formulario
-      mascotaActualizado.nombre = this.formulario.get('nombre')?.value;
-      mascotaActualizado.fechaNacimiento = this.formulario.get('fechaNacimiento')?.value;
-      mascotaActualizado.raza = this.formulario.get('raza')?.value;
-      mascotaActualizado.color = this.formulario.get('color')?.value;
-      mascotaActualizado.estadoSalud = this.formulario.get('estadoSalud')?.value;
-      mascotaActualizado.descripcion = this.formulario.get('descripcion')?.value;
-      mascotaActualizado.especie = this.formulario.get('especie')?.value;
-      // Guardar la lista actualizada en localStorage
-      localStorage.setItem('mascotas', JSON.stringify(mascotas));
-      // Mostrar mensaje de exito
-      this.mostrarMensajeDeExito('Cambios aplicados correctamente.');
+  actualizarUsuario(): void {
+    if (this.mascotaForm.invalid) {
+      this.mascotaForm.markAllAsTouched();
+      return;
     }
+
+    this.fillMascota();
+    this.petService.editMascota(parseInt(this.idRoute),this.mascota).subscribe({
+      next: mascota => {
+        this.sharedService.mostrarMensaje("green", "Modificado", "Se a modificado exitosamente la mascota!!")
+        console.log(mascota)
+      },
+      error: error => {
+        this.sharedService.mostrarMensaje("red", "Error", "No se pudo modificar la mascota!!")
+        console.log(error);
+        console.log(this.mascota)
+      }
+    })
   }
 
-  guardarMascota(goBack: boolean): void {
-    this.actualizarMascota();
-    if(goBack){
+
+  guardarUsuario(goBack: boolean): void {
+    this.actualizarUsuario();
+    if (goBack) {
       this.goBack();
     }
   }
 
+
+  fillMascota(): void {
+    this.mascota = {
+      nombre : this.mascotaForm.value.nombre,
+      color : this.mascotaForm.value.color,
+      descripcion: this.mascotaForm.value.descripcion,
+      fechaNacimiento: this.mascotaForm.value.fechaNacimiento,
+      genero : { id : this.mascotaForm.value.genero},
+      estadoSalud : { id : this.mascotaForm.value.estadoSalud},
+      especie : { id : this.mascotaForm.value.especie},
+      raza : { id : this.mascotaForm.value.raza}
+    }
+
+
+  }
+
+
+  //no tocarlo...
   goBack(): void {
     this.router.navigateByUrl('/pets');
   }
 
-  mostrarMensajeDeExito(descripcion: string): void {
-    this._sharedService.showSnackbar(
-      {
-        color: 'green',
-        title: 'Completado',
-        description: descripcion,
-        isVisible: true
-      }
-    );
-    setTimeout(() => {
-      this._sharedService.showSnackbar(
-        {
-          isVisible: false
-        }
-      );
-    }, 8000);
-  }
-
 }
+

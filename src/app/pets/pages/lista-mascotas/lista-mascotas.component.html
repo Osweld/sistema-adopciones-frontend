@@ -18,17 +18,17 @@
 
       <ng-container matColumnDef="especie">
         <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Especie </th>
-        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.especie.label}} </td>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.especie.nombre}} </td>
       </ng-container>
 
       <ng-container matColumnDef="raza">
         <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Raza </th>
-        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element?.raza?.label}} </td>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.raza.nombre}} </td>
       </ng-container>
 
       <ng-container matColumnDef="estadoSalud">
         <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Estado de Salud </th>
-        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.estadoSalud}} </td>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.estadoSalud.estado}} </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">

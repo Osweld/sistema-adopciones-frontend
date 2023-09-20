@@ -17,12 +17,19 @@ export class ValidatorsService {
   //Error personalizado
 
   birthdateValidation(control: FormControl): ValidationErrors | null {
-    const valor: Date = new Date(Date.parse(control.value))
-    const date = new Date()
-    if (valor.getFullYear() >= date.getFullYear()) {
-      return { birthdateValidation: true }
+    const valor: Date = new Date(Date.parse(control.value));
+    const today: Date = new Date();
+
+    // Establecer las horas, minutos, segundos y milisegundos a 0
+    valor.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    // Comprobar si la fecha es posterior a hoy
+    if (valor > today) {
+        return { birthdateValidation: true }
     }
-    return null
+
+    return null;
   }
 
   samePassword(field1: string, field2: string) {

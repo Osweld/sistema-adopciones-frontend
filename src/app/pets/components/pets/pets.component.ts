@@ -15,11 +15,6 @@ export class PetsComponent implements OnInit {
   constructor(private petsService:PetsService) { }
 
   ngOnInit(): void {
-
-     this.petsService.getAllMascotasByPagination(0).subscribe(page =>{
-       this.mascotas = page.content
-       console.log(this.mascotas)
-     })
   }
 
 }

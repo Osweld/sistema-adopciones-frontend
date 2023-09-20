@@ -13,12 +13,30 @@ export class PetsService {
 
   constructor(private http:HttpClient) { }
 
-  getAllMascotasByPagination(page:Number):Observable<MascotasPage>{
+  getAllMascotasPage(page:Number):Observable<MascotasPage>{
     const url = `${this.baseUrl}?page=${page}&size=10`;
     return this.http.get<MascotasPage>(url)
   }
-  getMascota(id:number){
 
-    return this.http.get<Mascota>(this.baseUrl+'/'+id);
+  getMascotaById(id:Number):Observable<Mascota>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.get<Mascota>(url)
   }
+
+  saveMascota(mascota:Mascota):Observable<Mascota>{
+    const url = `${this.baseUrl}`;
+    return this.http.post<Mascota>(url,mascota)
+  }
+
+  editMascota(id:number,mascota:Mascota):Observable<Mascota>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.put<Mascota>(url,mascota)
+  }
+
+  deleteMascotaById(id:Number):Observable<Mascota>{
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.delete<Mascota>(url)
+  }
+
+
 }

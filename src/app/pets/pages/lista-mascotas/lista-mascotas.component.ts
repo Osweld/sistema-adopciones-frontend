@@ -2,23 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
 import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import { Mascota } from '../../interfaces/pets.interface';
+import { PetsService } from '../../service/pets.service';
+import { EspecieService } from '../../service/especie.service';
 
-export interface Catalog {
-  id: number;
-  label: string;
-}
 
-export interface Mascota {
-  id?: string;
-  fechaNacimiento?: Date;
-  color?: string;
-  descripcion?: string;
-  nombre: string;
-  especie: Catalog;
-  raza: Catalog;
-  estadoSalud: string;
-}
+
+
 
 @Component({
   selector: 'app-lista-mascotas',
@@ -28,66 +18,49 @@ export interface Mascota {
 export class ListaMascotasComponent implements OnInit {
 
   displayedColumns: string[] = ['nombre', 'especie', 'raza', 'estadoSalud', 'actions'];
-  dataSource: any;
+  dataSource: Mascota[] = [];
 
   constructor(
     private router: Router,
     private _sharedService: SharedService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private petService:PetsService,
+    private especieService:EspecieService
   ) {
-    let DATA: Mascota[] = [];
-    const mascotasString = localStorage.getItem('mascotas');
-    if (mascotasString !== null) {
-      DATA = JSON.parse(mascotasString);
-      this.dataSource = DATA;
+
     }
-  }
 
   ngOnInit(): void {
+   this.petService.getAllMascotasPage(0).subscribe({
+    next: mascotaPage =>{
+      this.dataSource = mascotaPage.content;
+      console.log(mascotaPage.content)
+    },
+
+   })
   }
 
   eliminarMascota(mascotaId: string): void {
-    // Obtener la lista de mascotas del localStorage
-    const mascotasData = localStorage.getItem('mascotas');
-    const mascotas = mascotasData ? JSON.parse(mascotasData) : [];
-
-    // Buscar la mascota a eliminar por su ID
-    const mascotaToDeleteIndex = mascotas.findIndex((e: any) => e.id === mascotaId);
-
-    if (mascotaToDeleteIndex !== -1) {
-      // Eliminar la mascota que se encontró
-      mascotas.splice(mascotaToDeleteIndex, 1);
-
-      // Guardar la lista actualizada en localStorage
-      localStorage.setItem('mascotas', JSON.stringify(mascotas));
-      // Mostrar mensaje de éxito
-      this.mostrarMensajeDeExito('Mascota eliminada correctamente.');
-      //Recargar pagina
-      this.router.navigateByUrl('/pets', { skipLocationChange: true }).then(() => {
-        setTimeout(()=> {
-          window.location.reload();
-        }, 2000);
-      });
-    }
-  }
-
-  mostrarMensajeDeExito(descripcion: string): void {
-    this._sharedService.showSnackbar(
-      {
-        color: 'green',
-        title: 'Completado',
-        description: descripcion,
-        isVisible: true
+    this.petService.deleteMascotaById(parseInt(mascotaId)).subscribe({
+      next: mascota =>{
+        this._sharedService.mostrarMensaje("green","Eliminado","La mascota fue eliminado exitosamente!!");
+        this.router.navigateByUrl('/pets', { skipLocationChange: true }).then(() => {
+          setTimeout(()=> {
+            window.location.reload();
+          }, 2000);
+        });
+      },
+      error: error =>{
+        this._sharedService.mostrarMensaje("red","Error","La mascota no pudo ser eliminado!!");
       }
-    );
-    setTimeout(() => {
-      this._sharedService.showSnackbar(
-        {
-          isVisible: false
-        }
-      );
-    }, 8000);
+    })
+
+
   }
+
+
+
+
 
   openDialog(mascotaId: string): void {
     const dialogRef = this.dialog.open(DialogComponent, {
