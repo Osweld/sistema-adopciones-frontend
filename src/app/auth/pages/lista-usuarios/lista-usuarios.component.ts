@@ -1,24 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
-import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/auth.interface';
 
-
-export interface Catalog {
-  id: number;
-  label: string;
-}
-
-export interface Usuario {
-  id?: string;
-  alias: string;
-  nombre: string;
-  email: string;
-  clave: string;
-}
 
 @Component({
   selector: 'app-lista-usuarios',
@@ -35,14 +21,7 @@ export class ListaUsuariosComponent implements OnInit {
     private _sharedService: SharedService,
     public dialog: MatDialog,
     private userService:UserService
-  ) {
-    let DATA: Usuario[] = [];
-    const usuariosString = localStorage.getItem('usuarios');
-    if (usuariosString !== null) {
-      DATA = JSON.parse(usuariosString);
-
-    }
-   }
+  ) {}
 
   ngOnInit(): void {
     this.userService.getUserWithPagination(0).subscribe(page =>{

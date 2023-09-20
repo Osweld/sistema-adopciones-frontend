@@ -1,80 +1,131 @@
-
 <div class="flex flex-col justify-center items-center my-10 mx-24">
+
   <app-floating-button></app-floating-button>
-  <mat-card class="w-full h-full">
-    <mat-card-content>
-      <div class="">
-        <div class="flex flex-row justify-between pb-5">
-          <div class="text-2xl font-medium text-yellow-500">
-            Agregar una nueva Mascota
+
+    <mat-card class="w-full h-full">
+      <mat-card-content>
+        <div class="">
+          <div class="flex flex-row justify-between pb-5">
+            <div class="text-2xl font-medium text-yellow-500">
+              {{idRoute ? 'Modificar Mascota' : 'Agregar Mascota'}}
+            </div>
+            <div class="flex flex-row gap-4">
+              <div>
+                <button (click)="goBack()" mat-raised-button class="text-yellow-500 text-lg">Regresar</button>
+              </div>
+              <div *ngIf="!idRoute">
+                <button [disabled]="mascotaForm.invalid" (click)="crearUsuario()" mat-raised-button class="bg-yellow-500 text-white text-lg">Crear Mascota</button>
+              </div>
+              <div *ngIf="idRoute">
+                <button (click)="guardarUsuario(false)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
+              </div>
+              <div *ngIf="idRoute">
+                <button (click)="guardarUsuario(true)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar y salir</button>
+              </div>
+            </div>
           </div>
-          <div class="flex flex-row gap-4">
-            <div>
-              <button (click)="goBack()" mat-raised-button class="text-yellow-500 text-lg">Regresar</button>
-            </div>
-            <div *ngIf="!idRoute">
-              <button [disabled]="formulario.invalid" (click)="crearMascota()" mat-raised-button class="bg-yellow-500 text-white text-lg">Crear Mascota</button>
-            </div>
-            <div *ngIf="idRoute">
-              <button (click)="guardarMascota(false)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
-            </div>
-            <div *ngIf="idRoute">
-              <button (click)="guardarMascota(true)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar y salir</button>
-            </div>
+          <div [formGroup]="mascotaForm" class="flex flex-row flex-wrap">
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" required>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.nombre">
+                <span *ngIf="mascotaForm.get('nombre')?.hasError(validation.type) &&
+                (mascotaForm.get('nombre')?.dirty || mascotaForm.get('nombre')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Color</mat-label>
+              <input matInput formControlName="color" required>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.color">
+                <span *ngIf="mascotaForm.get('color')?.hasError(validation.type) &&
+                (mascotaForm.get('color')?.dirty || mascotaForm.get('color')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Fecha de Nacimiento</mat-label>
+              <input matInput readonly="true" [matDatepicker]="picker" formControlName="fechaNacimiento" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.fechaNacimiento">
+                <span *ngIf="mascotaForm.get('fechaNacimiento')?.hasError(validation.type) &&
+                (mascotaForm.get('fechaNacimiento')?.dirty || mascotaForm.get('fechaNacimiento')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Genero</mat-label>
+              <mat-select formControlName="genero">
+                <mat-option *ngFor="let genero of generos" [value]="genero.id">
+                  {{genero.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.genero">
+                <span *ngIf="mascotaForm.get('genero')?.hasError(validation.type) &&
+                (mascotaForm.get('genero')?.dirty || mascotaForm.get('genero')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Estado de Salud</mat-label>
+              <mat-select formControlName="estadoSalud">
+                <mat-option *ngFor="let estado of estadoSalud" [value]="estado.id">
+                  {{estado.estado}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.estadoSalud">
+                <span *ngIf="mascotaForm.get('estadoSalud')?.hasError(validation.type) &&
+                (mascotaForm.get('estadoSalud')?.dirty || mascotaForm.get('estadoSalud')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Especie</mat-label>
+              <mat-select formControlName="especie">
+                <mat-option *ngFor="let especie of especies" [value]="especie.id">
+                  {{especie.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.genero">
+                <span *ngIf="mascotaForm.get('especie')?.hasError(validation.type) &&
+                (mascotaForm.get('especie')?.dirty || mascotaForm.get('especie')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Raza</mat-label>
+              <mat-select formControlName="raza">
+                <mat-option *ngFor="let raza of razas" [value]="raza.id">
+                  {{raza.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.genero">
+                <span *ngIf="mascotaForm.get('raza')?.hasError(validation.type) &&
+                (mascotaForm.get('raza')?.dirty || mascotaForm.get('raza')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Descripcion</mat-label>
+              <textarea matInput formControlName="descripcion" required></textarea>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.color">
+                <span *ngIf="mascotaForm.get('descripcion')?.hasError(validation.type) &&
+                (mascotaForm.get('descripcion')?.dirty || mascotaForm.get('descripcion')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
           </div>
         </div>
-        <div [formGroup]="formulario" class="flex flex-row flex-wrap">
-          <mat-form-field appearance="outline" class="w-1/2 p-2">
-            <mat-label>Nombre</mat-label>
-            <input matInput formControlName="nombre" required>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-1/2 p-2">
-            <mat-label>Fecha de Nacimiento</mat-label>
-            <input matInput readonly="true" [matDatepicker]="picker" formControlName="fechaNacimiento" required>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-1/2 p-2">
-            <mat-label>Especie</mat-label>
-            <mat-select formControlName="especie" [compareWith]="compareFn">
-              <mat-option *ngFor="let especie of especies" [value]="especie">
-                {{especie.label}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-1/2 p-2">
-            <mat-label>Raza</mat-label>
-            <mat-select formControlName="raza" [compareWith]="compareFn">
-              <mat-option *ngFor="let raza of razaSeleccionada" [value]="raza">
-                {{raza.label}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-1/2 p-2">
-            <mat-label>Color</mat-label>
-            <input matInput formControlName="color">
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-1/2 p-2">
-            <mat-label>Estado de Salud</mat-label>
-            <mat-select formControlName="estadoSalud">
-              <mat-option *ngFor="let estadoSalud of estadosDeSalud" [value]="estadoSalud">
-                {{estadoSalud}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="w-full p-2">
-            <mat-label>Descripción</mat-label>
-            <textarea matInput formControlName="descripcion"></textarea>
-          </mat-form-field>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-  <div>
-</div>
+      </mat-card-content>
+    </mat-card>
+    <div>
+  </div>
