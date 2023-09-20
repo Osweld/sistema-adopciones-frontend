@@ -12,19 +12,55 @@
         </div>
     </div>
 </div>
--->
 
 <div class="row">
     <div class="col-md-4 p-4" *ngFor="let mascota of mascotas">
         <div class="card card-photo" (click)="selectedCard(mascota.id!)">
-
                 <img [src]="mascota.fotoPrincipal" class="img-card-top w-100">
             <div class="card-header">
-                <h1>{{mascota.nombre}}
-                    <h4>Fecha de nacimiento: {{mascota.fechaNacimiento}}</h4>
+                <h1 class="text-center">{{mascota.especie.nombre}}
+                    <h5>Estado de salud: {{mascota.estadoSalud.estado}}</h5>
                 </h1>
+                <h3>{{mascota.descripcion}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+-->
 
-                <h2>{{mascota.descripcion}}</h2>
+<div class="row">
+    <div class="col-md-4 p-4" *ngFor="let mascota of mascotas">
+        <div class="cardFr">
+            <div class="card-main">
+                <div class="nombreF">{{mascota.nombre}}</div>
+                <div class="labelF label-green">Me encantaría ser parte de tú familia</div>
+                <!-- Para luego adjuntar más fotografías
+                <div class="pet-container"></div>
+                -->
+                <div class="image-pet">
+                    <img [src]="mascota.fotoPrincipal" alt="imagen-pet">
+                </div>
+                <div class="menu-line"></div>
+                <div class="menu-item">
+                    <ul>
+                        <li>
+                            <p><i class="fa fa-file"></i></p>
+                            <p><i class="fa fa-star"></i></p>
+                            <p><i class="fa fa-search-plus"></i></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="contentF">
+                <p>
+                    <span class="raza"> {{mascota.raza.nombre}}</span>
+                    <span class="especie"> ({{mascota.especie.nombre}})</span>
+                </p>
+            </div>
+            <div class="contentF2">
+                <p>
+                    <span class="descripcion">{{mascota.descripcion}}</span>
+                </p>
             </div>
         </div>
     </div>
