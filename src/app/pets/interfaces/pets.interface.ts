@@ -12,7 +12,7 @@ export interface MascotasPage {
   empty:            boolean;
 }
 
-export interface Mascota {
+export interface Mascota 
   id?:              number;
   nombre:          string;
   fechaNacimiento: Date;

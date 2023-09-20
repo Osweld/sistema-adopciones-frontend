@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PreviewMascotasComponent } from './pets/pages/preview-mascotas/preview-mascotas.component';
 
 
 

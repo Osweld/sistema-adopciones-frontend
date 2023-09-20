@@ -1,0 +1,31 @@
+<!--
+<div class="row">
+    <div class="col-md-4 p-4" *ngFor="let mascota of mascotas">
+        <div class="card card-photo" (click)="selectedCard(mascota.id)">
+            <div class="card-header">
+                {{mascota.nombre}}
+            </div>
+                <img [src]="mascota.fotoPrincipal" class="img-card-top w-100">
+            <div class="card-header">
+                {{mascota.descripcion}}
+            </div>
+        </div>
+    </div>
+</div>
+-->
+
+<div class="row">
+    <div class="col-md-4 p-4" *ngFor="let mascota of mascotas">
+        <div class="card card-photo" (click)="selectedCard(mascota.id)">
+
+                <img [src]="mascota.fotoPrincipal" class="img-card-top w-100">
+            <div class="card-header">
+                <h1>{{mascota.nombre}}
+                    <h4>Fecha de nacimiento: {{mascota.fechaNacimiento}}</h4>
+                </h1>
+                
+                <h2>{{mascota.descripcion}}</h2>
+            </div>
+        </div>
+    </div>
+</div>
