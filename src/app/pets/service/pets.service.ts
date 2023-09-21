@@ -38,5 +38,10 @@ export class PetsService {
     return this.http.delete<Mascota>(url)
   }
 
+  uploadFotoPrincipal(id:Number,fd:FormData):Observable<Mascota>{
+    const url = `${this.baseUrl}/foto-perfil/${id}`;
+    return this.http.post<Mascota>(url,fd)
+  }
+
 
 }

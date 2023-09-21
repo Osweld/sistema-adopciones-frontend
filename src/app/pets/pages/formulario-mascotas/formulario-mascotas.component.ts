@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, switchMap, takeUntil } from 'rxjs';
@@ -79,14 +79,16 @@ export class FormularioMascotasComponent implements OnInit {
     private validatorService: ValidatorsService,
     private router: Router,
     private route: ActivatedRoute,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    private cdr: ChangeDetectorRef
   ) {
     this.route.params.subscribe(params => {
       if (params["id"]) {
         this.idRoute = params["id"];
         this.petService.getMascotaById(parseInt(this.idRoute)).subscribe({
           next: mascota => {
-            this.mascota = this.mascota;
+            this.mascota = mascota;
+            this.cdr.markForCheck();
             this.mascotaForm.reset({
               nombre: mascota.nombre,
               color: mascota.color,

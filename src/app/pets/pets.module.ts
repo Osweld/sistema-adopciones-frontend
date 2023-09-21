@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { PetsRoutingModule } from './pets-routing.module';
 import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -22,6 +22,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from '../shared/shared.module';
 import { GaleriaMascotasComponent } from './pages/galeria-mascotas/galeria-mascotas.component';
 import { PreviewMascotasComponent } from './pages/preview-mascotas/preview-mascotas.component';
+import { UploadPhotosComponent } from './components/upload-photos/upload-photos.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PreviewMascotasComponent } from './pages/preview-mascotas/preview-masco
     PetsComponent,
     DialogComponent,
     GaleriaMascotasComponent,
-    PreviewMascotasComponent
+    PreviewMascotasComponent,
+    UploadPhotosComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { PreviewMascotasComponent } from './pages/preview-mascotas/preview-masco
     MatTableModule,
     MatIconModule,
     MatDialogModule,
-    SharedModule
+    SharedModule,
+
   ]
 })
 export class PetsModule { }

@@ -1,0 +1,13 @@
+<div class="flex flex-col items-center">
+  <!-- Vista previa de la imagen -->
+  <img *ngIf="imagePreview" [src]="imagePreview" alt="Image Preview" class="w-32 h-32 mt-5 rounded-full shadow-md">
+
+  <!-- Botón para seleccionar archivo -->
+  <button mat-raised-button class="mt-5">
+    <input id="fileInput" type="file" class="hidden-input" (change)="onFileSelected($event)" accept="image/*">
+    <label for="fileInput" mat-raised-button>Seleccionar foto principal</label>
+  </button>
+  <button *ngIf="selectedFile && !CompareOldNewImages()" mat-raised-button class="mt-5" color="primary" (click)="upload()">Subir Foto</button>
+</div>
+
+
