@@ -4171,7 +4171,7 @@ textarea.form-control-lg {
   --bs-card-cap-padding-x: 1rem;
   --bs-card-cap-bg: rgba(0, 0, 0, 0.05);
   --bs-card-cap-color: ;
-  --bs-card-height:;
+  --bs-card-height: ;
   --bs-card-color: ;
   --bs-card-bg: #fff;
   --bs-card-img-overlay-padding: 1rem;
@@ -11311,7 +11311,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   line-height: 45px;
   background: var(--bs-secondary);
   transition: all 1s ease-in-out;
-  opacity: 0;
+  opacity: 0.5;
   position: relative;
   top: -20px;
 }
