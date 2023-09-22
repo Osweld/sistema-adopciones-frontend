@@ -10,4 +10,21 @@
   <button *ngIf="selectedFile && !CompareOldNewImages()" mat-raised-button class="mt-5" color="primary" (click)="upload()">Subir Foto</button>
 </div>
 
+<div class="flex flex-col items-center">
+
+  <button mat-raised-button class="mt-5">
+    <input id="filesInput" type="file" class="hidden-input" (change)="onFilesSelected($event)" accept="image/*" multiple>
+    <label for="filesInput" mat-raised-button>Seleccionar maximo 4 fotos</label>
+  </button>
+  <button *ngIf="abiliteUploadMultipleFotos" mat-raised-button class="mt-5" color="primary" (click)="uploadMultiplePhotos()">Subir Fotos</button>
+<div>
+  <div class="flex flex-row justify-between items-center" *ngIf="uploadedImages.length > 0">
+    <img *ngFor="let image of uploadedImages" [src]="image" class="w-32 h-32 mx-8 mt-5 rounded-full shadow-md">
+  </div>
+
+</div>
+
+
+</div>
+
 

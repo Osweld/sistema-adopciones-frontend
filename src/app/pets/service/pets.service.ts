@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Mascota, MascotasPage } from '../interfaces/pets.interface';
+import { Foto, Mascota, MascotasPage } from '../interfaces/pets.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -41,6 +41,16 @@ export class PetsService {
   uploadFotoPrincipal(id:Number,fd:FormData):Observable<Mascota>{
     const url = `${this.baseUrl}/foto-perfil/${id}`;
     return this.http.post<Mascota>(url,fd)
+  }
+
+  uploadFotos(id:Number,fd:FormData):Observable<Mascota>{
+    const url = `${this.baseUrl}/fotos/${id}`;
+    return this.http.post<Mascota>(url,fd)
+  }
+
+  getFotosByMascotaId(id:Number):Observable<Foto[]>{
+    const url = `${this.baseUrl}/fotos/${id}`;
+    return this.http.get<Foto[]>(url)
   }
 
 

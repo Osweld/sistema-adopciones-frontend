@@ -60,3 +60,9 @@ export interface Sort {
   sorted:   boolean;
   unsorted: boolean;
 }
+
+export interface Foto{
+  id:     number;
+  link: string;
+  mascota:Mascota;
+}

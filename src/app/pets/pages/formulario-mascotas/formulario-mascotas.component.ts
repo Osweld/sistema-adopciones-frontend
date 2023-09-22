@@ -121,14 +121,6 @@ export class FormularioMascotasComponent implements OnInit {
       next: estadoSalud => this.estadoSalud = estadoSalud
     })
 
-    this.razaService.getAllRazaByEspecieId(1).subscribe({
-      next: razas => console.log(razas)
-    })
-
-    this.razaService.getAllRazaByEspecieId(2).subscribe({
-      next: razas => console.log(razas)
-    })
-
     this.mascotaForm.get('especie')?.valueChanges.pipe(
       switchMap(especieId => {
         this.razas = [];
