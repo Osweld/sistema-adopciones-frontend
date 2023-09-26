@@ -7,10 +7,17 @@
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header"><h1 class="text-center palette-5 font-weight-light my-4">Login</h1></div>
                                 <div class="card-body">
+                                    <div *ngIf="valida; else login">
+                                        <p style="text-align: center">Bienvenido {{usu1}}</p>
+                                    </div>
+                                    <ng-template #login >
+                                       <p style="text-align: center; color:darkslategray">{{msj}}</p>
+                                    </ng-template>
                                     <form [formGroup]="ingreso" (ngSubmit)="submitFormulario()">
                                         <mat-form-field appearance="outline" class="w-full p-2">
                                             <mat-label>Usuario</mat-label>
                                             <input matInput formControlName="usuario" type="text"
+                                            #boxU
                                             [class.is-invalid]="f.usuario.errors && f.usuario.touched" required>
                                             <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                                 Usuario obligatorio
@@ -19,6 +26,7 @@
                                         <mat-form-field appearance="outline" class="w-full p-2">
                                             <mat-label>Contraseña</mat-label>
                                             <input matInput formControlName="password" type="password"
+                                            #boxP
                                             [class.is-invalid]="f.password.errors && f.password.touched" required>
                                             <div id="validationServerUsernameFeedback" class="invalid-feedback">
                                                 Contraseña obligatoria
@@ -30,10 +38,13 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="password.html">Olvidaste tu contraseña?</a>
-                                            <button class="btn btn-primary" routerLink='/Bienvenido'>Ingresar</button>
+                                            <button class="btn btn-primary" (click)="getValues(boxU.value,boxP.value)">Ingresar</button>
                                         </div>
                                     </form>
                                 </div>
+
+                                
+                                
                                 <div class="d-flex card-footer align-items-center justify-content-between py-3">
                                     <div class="small"><a href="#" routerLink="/Registro">No tienes cuenta? creala acá!</a></div>
                                     <button class="btn btn-secondary" routerLink="../">Volver</button>
