@@ -53,5 +53,9 @@ export class PetsService {
     return this.http.get<Foto[]>(url)
   }
 
+  getFotos():Observable<Foto[]>{
+    const url = `${this.baseUrl}/fotos`;
+    return this.http.get<Foto[]>(url)
+  }
 
 }
