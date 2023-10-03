@@ -30,13 +30,18 @@
 <app-floating-button></app-floating-button>
 <div class="row">
     <div class="col-md-4 p-4" *ngFor="let mascota of mascotas">
+        {{valorI(mascota.id!)}}
         <div class="cardFr">
             <div class="card-main">
                 <div class="nombreF">{{mascota.nombre}}</div>
                 <div class="labelF label-green">Me encantaría ser parte de tú familia</div>
-                <!-- Para luego adjuntar más fotografías
-                <div class="pet-container"></div>
-                -->
+                <!-- Para luego adjuntar más fotografías-->
+                <div class="pet-container">
+                    <div class="p" *ngFor="let foto of filtrarFotosPorId(i)">
+                        <img [src]="foto.link" alt="imagen-pet" id="{{foto.id}}" class="imagenSec">
+                    </div>
+                </div>
+                
                 <div class="image-pet">
                     <img [src]="mascota.fotoPrincipal" alt="imagen-pet">
                 </div>

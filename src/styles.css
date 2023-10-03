@@ -11245,6 +11245,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   
 }
 
+.cardFr:hover .pet-container{
+  opacity: 1;
+  right: 10px;
+}
+
 .card-main{
   position: relative;
 }
@@ -11396,3 +11401,39 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-align: justify;
 }
 
+.pet-container{
+  position: absolute;
+  right: -40px;
+  top: 10px;
+  z-index: 4;
+  transition: 0.6s;
+  opacity: 0;
+}
+
+.p{
+  border: 1px solid rgb(233, 233, 233);
+  border-radius: 2px;
+  height: 100%;
+  width: 80px;
+  cursor: pointer;
+}
+
+.p img{
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.imagenSec{
+  z-index: 4;
+}
+
+.imagenSec:hover{
+  position: relative;
+  opacity: 1;
+  transition: 1.5s;
+  transform: scale(4) translate(-30px,15px);
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid var(--bs-secondary);
+}
