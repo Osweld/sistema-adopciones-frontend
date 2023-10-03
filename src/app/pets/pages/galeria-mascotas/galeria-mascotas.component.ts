@@ -16,6 +16,8 @@ export class GaleriaMascotasComponent implements OnInit {
   fotos: Foto[] = [];
   uploadedImages: any[] = [];
   i=1;
+  
+  
 
   constructor(
     private PetsService: PetsService,

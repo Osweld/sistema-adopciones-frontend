@@ -37,9 +37,9 @@
                 <div class="labelF label-green">Me encantaría ser parte de tú familia</div>
                 <!-- Para luego adjuntar más fotografías-->
                 <div class="pet-container">
-                    <div *ngFor="let foto of filtrarFotosPorId(i)">
-                        <img [src]="foto.link" alt="imagen-pet">
-                      </div>
+                    <div class="p" *ngFor="let foto of filtrarFotosPorId(i)">
+                        <img [src]="foto.link" alt="imagen-pet" id="{{foto.id}}" class="imagenSec">
+                    </div>
                 </div>
                 
                 <div class="image-pet">
