@@ -16,8 +16,8 @@ export class GaleriaMascotasComponent implements OnInit {
   fotos: Foto[] = [];
   uploadedImages: any[] = [];
   i=1;
-  
-  
+
+
 
   constructor(
     private PetsService: PetsService,
@@ -58,8 +58,6 @@ export class GaleriaMascotasComponent implements OnInit {
         })
       });
 */
-    console.log("hola",this.uploadedImages)
-
   }
 
   selectedCard(id: number){
@@ -71,7 +69,6 @@ export class GaleriaMascotasComponent implements OnInit {
   }
 
   filtrarFotosPorId(id: number): Foto[]{
-    console.warn("valor de i = ",id)
     return this.uploadedImages.filter(foto => foto.mascota.id == id);
   }
 

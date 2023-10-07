@@ -6,6 +6,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SessionButtonsComponent } from './components/session-buttons/session-buttons.component';
 
 
 
@@ -13,7 +14,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   declarations: [
     FloatingButtonComponent,
     CustomSnackBarComponent,
-    FooterComponent
+    FooterComponent,
+    SessionButtonsComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   exports: [
     FloatingButtonComponent,
     CustomSnackBarComponent,
-    FooterComponent
+    FooterComponent,
+    SessionButtonsComponent
 
   ]
 

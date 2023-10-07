@@ -1,32 +1,4 @@
-<!--
-<div class="row">
-    <div class="col-md-4 p-4" *ngFor="let mascota of mascotas">
-        <div class="card card-photo" (click)="selectedCard(mascota.id)">
-            <div class="card-header">
-                {{mascota.nombre}}
-            </div>
-                <img [src]="mascota.fotoPrincipal" class="img-card-top w-100">
-            <div class="card-header">
-                {{mascota.descripcion}}
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-4 p-4" *ngFor="let mascota of mascotas">
-        <div class="card card-photo" (click)="selectedCard(mascota.id!)">
-                <img [src]="mascota.fotoPrincipal" class="img-card-top w-100">
-            <div class="card-header">
-                <h1 class="text-center">{{mascota.especie.nombre}}
-                    <h5>Estado de salud: {{mascota.estadoSalud.estado}}</h5>
-                </h1>
-                <h3>{{mascota.descripcion}}</h3>
-            </div>
-        </div>
-    </div>
-</div>
--->
 <app-floating-button></app-floating-button>
 <div class="row">
     <div class="col-md-4 p-4" *ngFor="let mascota of mascotas">
@@ -41,7 +13,7 @@
                         <img [src]="foto.link" alt="imagen-pet" id="{{foto.id}}" class="imagenSec">
                     </div>
                 </div>
-                
+
                 <div class="image-pet">
                     <img [src]="mascota.fotoPrincipal" alt="imagen-pet">
                 </div>

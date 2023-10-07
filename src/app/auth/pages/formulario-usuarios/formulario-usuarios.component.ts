@@ -79,10 +79,10 @@ export class FormularioUsuariosComponent implements OnInit {
       { type: 'samePassword', message: 'Los password no coinciden' }
     ],
     'genero': [
-      { type: 'required', message: 'La direccion no puede quedar vacia.' }
+      { type: 'required', message: 'El genero no puede quedar vacia.' }
     ],
     'rol': [
-      { type: 'required', message: 'La direccion no puede quedar vacia.' }
+      { type: 'required', message: 'El rol no puede quedar vacia.' }
     ],
   }
 
@@ -163,11 +163,9 @@ export class FormularioUsuariosComponent implements OnInit {
     this.userService.editUser(parseInt(this.idRoute),this.user).subscribe({
       next: user => {
         this._sharedService.mostrarMensaje("green", "Modificado", "Se a modificado exitosamente el usuario!!")
-        console.log(user)
       },
       error: error => {
         this._sharedService.mostrarMensaje("red", "Error", "No se pudo modificar el usuario!!")
-        console.log(error);
         console.log(this.user)
       }
     })
