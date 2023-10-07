@@ -1,5 +1,5 @@
 export interface LoginResponse {
-  expiration: number;
+  expiration: Date;
   user:       User;
   token:      string;
 }
