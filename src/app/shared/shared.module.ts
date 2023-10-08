@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SessionButtonsComponent } from './components/session-buttons/session-buttons.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 
@@ -15,7 +16,8 @@ import { SessionButtonsComponent } from './components/session-buttons/session-bu
     FloatingButtonComponent,
     CustomSnackBarComponent,
     FooterComponent,
-    SessionButtonsComponent
+    SessionButtonsComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { SessionButtonsComponent } from './components/session-buttons/session-bu
     FloatingButtonComponent,
     CustomSnackBarComponent,
     FooterComponent,
-    SessionButtonsComponent
+    SessionButtonsComponent,
+    LogoutComponent
 
   ]
 

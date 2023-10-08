@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class SharedService {
   showSnackbar(data: SnackbarData) {
     this.snackbarSubject.next(data);
   }
-  constructor() { }
+  constructor(private jwtHelper: JwtHelperService) { }
 // Se peude mejorar mas por el momento asi para no hacer que las otras clases
 // que lo implementan generen errorer
   mostrarMensaje(color:string,title:string,descripcion: string): void {
@@ -34,6 +35,25 @@ export class SharedService {
       );
     }, 8000);
   }
+
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token && !this.jwtHelper.isTokenExpired(token);
+  }
+
+  getRol():string{
+    const token = localStorage.getItem('token');
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      // Parseamos el campo "authorities" para obtenerlo como un objeto/array JavaScript
+      const rol = JSON.parse(decodedToken.authorities)[0]
+      const roleValue = rol.authority;
+      return roleValue;
+    }
+    return "";
+  }
+
 }
 
 export interface SnackbarData {

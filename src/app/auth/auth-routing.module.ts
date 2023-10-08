@@ -5,14 +5,16 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { ListaUsuariosComponent } from './pages/lista-usuarios/lista-usuarios.component';
 import { FormularioUsuariosComponent } from './pages/formulario-usuarios/formulario-usuarios.component';
 import { AuthComponent } from './components/auth/auth.component';
+import { AuthGuard } from '../core/guards/auth.guard';
+import { LoggedInGuard } from '../core/guards/logged-in.guard';
 
 export const routes: Routes = [
   { path:'',component: AuthComponent,children : [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegistroComponent },
-    { path: 'listaUsuario', component: ListaUsuariosComponent },
-    { path: 'formUsuario', component: FormularioUsuariosComponent},
-    { path: 'edit/:id', component: FormularioUsuariosComponent}
+    { path: 'login', component: LoginComponent,canActivate:[LoggedInGuard],canLoad:[LoggedInGuard] },
+    { path: 'register', component: RegistroComponent,canActivate:[LoggedInGuard],canLoad:[LoggedInGuard]},
+    { path: 'listaUsuario', component: ListaUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
+    { path: 'formUsuario', component: FormularioUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
+    { path: 'edit/:id', component: FormularioUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}}
 
   ]},
 ];

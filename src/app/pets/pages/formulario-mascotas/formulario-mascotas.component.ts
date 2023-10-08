@@ -143,7 +143,7 @@ export class FormularioMascotasComponent implements OnInit {
     this.petService.saveMascota(this.mascota).subscribe({
       next: mascota => {
         this.sharedService.mostrarMensaje("green", "Guardado", "Se a guardado exitosamente la mascota!!")
-        console.log(mascota)
+        this.router.navigate(['/pets'])
       },
       error: error => {
         this.sharedService.mostrarMensaje("red", "Error", "Hubo problemas al guardar la mascota!!")
@@ -161,12 +161,11 @@ export class FormularioMascotasComponent implements OnInit {
     this.petService.editMascota(parseInt(this.idRoute),this.mascota).subscribe({
       next: mascota => {
         this.sharedService.mostrarMensaje("green", "Modificado", "Se a modificado exitosamente la mascota!!")
-        console.log(mascota)
+        this.router.navigate(['/pets'])
+
       },
       error: error => {
         this.sharedService.mostrarMensaje("red", "Error", "No se pudo modificar la mascota!!")
-        console.log(error);
-        console.log(this.mascota)
       }
     })
   }

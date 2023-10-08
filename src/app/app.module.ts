@@ -7,8 +7,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from "./shared/shared.module";
 import { CoreModule } from './core/core.module';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
+export function tokenGetter() {
+  const token = localStorage.getItem('token');
+  return `${token}`;
+}
 
 
 @NgModule({
@@ -24,7 +29,14 @@ import { CoreModule } from './core/core.module';
         AppRoutingModule,
         BrowserModule,
         SharedModule,
-        CoreModule
+        CoreModule,
+        JwtModule.forRoot({
+          config: {
+            tokenGetter: tokenGetter,
+            allowedDomains: ['localhost:8080'],
+            disallowedRoutes: ['localhost:8080/api/v1/auth']
+          }
+        })
     ]
 })
 export class AppModule { }

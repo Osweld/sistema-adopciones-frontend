@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../interfaces/shared.interface';
+import { SharedService } from '../../Servicios/shared.service';
 
 @Component({
   selector: 'app-floating-button',
@@ -7,8 +8,14 @@ import { MenuItem } from '../../interfaces/shared.interface';
   styleUrls: ['./floating-button.component.css']
 })
 export class FloatingButtonComponent implements OnInit {
+  isLoggedIn:boolean = false;
+  getUserRol:string = "";
 
-  constructor() { }
+
+  constructor(private sharedService:SharedService ) {
+    this.isLoggedIn = this.sharedService.isLoggedIn();
+    this.getUserRol = this.sharedService.getRol()
+   }
 
   menu:MenuItem[] = [
     {

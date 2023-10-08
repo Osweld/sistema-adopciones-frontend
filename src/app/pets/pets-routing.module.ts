@@ -5,14 +5,15 @@ import { FormularioMascotasComponent } from './pages/formulario-mascotas/formula
 import { PetsComponent } from './components/pets/pets.component';
 import { GaleriaMascotasComponent } from './pages/galeria-mascotas/galeria-mascotas.component';
 import { PreviewMascotasComponent } from './pages/preview-mascotas/preview-mascotas.component';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   { path:'',component: PetsComponent,children : [
-    { path: '', component: ListaMascotasComponent },
-    { path: 'new', component: FormularioMascotasComponent },
+    { path: '', component: ListaMascotasComponent , canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
+    { path: 'new', component: FormularioMascotasComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
     { path: 'galeria', component: GaleriaMascotasComponent },
-    { path: 'preview/:id', component: PreviewMascotasComponent },
-    { path: 'edit/:id', component: FormularioMascotasComponent }
+    { path: 'preview/:id', component: PreviewMascotasComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']} },
+    { path: 'edit/:id', component: FormularioMascotasComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']} }
   ]},
 ];
 

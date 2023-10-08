@@ -1,22 +1,22 @@
 <div class="app">
   <input type="checkbox" id="btn-mas">
   <div class="redes">
-      <a href="#" routerLink="/login" matTooltip="Ingresa a tú cuenta" matTooltipPosition="left"><i class="fas fa-user"></i></a>
+      <a href="#" *ngIf="!isLoggedIn" routerLink="/login" matTooltip="Ingresa a tú cuenta" matTooltipPosition="left"><i class="fas fa-user"></i></a>
   </div>
   <div class="redes">
-      <a href="#" routerLink="/register" matTooltip="Registrate" matTooltipPosition="left"><i class="fas fa-pen"></i></a>
+      <a href="#" *ngIf="!isLoggedIn" routerLink="/register" matTooltip="Registrate" matTooltipPosition="left"><i class="fas fa-pen"></i></a>
   </div>
   <div class="redes">
-    <a href="#" routerLink="/listaUsuario" matTooltip="Lista de usuarios" matTooltipPosition="left"><i class="fas fa-list"></i></a>
+    <a href="#" *ngIf="isLoggedIn && (getUserRol === 'ROLE_ADMIN' || getUserRol === 'ROLE_MANAGER')" routerLink="/listaUsuario" matTooltip="Lista de usuarios" matTooltipPosition="left"><i class="fas fa-list"></i></a>
   </div>
   <div class="redes">
-      <a href="#" routerLink="/pets" matTooltip="Administra las mascotas" matTooltipPosition="left"><i class="fas fa-paw"></i></a>
+      <a href="#" *ngIf="isLoggedIn && (getUserRol === 'ROLE_ADMIN' || getUserRol === 'ROLE_MANAGER')" routerLink="/pets" matTooltip="Administra las mascotas" matTooltipPosition="left"><i class="fas fa-paw"></i></a>
   </div>
   <div class="redes">
-    <a href="#" routerLink="/pets/galeria" matTooltip="Galería de mascotas" matTooltipPosition="left"><i class="fas fa-th"></i></a>
+    <a href="#" *ngIf="isLoggedIn" routerLink="/pets/galeria" matTooltip="Galería de mascotas" matTooltipPosition="left"><i class="fas fa-th"></i></a>
   </div>
   <div class="btn-mas">
-      <label for="btn-mas" matTooltip="Ingresa a tú cuenta o crea una nueva!" matTooltipPosition="left"><i class="fas fa-heart"></i></label>
+      <label for="btn-mas" matTooltip="Da click para ver mas opciones!!" matTooltipPosition="left"><i class="fas fa-heart"></i></label>
   </div>
 </div>
 

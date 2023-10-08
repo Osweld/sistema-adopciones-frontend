@@ -7,7 +7,8 @@
   </div>
 
   <div class="collapse visible navbar-collapse flex flex-row-reverse" id="navbarResponsive">
-    <app-session-buttons></app-session-buttons>
+    <app-session-buttons *ngIf="!isLoggedIn"></app-session-buttons>
+    <app-logout *ngIf="isLoggedIn"></app-logout>
   </div>
 
 

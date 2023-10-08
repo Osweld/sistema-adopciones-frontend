@@ -145,7 +145,7 @@ export class FormularioUsuariosComponent implements OnInit {
     this.userService.saveUser(this.user).subscribe({
       next: user => {
         this._sharedService.mostrarMensaje("green", "Guardado", "Se a guardado exitosamente el usuario!!")
-        console.log(user)
+        this.router.navigate(['/listaUsuario'])
       },
       error: error => {
         this._sharedService.mostrarMensaje("red", "Error", "Hubo problemas al guardar el usuario!!")
@@ -163,6 +163,7 @@ export class FormularioUsuariosComponent implements OnInit {
     this.userService.editUser(parseInt(this.idRoute),this.user).subscribe({
       next: user => {
         this._sharedService.mostrarMensaje("green", "Modificado", "Se a modificado exitosamente el usuario!!")
+        this.router.navigate(['/listaUsuario'])
       },
       error: error => {
         this._sharedService.mostrarMensaje("red", "Error", "No se pudo modificar el usuario!!")

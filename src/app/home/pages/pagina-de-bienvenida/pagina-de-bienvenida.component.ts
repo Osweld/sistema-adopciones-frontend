@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
+import { SharedService } from 'src/app/shared/Servicios/shared.service';
 
 @Component({
   selector: 'app-pagina-de-bienvenida',
@@ -11,11 +12,16 @@ export class PaginaDeBienvenidaComponent implements OnInit {
 
   oneTimeSubscription: boolean = true;
   chosenAmount?: number;
+  isLoggedIn:boolean = false;
 
   constructor(
     private elementRef: ElementRef,
-    private _formBuilder: FormBuilder
-  ) {}
+    private _formBuilder: FormBuilder,
+    private sharedService:SharedService
+  ) {
+
+    this.isLoggedIn = sharedService.isLoggedIn();
+  }
 
   public ngOnInit(): void {
     // Navbar shrink function
