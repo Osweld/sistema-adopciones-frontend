@@ -39,7 +39,8 @@ export class AuthGuard implements CanActivate, CanLoad {
 
 
     // Si el token no es válido o el usuario no tiene los roles adecuados, redirige
-    this.router.navigate(['login']);
+    localStorage.clear()
+    this.router.navigate(['/login']);
     return false;
   }
   canLoad(route: Route): boolean {
@@ -68,7 +69,8 @@ export class AuthGuard implements CanActivate, CanLoad {
     }
 
     // Si el token no es válido o el usuario no tiene los roles adecuados, redirige
-    this.router.navigate(['login']);
+    localStorage.clear()
+    this.router.navigate(['/login']);
     return false;
   }
 
