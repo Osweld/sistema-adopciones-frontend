@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../interfaces/shared.interface';
 import { SharedService } from '../../Servicios/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-floating-button',
@@ -10,45 +11,19 @@ import { SharedService } from '../../Servicios/shared.service';
 export class FloatingButtonComponent implements OnInit {
   isLoggedIn:boolean = false;
   getUserRol:string = "";
+  getURL:string = "";
 
 
-  constructor(private sharedService:SharedService ) {
+  constructor(private sharedService:SharedService, private router:Router) {
     this.isLoggedIn = this.sharedService.isLoggedIn();
-    this.getUserRol = this.sharedService.getRol()
+    this.getUserRol = this.sharedService.getRol();
+    this.getURL = router.url;
+
    }
 
-  menu:MenuItem[] = [
-    {
-      nombre:"Ingresa a tú cuenta",
-      url:"/login",
-      icon:"fas fa-user"
-    },
-    {
-      nombre:"Registrate",
-      url:"/register",
-      icon:"fas fa-pen"
-    },
-    {
-      nombre:"ListaUsuario",
-      url:"/listaUsuario",
-      icon:"fas fa-list"
-    },
-    {
-      nombre:"GaleriaMascotas",
-      url:"/pets/galeria",
-      icon:"fas fa-th"
-    },
-    {
-      nombre:"PreviewMascotas",
-      url:"/pets/preview",
-      icon:"fas fa-external-link"
-    },
-    {
-      nombre:"Administra las mascotas",
-      url:"/pets",
-      icon:"fas fa-camera"
-    }
-  ]
+
+
+
 
   ngOnInit(): void {
   }

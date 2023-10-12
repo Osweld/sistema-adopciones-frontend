@@ -22,6 +22,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     `${this.baseUrl}/auth/register`,
     `${this.baseUrl}/generos`,
     `${this.baseUrl}/mascotas/`,
+    `${this.baseUrl}/mascotas`,
     `${this.baseUrl}/razas/`,
     `${this.baseUrl}/especies/`,
     `${this.baseUrl}/roles`,
@@ -35,10 +36,9 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
 //no actualiza el token
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(request.url);
     const authToken = localStorage.getItem('token');
-    console.log("actual: "+authToken)
     if (this.isExcludedRequest(request.url)) {
-      console.log(request.url)
       return next.handle(request);
     }
 
