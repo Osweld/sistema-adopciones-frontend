@@ -14,7 +14,7 @@ export class UserService {
   constructor(private http:HttpClient) { }
 
   getUserWithPagination(page:Number):Observable<UserPage>{
-    const url = `${this.baseUrl}?page=${page}&size=10`;
+    const url = `${this.baseUrl}?page=${page}&size=20`;
     return this.http.get<UserPage>(url)
   }
 

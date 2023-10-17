@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SessionButtonsComponent } from './components/session-buttons/session-buttons.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 
 
@@ -17,7 +18,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     CustomSnackBarComponent,
     FooterComponent,
     SessionButtonsComponent,
-    LogoutComponent
+    LogoutComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     CustomSnackBarComponent,
     FooterComponent,
     SessionButtonsComponent,
-    LogoutComponent
+    LogoutComponent,
+    PaginationComponent
 
   ]
 

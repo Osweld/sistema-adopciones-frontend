@@ -1,0 +1,13 @@
+<div *ngIf="pagina && pagina?.totalPages! > 1" class="flex justify-between px-5 py-3">
+  <button class="transition py-2 px-3 bg-yellow-400 shadow-sm roudend text-white font-medium hover:scale-105 hover:bg-yellow-500" (click)="changePage(0)">Primera pagina</button>
+  <div class="space-x-2">
+    <button *ngIf="pagina.page > 0" class="transition py-2 px-3 bg-yellow-400 shadow-sm roudend text-white font-medium hover:scale-105 hover:bg-yellow-500" (click)="changePage(pagina.page-1)">{{pagina.page}}</button>
+    <button class=" py-2 px-3 bg-yellow-600 shadow-sm roudend text-white font-medium">{{pagina.page+1}}</button>
+    <button *ngIf="pagina.page+1 < pagina.totalPages" class="transition py-2 px-3 bg-yellow-400 shadow-sm roudend text-white font-medium hover:scale-105 hover:bg-yellow-500" (click)="changePage(pagina.page+1)">{{pagina.page+2}}</button>
+  </div>
+
+  <button class="transition py-2 px-3 bg-yellow-400 shadow-sm roudend text-white font-medium hover:scale-105 hover:bg-yellow-500" (click)="changePage(pagina.totalPages-1)">Ultima pagina</button>
+    </div>
+
+  <!-- 0 1 2 3 4 5 6 7 8 -->
+  <!-- 1 2 3 4 5 6 7 8 9 -->

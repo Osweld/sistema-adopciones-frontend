@@ -66,3 +66,9 @@ export interface Foto{
   link: string;
   mascota:Mascota;
 }
+
+export interface Pagination {
+  totalPages: number;
+  page: number;
+  totalElements: number;
+}

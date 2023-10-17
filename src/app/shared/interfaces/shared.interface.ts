@@ -3,3 +3,9 @@ export interface MenuItem {
     url:string;
     icon:string;
 }
+
+export interface Pagination {
+  totalPages: number;
+  page: number;
+  totalElements: number;
+}

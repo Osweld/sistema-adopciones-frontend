@@ -36,7 +36,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
 //no actualiza el token
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(request.url);
     const authToken = localStorage.getItem('token');
     if (this.isExcludedRequest(request.url)) {
       return next.handle(request);
@@ -52,7 +51,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     return this.tokenService.refreshToken().pipe(
       switchMap(resp => {
         localStorage.setItem("token", resp.token);
-    console.log("nuevo: "+resp.token)
 
         const clonedRequest = request.clone({
           setHeaders: {

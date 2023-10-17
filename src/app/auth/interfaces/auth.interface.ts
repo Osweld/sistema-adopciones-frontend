@@ -52,4 +52,10 @@ export interface Sort {
   unsorted: boolean;
 }
 
+export interface Pagination {
+  totalPages: number;
+  page: number;
+  totalElements: number;
+}
+
 

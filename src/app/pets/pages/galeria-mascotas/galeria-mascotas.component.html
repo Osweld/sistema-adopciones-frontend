@@ -42,3 +42,4 @@
         </div>
     </div>
 </div>
+<app-pagination *ngIf="pagina.totalPages > 1" [pagina]="pagina" (selectPage)="nextPage($event)"></app-pagination>

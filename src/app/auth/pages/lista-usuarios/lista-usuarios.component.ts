@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
-import { User } from '../../interfaces/auth.interface';
+import { Pagination, User } from '../../interfaces/auth.interface';
 
 
 @Component({
@@ -15,6 +15,11 @@ export class ListaUsuariosComponent implements OnInit {
 
   displayedColumns: string[] = ['nombres','apellidos', 'email', 'alias', 'genero', 'actions'];
   dataSource: User[] = [];
+  pagina:Pagination = {
+    totalElements :0,
+    totalPages :0,
+    page: 0
+  }
 
   constructor(
     private router: Router,
@@ -26,6 +31,11 @@ export class ListaUsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserWithPagination(0).subscribe(page =>{
       this.dataSource = page.content
+      this.pagina = {
+        totalElements :page.totalElements,
+        totalPages :page.totalPages,
+        page: page.number
+      }
     })
   }
 
@@ -45,6 +55,17 @@ export class ListaUsuariosComponent implements OnInit {
     })
 
 
+  }
+
+  nextPage(page:Number){
+    this.userService.getUserWithPagination(page).subscribe(page =>{
+      this.dataSource = page.content
+      this.pagina = {
+        totalElements :page.totalElements,
+        totalPages :page.totalPages,
+        page: page.number
+      }
+    })
   }
 
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
 import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
-import { Mascota } from '../../interfaces/pets.interface';
+import { Mascota, Pagination } from '../../interfaces/pets.interface';
 import { PetsService } from '../../service/pets.service';
 import { EspecieService } from '../../service/especie.service';
 
@@ -19,6 +19,11 @@ export class ListaMascotasComponent implements OnInit {
 
   displayedColumns: string[] = ['nombre', 'especie', 'raza', 'estadoSalud', 'actions'];
   dataSource: Mascota[] = [];
+  pagina:Pagination = {
+    totalElements :0,
+    totalPages :0,
+    page: 0
+  }
 
   constructor(
     private router: Router,
@@ -34,9 +39,12 @@ export class ListaMascotasComponent implements OnInit {
    this.petService.getAllMascotasPage(0).subscribe({
     next: mascotaPage =>{
       this.dataSource = mascotaPage.content;
-      console.log(mascotaPage.content)
+      this.pagina = {
+        totalElements :mascotaPage.totalElements,
+        totalPages :mascotaPage.totalPages,
+        page: mascotaPage.number
+      }
     },
-
    })
   }
 
@@ -71,6 +79,19 @@ export class ListaMascotasComponent implements OnInit {
         this.eliminarMascota(mascotaId);
       }
     });
+  }
+
+  nextPage(page:Number){
+    this.petService.getAllMascotasPage(page).subscribe({
+      next: mascotaPage =>{
+        this.dataSource = mascotaPage.content;
+        this.pagina = {
+          totalElements :mascotaPage.totalElements,
+          totalPages :mascotaPage.totalPages,
+          page: mascotaPage.number
+        }
+      },
+     })
   }
 
 }
