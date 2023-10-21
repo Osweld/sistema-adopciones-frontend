@@ -26,6 +26,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     `${this.baseUrl}/razas/`,
     `${this.baseUrl}/especies/`,
     `${this.baseUrl}/roles`,
+    `${this.baseUrl}/usuarios`,
     // ... otras rutas que quieres excluir
   ];
 
@@ -33,7 +34,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
 
 
 
-//no actualiza el token
+  //no actualiza el token
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authToken = localStorage.getItem('token');

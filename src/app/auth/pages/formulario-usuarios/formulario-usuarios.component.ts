@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, takeUntil } from 'rxjs';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
 import { Genero, Rol, User } from '../../interfaces/auth.interface';
 import { UserService } from '../../services/user.service';
@@ -144,11 +143,12 @@ export class FormularioUsuariosComponent implements OnInit {
     this.fillUser();
     this.userService.saveUser(this.user).subscribe({
       next: user => {
+
         this._sharedService.mostrarMensaje("green", "Guardado", "Se a guardado exitosamente el usuario!!")
         this.router.navigate(['/listaUsuario'])
       },
       error: error => {
-        this._sharedService.mostrarMensaje("red", "Error", "Hubo problemas al guardar el usuario!!")
+        this._sharedService.mostrarMensaje("red", "Hubo problemas al guardar el usuario!!", error.error.message)
       }
     })
 
@@ -167,7 +167,6 @@ export class FormularioUsuariosComponent implements OnInit {
       },
       error: error => {
         this._sharedService.mostrarMensaje("red", "Error", "No se pudo modificar el usuario!!")
-        console.log(this.user)
       }
     })
   }
