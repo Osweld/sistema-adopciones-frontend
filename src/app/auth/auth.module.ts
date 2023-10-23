@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthComponent } from './components/auth/auth.component';
+import { ConfigurationComponent } from './pages/configuration/configuration.component';
 
 
 
@@ -31,7 +32,8 @@ import { AuthComponent } from './components/auth/auth.component';
     ListaUsuariosComponent,
     FormularioUsuariosComponent,
     AuthComponent,
-    DialogComponent
+    DialogComponent,
+    ConfigurationComponent
   ],
   imports: [
     CommonModule,

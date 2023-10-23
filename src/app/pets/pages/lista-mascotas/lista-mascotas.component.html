@@ -8,7 +8,7 @@
       <button mat-raised-button routerLink="new" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Mascota</button>
     </div>
   </div>
-  <div class="flex justify-center items-center mx-24" *ngIf="dataSource.length !== 0; else noRegistros">
+  <div class="flex justify-center items-center mx-24 mb-7" *ngIf="dataSource.length !== 0; else noRegistros">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
 
       <ng-container matColumnDef="nombre">

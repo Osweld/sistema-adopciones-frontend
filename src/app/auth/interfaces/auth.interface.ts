@@ -21,8 +21,8 @@ export interface User {
   direccion:       string;
   email:           string;
   telefono:        string;
-  username:        string;
-  password:        string;
+  username?:        string;
+  password?:        string;
   genero:          Genero;
   rol:             Rol;
 }
@@ -56,6 +56,11 @@ export interface Pagination {
   totalPages: number;
   page: number;
   totalElements: number;
+}
+
+export interface ChangePassword {
+  oldPassword: string;
+  newPassword: string;
 }
 
 

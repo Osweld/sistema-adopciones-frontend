@@ -1,4 +1,4 @@
-<div class="app">
+<div class="app z-40">
   <input type="checkbox" id="btn-mas">
   <div class="redes">
     <a href="#" routerLink="/" *ngIf="getURL !== '/' " matTooltip="Inicio" matTooltipPosition="left"><i class="fas fa-home"></i></a>
@@ -18,6 +18,9 @@
   <div class="redes">
     <a href="#" routerLink="/pets/galeria" *ngIf="getURL !== '/pets/galeria' "  matTooltip="Galería de mascotas" matTooltipPosition="left"><i class="fas fa-th"></i></a>
   </div>
+  <div class="redes">
+    <a href="#" *ngIf="isLoggedIn && (getUserRol === 'ROLE_ADMIN' || getUserRol === 'ROLE_MANAGER' || getUserRol === 'ROLE_USER') && getURL !== '/configuration'" routerLink="/configuration" matTooltip="Configuracion" matTooltipPosition="left"><i class="fas fa-gear"></i></a>
+</div>
   <div class="btn-mas">
       <label for="btn-mas" matTooltip="Da click para ver mas opciones!!" matTooltipPosition="left"><i class="fas fa-heart"></i></label>
   </div>

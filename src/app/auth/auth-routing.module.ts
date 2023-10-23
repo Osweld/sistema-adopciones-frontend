@@ -7,6 +7,7 @@ import { FormularioUsuariosComponent } from './pages/formulario-usuarios/formula
 import { AuthComponent } from './components/auth/auth.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { LoggedInGuard } from '../core/guards/logged-in.guard';
+import { ConfigurationComponent } from './pages/configuration/configuration.component';
 
 export const routes: Routes = [
   { path:'',component: AuthComponent,children : [
@@ -14,7 +15,8 @@ export const routes: Routes = [
     { path: 'register', component: RegistroComponent,canActivate:[LoggedInGuard],canLoad:[LoggedInGuard]},
     { path: 'listaUsuario', component: ListaUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
     { path: 'formUsuario', component: FormularioUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
-    { path: 'edit/:id', component: FormularioUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}}
+    { path: 'edit/:id', component: FormularioUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
+    { path: 'configuration', component: ConfigurationComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER','ROLE_USER']}}
 
   ]},
 ];
