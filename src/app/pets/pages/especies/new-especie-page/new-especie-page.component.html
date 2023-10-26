@@ -1,0 +1,44 @@
+<div class="flex flex-col justify-center items-center my-10 mx-24">
+
+  <app-floating-button></app-floating-button>
+
+    <mat-card class="w-full h-full">
+      <mat-card-content>
+        <div class="">
+          <div class="flex flex-row justify-between pb-5">
+            <div class="text-2xl font-medium text-yellow-500">
+              {{currentEspecie.id ? 'Modificar Especie' : 'Agregar Especie'}}
+            </div>
+            <div class="flex flex-row gap-4">
+              <div>
+                <button (click)="goBack()" mat-raised-button class="text-yellow-500 text-lg">Regresar</button>
+              </div>
+              <div *ngIf="!currentEspecie.id">
+                <button [disabled]="especieForm.invalid" (click)="guardarEspecie()" mat-raised-button class="bg-yellow-500 text-white text-lg">Crear Especie</button>
+              </div>
+              <div *ngIf="currentEspecie.id">
+                <button (click)="guardarEspecie()" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
+              </div>
+              <div *ngIf="currentEspecie.id">
+                <button (click)="saveAndBack(true)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar y salir</button>
+              </div>
+            </div>
+          </div>
+          <div [formGroup]="especieForm" class="flex flex-row flex-wrap">
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" required>
+              <mat-error *ngFor="let validation of especieFormValidationMessage.nombre">
+                <span *ngIf="especieForm.get('nombre')?.hasError(validation.type) &&
+                (especieForm.get('nombre')?.dirty || especieForm.get('nombre')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div>
+  </div>
