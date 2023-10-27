@@ -19,9 +19,6 @@
               <div *ngIf="currentEstadoSalud.id">
                 <button (click)="guardarEstadoSalud()" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
               </div>
-              <div *ngIf="currentEstadoSalud.id">
-                <button (click)="saveAndBack(true)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar y salir</button>
-              </div>
             </div>
           </div>
           <div [formGroup]="estadoSaludForm" class="flex flex-row flex-wrap">

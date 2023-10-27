@@ -25,6 +25,9 @@ export class ListEstadosSaludPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    setTimeout(() => {
+
+    }, 1500);
     this.estadoSaludService.getAllEstadoSalud().subscribe(
       estados => {
         this.dataSource=estados;

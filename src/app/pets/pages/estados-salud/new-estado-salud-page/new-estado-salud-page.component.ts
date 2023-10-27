@@ -65,6 +65,9 @@ export class NewEstadoSaludPageComponent implements OnInit {
     if(this.currentEstadoSalud.id){
       this.estadoSaludService.updateEstadoSalud(this.currentEstadoSalud).subscribe({
                         next: () => {
+                          setTimeout(() => {
+
+                          }, 1500);
                           this.sharedService.mostrarMensaje("green", "Guardado", "Se a guardado exitosamente el estado de salud!!")
                         },
                         error: () =>{
@@ -89,7 +92,11 @@ export class NewEstadoSaludPageComponent implements OnInit {
     if(back)
       {
         this.guardarEstadoSalud();
+        setTimeout(() => {
+
+        }, 5000);
         this.router.navigate(['/pets/estados-salud'])
+        return
       }
   }
 

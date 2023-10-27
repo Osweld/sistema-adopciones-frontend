@@ -12,16 +12,15 @@
   <div class="flex justify-center items-center mx-24" *ngIf="dataSource.length !== 0; else noRegistros">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z w-full">
       <ng-container matColumnDef="nombre">
-        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Nombre de especie </th>
+        <th mat-header-cell *matHeaderCellDef class=" text-yellow-500 text-base"> Nombre de especie </th>
         <td mat-cell *matCellDef="let element" class=""> {{element.nombre}} </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Acciones </th>
-        <td mat-cell *matCellDef="let element" class="w-1/5">
+        <th mat-header-cell *matHeaderCellDef class=" text-yellow-500 text-base"> Acciones </th>
+        <td mat-cell *matCellDef="let element" class="">
           <div class="flex gap-2">
             <button mat-raised-button class="text-base" [routerLink]="'/pets/especies/edit/' + element.id">Editar</button>
-            <button mat-raised-button class="bg-yellow-500 text-white text-base" (click)="openDialog(element.id)">Borrar</button>
           </div>
         </td>
       </ng-container>
