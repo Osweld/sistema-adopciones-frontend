@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Login, LoginResponse } from '../interfaces/session.interface';
 import { User } from '../interfaces/auth.interface';
+import { Message } from '../interfaces/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,11 @@ export class AuthService {
   register(user:User):Observable<User>{
     const url = `${this.baseUrl}/register`;
     return this.http.post<User>(url,user)
+  }
+
+  resetPassword(email:string):Observable<Message>{
+    const url = `${environment.baseUrl}/api/v1/password-reset/request?email=${email}`;
+    return this.http.get<Message>(url)
   }
 
 }

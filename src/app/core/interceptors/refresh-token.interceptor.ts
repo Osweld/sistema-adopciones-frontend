@@ -27,6 +27,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
     `${this.baseUrl}/especies/`,
     `${this.baseUrl}/roles`,
     `${this.baseUrl}/usuarios`,
+    `${this.baseUrl}/password-reset/request`,
     // ... otras rutas que quieres excluir
   ];
 

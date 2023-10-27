@@ -7,11 +7,13 @@ import { FormularioUsuariosComponent } from './pages/formulario-usuarios/formula
 import { AuthComponent } from './components/auth/auth.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { LoggedInGuard } from '../core/guards/logged-in.guard';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
   { path:'',component: AuthComponent,children : [
     { path: 'login', component: LoginComponent,canActivate:[LoggedInGuard],canLoad:[LoggedInGuard] },
     { path: 'register', component: RegistroComponent,canActivate:[LoggedInGuard],canLoad:[LoggedInGuard]},
+    { path: 'forgotPassword', component: ForgotPasswordComponent,canActivate:[LoggedInGuard],canLoad:[LoggedInGuard] },
     { path: 'listaUsuario', component: ListaUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
     { path: 'formUsuario', component: FormularioUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}},
     { path: 'edit/:id', component: FormularioUsuariosComponent, canActivate:[AuthGuard],canLoad:[AuthGuard],data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER']}}
