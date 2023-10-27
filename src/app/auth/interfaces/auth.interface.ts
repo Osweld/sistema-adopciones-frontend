@@ -63,4 +63,64 @@ export interface ChangePassword {
   newPassword: string;
 }
 
+export interface SolicitudPage {
+  totalElements:    number;
+  totalPages:       number;
+  size:             number;
+  content:          Solicitud[];
+  number:           number;
+  sort:             Sort;
+  first:            boolean;
+  last:             boolean;
+  numberOfElements: number;
+  pageable:         Pageable;
+  empty:            boolean;
+}
+
+export interface Solicitud {
+  id:                         number;
+  motivo:                     string;
+  descripcion:                string;
+  comentarioGestionSolicitud: string;
+  mascota:                    Mascota;
+  usuario:                    User;
+  estadoSolicitudAdopcion:    Estado;
+}
+
+export interface Estado {
+  id:     number;
+  estado: string;
+}
+
+export interface Mascota {
+  id:              number;
+  nombre:          string;
+  fechaNacimiento: Date;
+  color:           string;
+  descripcion:     string;
+  fotoPrincipal:   string;
+  genero:          Especie;
+  especie:         Especie;
+  raza:            Raza;
+  estadoSalud:     Estado;
+  estadoMascota:   Estado;
+}
+
+export interface Especie {
+  id:     number;
+  nombre: string;
+}
+
+export interface Raza {
+  id:      number;
+  nombre:  string;
+  especie: Especie;
+}
+
+export interface VerificarSolicitudDatos{
+  idSolicitud:number;
+  idEstadoSolicitud:number;
+  comentarios:string
+}
+
 

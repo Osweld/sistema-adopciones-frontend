@@ -22,6 +22,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthComponent } from './components/auth/auth.component';
 import { ConfigurationComponent } from './pages/configuration/configuration.component';
+import { SolicitudAdopcionComponent } from './pages/solicitud-adopcion/solicitud-adopcion.component';
+import { AdminSolicitudComponent } from './pages/admin-solicitud/admin-solicitud.component';
+import { VerificarSolicitudComponent } from './components/verificar-solicitud/verificar-solicitud.component';
 
 
 
@@ -33,7 +36,11 @@ import { ConfigurationComponent } from './pages/configuration/configuration.comp
     FormularioUsuariosComponent,
     AuthComponent,
     DialogComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    SolicitudAdopcionComponent,
+    AdminSolicitudComponent,
+    VerificarSolicitudComponent,
+
   ],
   imports: [
     CommonModule,

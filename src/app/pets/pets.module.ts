@@ -23,6 +23,7 @@ import { SharedModule } from '../shared/shared.module';
 import { GaleriaMascotasComponent } from './pages/galeria-mascotas/galeria-mascotas.component';
 import { PreviewMascotasComponent } from './pages/preview-mascotas/preview-mascotas.component';
 import { UploadPhotosComponent } from './components/upload-photos/upload-photos.component';
+import { SolicitudModalComponent } from './components/solicitud-modal/solicitud-modal.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { UploadPhotosComponent } from './components/upload-photos/upload-photos.
     DialogComponent,
     GaleriaMascotasComponent,
     PreviewMascotasComponent,
-    UploadPhotosComponent
+    UploadPhotosComponent,
+    SolicitudModalComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +54,7 @@ import { UploadPhotosComponent } from './components/upload-photos/upload-photos.
     MatIconModule,
     MatDialogModule,
     SharedModule,
+    MatDialogModule
 
   ]
 })

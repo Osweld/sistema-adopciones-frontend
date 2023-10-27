@@ -1,0 +1,32 @@
+::ng-deep .mat-step-header .mat-step-icon-selected {
+  background-color: rgb(202 138 4);
+}
+
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  background-color: rgb(234 179 8);
+}
+
+::ng-deep .mat-step-text-label {
+  color: white;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgb(234 179 8) !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start {
+  border-color: rgb(234 179 8) !important;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-color: rgb(234 179 8) !important;
+}
+
+::ng-deep .mat-form-field-label {
+  color: rgb(234 179 8) !important;
+}
