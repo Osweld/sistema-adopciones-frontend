@@ -1,0 +1,27 @@
+<div class="w-full flex justify-center items-center flex-col">
+  <h1 mat-dialog-title>Informacion de Solicitud</h1>
+  <h2 class="text-lg font-bold">{{data.solicitud.mascota.nombre}}</h2>
+  <div class="w-full">
+    <div class="px-2 w-full">
+      <div class="py-2">
+        <p class="font-medium ">Motivo:</p>
+        <p>{{data.solicitud.motivo}}</p>
+      </div>
+      <div class="py-2">
+        <p class="font-medium ">Descripcion:</p>
+        <p>{{data.solicitud.descripcion}}</p>
+      </div>
+      <div class="py-2">
+        <p class="font-medium ">Comentarios:</p>
+        <p>{{data.solicitud.comentarioGestionSolicitud}}</p>
+      </div>
+    </div>
+
+
+    <!-- Los botones para enviar o cerrar el diálogo -->
+    <div mat-dialog-actions class="w-full flex items-center justify-center">
+      <button mat-button class="bg-red-500 text-white text-lg" (click)="closeDialog()">Salir</button>
+
+    </div>
+  </div>
+</div>

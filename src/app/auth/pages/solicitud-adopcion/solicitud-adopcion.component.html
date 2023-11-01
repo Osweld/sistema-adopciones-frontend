@@ -1,1 +1,81 @@
-<app-floating-button></app-floating-button>
+<div class="flex flex-col mb-4">
+  <app-floating-button></app-floating-button>
+
+  <div class="flex flex-row justify-between my-10 mx-24">
+    <div class="text-4xl font-medium text-yellow-500">Solicitudes en proceso</div>
+  </div>
+  <div *ngIf="!SolicitudActual" class="w-full flex justify-center items-center">
+    <p class="text-2xl text-gray-500"> No hay solicitudes en proceso en este momento...</p>
+  </div>
+
+  <div *ngIf="SolicitudActual" class="mx-8 bg-white shadow-sm">
+    <div class="w-full flex items-center justify-center">
+      <p class="text-2xl py-4 text-gray-700 font-semibold">Solicitud</p>
+    </div>
+    <div class="w-full flex ">
+      <div class="w-1/2 px-3">
+        <p class="text-xl text-gray-600 font-semibold">Titulo</p>
+        <p class="text-gray-800">{{SolicitudActual.motivo}}</p>
+
+        <p class="text-xl text-gray-600 font-semibold">Descripcion</p>
+        <p class="text-gray-800">{{SolicitudActual.descripcion}}</p>
+
+        <p class="text-xl text-gray-600 font-semibold">Estatus</p>
+        <p class="rounded-md font-medium" ngClass="SolicitudActual.estadoSolicitudAdopcion.estado === 'APROBADA' ? text-green-600 : text-gray-600">{{SolicitudActual.estadoSolicitudAdopcion.estado}}</p>
+      </div>
+      <div class="w-1/2 px-3">
+        <p class="text-xl text-gray-600 font-semibold">Nombre de mascota</p>
+        <p class="text-gray-800">{{SolicitudActual.mascota.nombre}}</p>
+
+        <p class="text-xl text-gray-600 font-semibold">Comentarios sobre la solicitud</p>
+        <p class="text-gray-800">{{SolicitudActual.comentarioGestionSolicitud}}</p>
+
+        <button *ngIf="SolicitudActual.estadoSolicitudAdopcion.estado === 'APROBADA'" mat-raised-button class="text-base mt-3 bg-green-600 text-white">Agendar cita</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="flex flex-row justify-between my-10 mx-24">
+    <div class="text-4xl font-medium text-yellow-500">Solicitudes rechazadas</div>
+  </div>
+  <div class="flex justify-center items-center mx-24 mb-7" *ngIf="solicitudesRechazadas.length !== 0; else noRegistros">
+    <table mat-table [dataSource]="solicitudesRechazadas" class="mat-elevation-z8 w-full">
+
+      <ng-container matColumnDef="mascota">
+        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Nombre mascota </th>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.mascota.nombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="motivo">
+        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Motivo </th>
+        <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.motivo}} </td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="usuario">
+          <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Usuario </th>
+          <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.usuario.username}} </td>
+        </ng-container> -->
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Acciones </th>
+        <td mat-cell *matCellDef="let element" class="w-1/5">
+          <div class="flex gap-2">
+            <button mat-raised-button (click)="openDialog(element)" class="text-base bg-red-600 text-white">Ver
+              solicitud</button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <ng-template #noRegistros>
+    <div class="flex justify-center items-center flex-col gap-28 mt-20">
+      <mat-icon class="w-32 text-9xl pr-28 text-yellow-500">folder_off</mat-icon>
+      <div class="text-center text-yellow-500 text-2xl font-normal">Actualmente sin registros</div>
+    </div>
+  </ng-template>
+</div>
+<app-pagination *ngIf="pagina.totalPages > 1" [pagina]="pagina" (selectPage)="nextPage($event)"></app-pagination>

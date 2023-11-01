@@ -22,7 +22,7 @@
                     <ul>
                         <li>
                             <p *ngIf="checkRol()" (click)="openDialog(mascota.id!,mascota.nombre)"><i class="fa fa-file"></i></p>
-                            <p *ngIf="checkRol()" (click)="like(mascota.id!)"><i class="fa fa-star" [ngClass]="getClassForLikeIcon(mascota.id!) | async"></i></p>
+                            <p *ngIf="checkRol()" (click)="like(mascota.id!)"><i class="fa fa-star" ngClass="getClassForLikeIcon(mascota.id!) | async"></i></p>
                         </li>
                     </ul>
                 </div>

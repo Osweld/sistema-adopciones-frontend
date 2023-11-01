@@ -25,6 +25,8 @@ import { ConfigurationComponent } from './pages/configuration/configuration.comp
 import { SolicitudAdopcionComponent } from './pages/solicitud-adopcion/solicitud-adopcion.component';
 import { AdminSolicitudComponent } from './pages/admin-solicitud/admin-solicitud.component';
 import { VerificarSolicitudComponent } from './components/verificar-solicitud/verificar-solicitud.component';
+import { VerDetallesSolicitudComponent } from './components/ver-detalles-solicitud/ver-detalles-solicitud.component';
+import { AgendarCitaComponent } from './components/agendar-cita/agendar-cita.component';
 
 
 
@@ -40,6 +42,8 @@ import { VerificarSolicitudComponent } from './components/verificar-solicitud/ve
     SolicitudAdopcionComponent,
     AdminSolicitudComponent,
     VerificarSolicitudComponent,
+    VerDetallesSolicitudComponent,
+    AgendarCitaComponent,
 
   ],
   imports: [
