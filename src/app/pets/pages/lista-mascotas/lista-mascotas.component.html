@@ -27,6 +27,21 @@
     <div class="flex flex-row gap-4">
       <button mat-raised-button routerLink="../" class="bg-white text-yellow-500 h-10 w-40 rounded-lg text-lg">Regresar</button>
       <button mat-raised-button routerLink="new" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Mascota</button>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a routerLink="/pets/razas/" mat-menu-item>
+          <span>Razas</span>
+        </a>
+        <a routerLink="/pets/especies/" mat-menu-item>
+          <span>Especies</span>
+        </a>
+        <a routerLink="/pets/estados-salud/" mat-menu-item>
+          <span>Estados de salud</span>
+        </a>
+      </mat-menu>
+
     </div>
   </div>
   <div class="flex justify-center items-center mx-24 mb-7" *ngIf="dataSource.length !== 0; else noRegistros">

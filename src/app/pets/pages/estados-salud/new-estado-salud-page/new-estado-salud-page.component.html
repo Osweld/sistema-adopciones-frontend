@@ -1,0 +1,41 @@
+<div class="flex flex-col justify-center items-center my-10 mx-24">
+
+  <app-floating-button></app-floating-button>
+
+    <mat-card class="w-full h-full">
+      <mat-card-content>
+        <div class="">
+          <div class="flex flex-row justify-between pb-5">
+            <div class="text-2xl font-medium text-yellow-500">
+              {{currentEstadoSalud.id ? 'Modificar Estado de Salud' : 'Agregar Estado de Salud'}}
+            </div>
+            <div class="flex flex-row gap-4">
+              <div>
+                <button (click)="goBack()" mat-raised-button class="text-yellow-500 text-lg">Regresar</button>
+              </div>
+              <div *ngIf="!currentEstadoSalud.id">
+                <button [disabled]="estadoSaludForm.invalid" (click)="guardarEstadoSalud()" mat-raised-button class="bg-yellow-500 text-white text-lg">Crear Estado de Salud</button>
+              </div>
+              <div *ngIf="currentEstadoSalud.id">
+                <button (click)="guardarEstadoSalud()" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
+              </div>
+            </div>
+          </div>
+          <div [formGroup]="estadoSaludForm" class="flex flex-row flex-wrap">
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="estado" required>
+              <mat-error *ngFor="let validation of estadoSaludFormValidationMessage.nombre">
+                <span *ngIf="estadoSaludForm.get('estado')?.hasError(validation.type) &&
+                (estadoSaludForm.get('estado')?.dirty || estadoSaludForm.get('estado')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div>
+  </div>

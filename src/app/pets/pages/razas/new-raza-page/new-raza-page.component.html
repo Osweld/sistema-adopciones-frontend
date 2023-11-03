@@ -1,0 +1,57 @@
+<div class="flex flex-col justify-center items-center my-10 mx-24">
+
+  <app-floating-button></app-floating-button>
+
+    <mat-card class="w-full h-full">
+      <mat-card-content>
+        <div class="">
+          <div class="flex flex-row justify-between pb-5">
+            <div class="text-2xl font-medium text-yellow-500">
+              {{currentRaza.id ? 'Modificar Raza' : 'Agregar Raza'}}
+            </div>
+            <div class="flex flex-row gap-4">
+              <div>
+                <button (click)="goBack()" mat-raised-button class="text-yellow-500 text-lg">Regresar</button>
+              </div>
+              <div *ngIf="!currentRaza.id">
+                <button [disabled]="razaForm.invalid" (click)="guardarRaza()" mat-raised-button class="bg-yellow-500 text-white text-lg">Crear Raza</button>
+              </div>
+              <div *ngIf="currentRaza.id">
+                <button (click)="guardarRaza()" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar</button>
+              </div>
+              <div *ngIf="currentRaza.id">
+                <button (click)="saveAndBack(true)" mat-raised-button class="bg-yellow-500 text-white text-lg">Guardar y salir</button>
+              </div>
+            </div>
+          </div>
+          <div [formGroup]="razaForm" class="flex flex-row flex-wrap">
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" required>
+              <mat-error *ngFor="let validation of razaFormValidationMessage.nombre">
+                <span *ngIf="razaForm.get('nombre')?.hasError(validation.type) &&
+                (razaForm.get('nombre')?.dirty || razaForm.get('nombre')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-1/2 p-2">
+              <mat-label>Especie</mat-label>
+              <mat-select formControlName="especie">
+                <mat-option *ngFor="let especie of especies" [value]="especie">
+                  {{especie.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of razaFormValidationMessage.especie">
+                <span *ngIf="razaForm.get('especie')?.hasError(validation.type) &&
+                (razaForm.get('especie')?.dirty || razaForm.get('especie')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div>
+  </div>

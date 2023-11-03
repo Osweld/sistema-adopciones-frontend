@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthComponent } from './components/auth/auth.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ConfigurationComponent } from './pages/configuration/configuration.component';
 import { SolicitudAdopcionComponent } from './pages/solicitud-adopcion/solicitud-adopcion.component';
 import { AdminSolicitudComponent } from './pages/admin-solicitud/admin-solicitud.component';
@@ -42,6 +43,7 @@ import { AdopcionesComponent,DeleteAdopcionComponent } from './pages/adopciones/
     AuthComponent,
     DialogComponent,
     DeleteAdopcionComponent,
+    ForgotPasswordComponent,
     ConfigurationComponent,
     SolicitudAdopcionComponent,
     AdminSolicitudComponent,
@@ -51,7 +53,6 @@ import { AdopcionesComponent,DeleteAdopcionComponent } from './pages/adopciones/
     AdminCitasComponent,
     AdopcionComponent,
     AdopcionesComponent,
-
   ],
   imports: [
     CommonModule,
