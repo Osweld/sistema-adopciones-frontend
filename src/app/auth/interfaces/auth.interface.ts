@@ -92,6 +92,11 @@ export interface Estado {
   estado: string;
 }
 
+export interface EstadoMascota {
+  id:     number;
+  estado: string;
+}
+
 export interface Mascota {
   id:              number;
   nombre:          string;
@@ -103,7 +108,7 @@ export interface Mascota {
   especie:         Especie;
   raza:            Raza;
   estadoSalud:     Estado;
-  estadoMascota:   Estado;
+  estadoMascota:   EstadoMascota;
 }
 
 export interface Especie {
@@ -121,6 +126,65 @@ export interface VerificarSolicitudDatos{
   idSolicitud:number;
   idEstadoSolicitud:number;
   comentarios:string
+}
+
+export interface Hora {
+  id:       number;
+  horaCita?: string;
+}
+
+export interface Cita {
+  id?:                  number;
+  fechaCita:           Date;
+  motivoCita:          string;
+  descripcion?:         string;
+  solicitudAdopcion:   Solicitud;
+  estadoCitaSolicitud?: EstadoCita;
+  horaCitaSolicitud:   Hora;
+}
+
+export interface EstadoCita {
+  id:     number;
+  estado: string;
+}
+
+export interface CitaPage {
+  totalElements:    number;
+  totalPages:       number;
+  size:             number;
+  content:          Cita[];
+  number:           number;
+  sort:             Sort;
+  first:            boolean;
+  last:             boolean;
+  numberOfElements: number;
+  pageable:         Pageable;
+  empty:            boolean;
+}
+
+export interface CrearAdopcion{
+  idUsuario: number;
+  idMascota: number;
+}
+
+export interface Adopcion{
+  id:              number;
+  mascota:         Mascota;
+  usuario:         User;
+}
+
+export interface AdopcionPage {
+  totalElements:    number;
+  totalPages:       number;
+  size:             number;
+  content:          Adopcion[];
+  number:           number;
+  sort:             Sort;
+  first:            boolean;
+  last:             boolean;
+  numberOfElements: number;
+  pageable:         Pageable;
+  empty:            boolean;
 }
 
 

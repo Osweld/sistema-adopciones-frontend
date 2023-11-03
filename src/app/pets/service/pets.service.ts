@@ -18,6 +18,11 @@ export class PetsService {
     return this.http.get<MascotasPage>(url)
   }
 
+  getAllMascotasPageByEstadoDisponible(page:Number):Observable<MascotasPage>{
+    const url = `${this.baseUrl}/estado-mascota?page=${page}&size=20`;
+    return this.http.get<MascotasPage>(url)
+  }
+
   getMascotaById(id:Number):Observable<Mascota>{
     const url = `${this.baseUrl}/${id}`;
     return this.http.get<Mascota>(url)

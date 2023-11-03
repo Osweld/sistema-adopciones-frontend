@@ -27,6 +27,9 @@ import { AdminSolicitudComponent } from './pages/admin-solicitud/admin-solicitud
 import { VerificarSolicitudComponent } from './components/verificar-solicitud/verificar-solicitud.component';
 import { VerDetallesSolicitudComponent } from './components/ver-detalles-solicitud/ver-detalles-solicitud.component';
 import { AgendarCitaComponent } from './components/agendar-cita/agendar-cita.component';
+import { AdminCitasComponent } from './pages/admin-citas/admin-citas.component';
+import { AdopcionComponent } from './pages/adopcion/adopcion.component';
+import { AdopcionesComponent,DeleteAdopcionComponent } from './pages/adopciones/adopciones.component';
 
 
 
@@ -38,12 +41,16 @@ import { AgendarCitaComponent } from './components/agendar-cita/agendar-cita.com
     FormularioUsuariosComponent,
     AuthComponent,
     DialogComponent,
+    DeleteAdopcionComponent,
     ConfigurationComponent,
     SolicitudAdopcionComponent,
     AdminSolicitudComponent,
     VerificarSolicitudComponent,
     VerDetallesSolicitudComponent,
     AgendarCitaComponent,
+    AdminCitasComponent,
+    AdopcionComponent,
+    AdopcionesComponent,
 
   ],
   imports: [

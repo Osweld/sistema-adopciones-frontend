@@ -113,6 +113,20 @@
               </mat-error>
             </mat-form-field>
 
+            <mat-form-field *ngIf="idRoute && mascota.estadoMascota.id !== 3" appearance="outline" class="w-1/2 p-2">
+              <mat-label>Estado</mat-label>
+              <mat-select formControlName="estado">
+                <mat-option *ngFor="let estado of estados" [value]="estado.id">
+                  {{estado.estado}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.estado">
+                <span *ngIf="mascotaForm.get('estado')?.hasError(validation.type) &&
+                (mascotaForm.get('estado')?.dirty || mascotaForm.get('estado')?.touched)">
+                {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
             <mat-form-field appearance="outline" class="w-1/2 p-2">
               <mat-label>Descripcion</mat-label>
               <textarea matInput formControlName="descripcion" required></textarea>

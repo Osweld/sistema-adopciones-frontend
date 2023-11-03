@@ -23,6 +23,11 @@ export class UserService {
     return this.http.get<User>(url)
   }
 
+  getUserByDUI(id:Number):Observable<User>{
+    const url = `${this.baseUrl}/identidad/${id}`;
+    return this.http.get<User>(url)
+  }
+
   saveUser(user:User):Observable<User>{
     const url = `${this.baseUrl}`;
     return this.http.post<User>(url,user)

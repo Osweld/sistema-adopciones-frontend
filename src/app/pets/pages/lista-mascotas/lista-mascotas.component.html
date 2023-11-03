@@ -3,6 +3,27 @@
   <app-floating-button></app-floating-button>
   <div class="flex flex-row justify-between my-10 mx-24">
     <div class="text-4xl font-medium text-yellow-500">Mascotas</div>
+
+    <div class="w-full flex justify-center items-center">
+      <form [formGroup]="mascotaForm" (ngSubmit)="submitMascotaForm()">
+        <div class="flex justify-between items-center">
+          <mat-form-field appearance="outline" class="w-1/2 p-2">
+            <mat-label>ID Mascota</mat-label>
+            <input matInput formControlName="id" required>
+            <mat-error *ngFor="let validation of mascotaFormValidationMessage.id">
+              <span *ngIf="mascotaForm.get('id')?.hasError(validation.type) &&
+              (mascotaForm.get('id')?.dirty || mascotaForm.get('id')?.touched)">
+                {{validation.message}}</span>
+            </mat-error>
+          </mat-form-field>
+          <!-- Los botones para enviar o cerrar el diálogo -->
+          <div mat-dialog-actions class="w-full flex items-center justify-between">
+            <button mat-button class="bg-yellow-500 text-white text-lg" type="submit">Buscar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
     <div class="flex flex-row gap-4">
       <button mat-raised-button routerLink="../" class="bg-white text-yellow-500 h-10 w-40 rounded-lg text-lg">Regresar</button>
       <button mat-raised-button routerLink="new" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Mascota</button>

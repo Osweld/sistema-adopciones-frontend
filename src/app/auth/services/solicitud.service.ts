@@ -11,6 +11,7 @@ export class SolicitudService {
 
   baseUrl:string = environment.baseUrl+"/api/v1/solicitud-adopcion"
 
+
   constructor(private http:HttpClient) { }
 
   getSolicitudesWithPagination(page:Number):Observable<SolicitudPage>{
@@ -32,6 +33,8 @@ export class SolicitudService {
     const url = `${this.baseUrl}/rechazadas?page=${page}&size=10`
     return this.http.get<SolicitudPage>(url);
   }
+
+
 
 
 }

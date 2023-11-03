@@ -71,7 +71,7 @@ export class GaleriaMascotasComponent implements OnInit {
   }
 
   nextPage(page: Number) {
-    this.PetsService.getAllMascotasPage(0)
+    this.PetsService.getAllMascotasPageByEstadoDisponible(0)
       .subscribe(
         mascotasPage => {
           this.mascotas = mascotasPage.content;
@@ -185,7 +185,7 @@ export class GaleriaMascotasComponent implements OnInit {
 
 
   getMascotasData(){
-    this.PetsService.getAllMascotasPage(0)
+    this.PetsService.getAllMascotasPageByEstadoDisponible(0)
         .subscribe(
           mascotasPage => {
             this.mascotas = mascotasPage.content;

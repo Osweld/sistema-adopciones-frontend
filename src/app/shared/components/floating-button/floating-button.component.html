@@ -21,6 +21,15 @@
   <div class="redes">
     <a href="#" *ngIf="isLoggedIn && (getUserRol === 'ROLE_ADMIN' || getUserRol === 'ROLE_MANAGER') && getURL !== '/admin-solicitud'" routerLink="/admin-solicitud" matTooltip="Administra las solicitudes" matTooltipPosition="left"><i class="fa-solid fa-address-card"></i></a>
 </div>
+
+<div class="redes">
+  <a href="#" *ngIf="isLoggedIn && (getUserRol === 'ROLE_ADMIN' || getUserRol === 'ROLE_MANAGER') && getURL !== '/admin-citas'" routerLink="/admin-citas" matTooltip="Administra las citas" matTooltipPosition="left"><i class="fa-solid fa-calendar-days"></i></a>
+</div>
+
+<div class="redes">
+  <a href="#" *ngIf="isLoggedIn && (getUserRol === 'ROLE_ADMIN' || getUserRol === 'ROLE_MANAGER') && getURL !== '/adopciones'" routerLink="/adopciones" matTooltip="Administra las adopciones" matTooltipPosition="left"><i class="fa-solid fa-dog"></i></a>
+</div>
+
 <div class="redes">
   <a href="#" *ngIf="isLoggedIn && (getUserRol === 'ROLE_USER') && getURL !== '/solicitudes'" routerLink="/solicitudes" matTooltip="solicitudes de adopcion" matTooltipPosition="left"><i class="fa-solid fa-address-card"></i></a>
 </div>

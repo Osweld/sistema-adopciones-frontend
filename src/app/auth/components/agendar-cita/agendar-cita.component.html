@@ -1,1 +1,50 @@
-<p>agendar-cita works!</p>
+<div class="w-full flex justify-center items-center flex-col">
+  <h1 mat-dialog-title>Agendar cita</h1>
+  <div mat-dialog-content>
+    <div  class="w-full p-3">
+      <form [formGroup]="cita" (ngSubmit)="submitForm()">
+
+        <mat-form-field appearance="outline" class="w-full p-2">
+          <mat-label>Motivo</mat-label>
+          <input matInput formControlName="motivo" required>
+          <mat-error *ngFor="let validation of citaFormValidationMessage.motivo">
+            <span *ngIf="cita.get('motivo')?.hasError(validation.type) &&
+            (cita.get('motivo')?.dirty || cita.get('motivo')?.touched)">
+            {{validation.message}}</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full p-2">
+          <mat-label>Fecha de cita</mat-label>
+          <input matInput readonly="true" [matDatepicker]="picker" formControlName="fecha" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngFor="let validation of citaFormValidationMessage.fecha">
+            <span *ngIf="cita.get('fecha')?.hasError(validation.type) &&
+            (cita.get('fecha')?.dirty || cita.get('fecha')?.touched)">
+            {{validation.message}}</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full p-2">
+          <mat-label>Hora</mat-label>
+          <mat-select formControlName="hora">
+            <mat-option *ngFor="let hora of horas" [value]="hora.id">
+              {{hora.horaCita}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngFor="let validation of citaFormValidationMessage.hora">
+            <span *ngIf="cita.get('hora')?.hasError(validation.type) &&
+            (cita.get('hora')?.dirty || cita.get('hora')?.touched)">
+            {{validation.message}}</span>
+          </mat-error>
+        </mat-form-field>
+        <!-- Los botones para enviar o cerrar el diálogo -->
+        <div mat-dialog-actions class="w-full flex items-center justify-between">
+          <button mat-button class="bg-red-500 text-white text-lg" (click)="closeDialog()">Salir</button>
+          <button mat-button class="bg-yellow-500 text-white text-lg" type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

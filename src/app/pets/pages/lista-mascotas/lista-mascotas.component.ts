@@ -5,6 +5,7 @@ import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog
 import { Mascota, Pagination } from '../../interfaces/pets.interface';
 import { PetsService } from '../../service/pets.service';
 import { EspecieService } from '../../service/especie.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -19,6 +20,8 @@ export class ListaMascotasComponent implements OnInit {
 
   displayedColumns: string[] = ['nombre', 'especie', 'raza', 'estadoSalud', 'actions'];
   dataSource: Mascota[] = [];
+  mascotaForm:FormGroup;
+  mascota!:Mascota;
   pagina:Pagination = {
     totalElements :0,
     totalPages :0,
@@ -29,10 +32,20 @@ export class ListaMascotasComponent implements OnInit {
     private router: Router,
     private _sharedService: SharedService,
     public dialog: MatDialog,
+    private fb: FormBuilder,
     private petService:PetsService,
     private especieService:EspecieService
   ) {
+    this.mascotaForm = this.fb.group({
+      id: ['', Validators.required],
+    });
 
+    }
+
+    mascotaFormValidationMessage = {
+      'id': [
+        { type: 'required', message: 'El id es requerida' }
+      ]
     }
 
   ngOnInit(): void {
@@ -64,6 +77,23 @@ export class ListaMascotasComponent implements OnInit {
     })
 
 
+  }
+
+  submitMascotaForm(){
+    if (this.mascotaForm.invalid) {
+      this.mascotaForm.markAllAsTouched();
+      return;
+    }
+
+    this.petService.getMascotaById(this.mascotaForm.value.id).subscribe({
+      next: mascota => {
+        this.mascota = mascota;
+        this.router.navigate([`/pets/edit/${mascota.id}`]);
+      },
+      error: error =>{
+        this._sharedService.mostrarMensaje("red","Mascota no encontrada","Verifique que el ID sea el correcto")
+      }
+    })
   }
 
 

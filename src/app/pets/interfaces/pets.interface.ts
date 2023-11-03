@@ -23,6 +23,7 @@ export interface Mascota {
   especie:         Especie;
   raza:            Raza;
   estadoSalud:     EstadoSalud;
+  estadoMascota:   Estado;
 }
 
 export interface Genero {
@@ -36,6 +37,11 @@ export interface Especie {
 }
 
 export interface EstadoSalud {
+  id:     number;
+  estado?: string;
+}
+
+export interface Estado {
   id:     number;
   estado?: string;
 }

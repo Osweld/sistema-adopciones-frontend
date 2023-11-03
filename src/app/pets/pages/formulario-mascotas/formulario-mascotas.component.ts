@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
-import { Especie, EstadoSalud, Mascota, Raza } from '../../interfaces/pets.interface';
+import { Especie, Estado, EstadoSalud, Mascota, Raza } from '../../interfaces/pets.interface';
 import { Genero } from 'src/app/auth/interfaces/auth.interface';
 import { PetsService } from '../../service/pets.service';
 import { GeneroService } from '../../service/genero.service';
@@ -11,6 +11,7 @@ import { RazaService } from '../../service/raza.service';
 import { EspecieService } from '../../service/especie.service';
 import { EstadoSaludService } from '../../service/estado-salud.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
+import { EstadoMascotaService } from '../../service/estado-mascota.service';
 
 @Component({
   selector: 'app-formulario-mascotas',
@@ -22,6 +23,7 @@ export class FormularioMascotasComponent implements OnInit {
   mascota!: Mascota;
   generos: Genero[] = [];
   razas: Raza[] = [];
+  estados:Estado[] = [];
   estadoSalud: EstadoSalud[] = [];
   especies: Especie[] = [];
   idRoute!: string;
@@ -36,6 +38,7 @@ export class FormularioMascotasComponent implements OnInit {
     raza: [, Validators.required],
     estadoSalud: [, Validators.required],
     especie: [, Validators.required],
+    estado: ["1",Validators.required]
 
   })
 
@@ -66,6 +69,9 @@ export class FormularioMascotasComponent implements OnInit {
     ],
     'raza': [
       { type: 'required', message: 'La raza no puede quedar vacia.' }
+    ],
+    'estado': [
+      { type: 'required', message: 'El estado no puede quedar vacia.' }
     ]
   }
 
@@ -75,6 +81,7 @@ export class FormularioMascotasComponent implements OnInit {
     private razaService: RazaService,
     private estadoSaludService: EstadoSaludService,
     private especieService: EspecieService,
+    private estadoMascotaService:EstadoMascotaService,
     private fb:FormBuilder,
     private validatorService: ValidatorsService,
     private router: Router,
@@ -98,6 +105,7 @@ export class FormularioMascotasComponent implements OnInit {
               estadoSalud: mascota.estadoSalud.id,
               especie: mascota.especie.id,
               raza: mascota.raza.id,
+              estado:mascota.estadoMascota.id
             })
           }
         }
@@ -117,6 +125,12 @@ export class FormularioMascotasComponent implements OnInit {
       next: especies => this.especies = especies
     })
 
+    this.estadoMascotaService.getAllestadoMascota().subscribe({
+      next: estados => {
+        this.estados = estados
+      }
+    })
+
     this.estadoSaludService.getAllEstadoSalud().subscribe({
       next: estadoSalud => this.estadoSalud = estadoSalud
     })
@@ -128,9 +142,7 @@ export class FormularioMascotasComponent implements OnInit {
       })
     ).subscribe(razas => {
       this.razas = razas;
-      console.log(razas)
     },error =>{
-      console.log(error)
     });
 
   }
@@ -191,7 +203,8 @@ export class FormularioMascotasComponent implements OnInit {
       genero : { id : this.mascotaForm.value.genero},
       estadoSalud : { id : this.mascotaForm.value.estadoSalud},
       especie : { id : this.mascotaForm.value.especie},
-      raza : { id : this.mascotaForm.value.raza}
+      raza : { id : this.mascotaForm.value.raza},
+      estadoMascota : { id : this.mascotaForm.value.estado}
     }
 
 

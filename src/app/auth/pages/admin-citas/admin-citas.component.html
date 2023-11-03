@@ -1,0 +1,68 @@
+<app-floating-button></app-floating-button>
+
+<div class="w-full flex justify-center items-center flex-col">
+  <p class="text-4xl font-bold pt-4">Citas Programadas</p>
+  <div>
+    <div class="w-full p-3">
+      <form [formGroup]="citaForm" (ngSubmit)="submitForm()">
+        <div class="flex justify-between items-center">
+          <mat-form-field appearance="outline" class="w-full p-2">
+            <mat-label>Fecha de cita</mat-label>
+            <input matInput readonly="true" [matDatepicker]="picker" formControlName="fecha" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngFor="let validation of citaFormValidationMessage.fecha">
+              <span *ngIf="citaForm.get('fecha')?.hasError(validation.type) &&
+            (citaForm.get('fecha')?.dirty || citaForm.get('fecha')?.touched)">
+                {{validation.message}}</span>
+            </mat-error>
+          </mat-form-field>
+          <!-- Los botones para enviar o cerrar el diálogo -->
+          <!-- <div mat-dialog-actions class="w-full flex items-center justify-between">
+            <button mat-button class="bg-yellow-500 text-white text-lg" type="submit">Enviar</button>
+          </div> -->
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-row justify-between my-10 mx-24">
+  <div class="text-4xl font-medium text-yellow-500">Citas</div>
+</div>
+<div class="flex justify-center items-center mx-24 mb-7" *ngIf="citas.length !== 0; else noRegistros">
+  <table mat-table [dataSource]="citas" class="mat-elevation-z8 w-full">
+
+    <ng-container matColumnDef="usuario">
+      <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Usuario </th>
+      <td mat-cell *matCellDef="let element" class="w-1/5 font-bold"> {{element.solicitudAdopcion.usuario.username}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mascota">
+      <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Nombre mascota </th>
+      <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.solicitudAdopcion.mascota.nombre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="motivo">
+      <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Motivo Cita</th>
+      <td mat-cell *matCellDef="let element" class="w-1/5"> {{element.motivoCita}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fecha y hora">
+      <th mat-header-cell *matHeaderCellDef class="w-1/5 text-yellow-500 text-base"> Fecha y hora</th>
+      <td mat-cell *matCellDef="let element" class="w-1/5">
+        {{ getFechaHoraCompleta(element.fechaCita, element.horaCitaSolicitud.horaCita) }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsCita"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsCita;"></tr>
+  </table>
+</div>
+<ng-template #noRegistros>
+  <div class="flex justify-center items-center flex-col gap-28 mt-20">
+    <mat-icon class="w-32 text-9xl pr-28 text-yellow-500">folder_off</mat-icon>
+    <div class="text-center text-yellow-500 text-2xl font-normal">Actualmente sin registros</div>
+  </div>
+</ng-template>
+
