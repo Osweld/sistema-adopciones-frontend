@@ -1,7 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import * as bootstrap from 'bootstrap';
 import { SharedService } from 'src/app/shared/Servicios/shared.service';
+import { environment } from 'src/environments/environment';
+
+interface Estadisticas {
+  estado:   string;
+  cantidad: number;
+}
 
 @Component({
   selector: 'app-pagina-de-bienvenida',
@@ -12,18 +19,44 @@ export class PaginaDeBienvenidaComponent implements OnInit {
 
   oneTimeSubscription: boolean = true;
   chosenAmount?: number;
+  disponibles!:number;
+  adoptados!:number;
+  fallecidos!:number;
   isLoggedIn:boolean = false;
+  url:string = environment.baseUrl+"/api/v1/mascotas/estadisticas"
+
+  estadisticas:Estadisticas[] = [];
 
   constructor(
     private elementRef: ElementRef,
     private _formBuilder: FormBuilder,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    private http:HttpClient
   ) {
 
     this.isLoggedIn = sharedService.isLoggedIn();
   }
 
   public ngOnInit(): void {
+
+    this.http.get<Estadisticas[]>(this.url).subscribe({
+      next: estadisticas =>{
+        estadisticas.forEach( estadistica =>{
+          if(estadistica.estado === 'DISPONIBLE'){
+            this.disponibles = estadistica.cantidad;
+          }
+          if(estadistica.estado === 'ADOPTADO'){
+            this.adoptados = estadistica.cantidad;
+          }
+          if(estadistica.estado === 'FALLECIDO'){
+            this.fallecidos = estadistica.cantidad;
+          }
+        })
+      }
+    })
+
+
+
     // Navbar shrink function
     const navbarShrink = () => {
       const navbarCollapsible = document.body.querySelector('#mainNav') as HTMLElement;
