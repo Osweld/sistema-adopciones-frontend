@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User, UserPage } from '../interfaces/auth.interface';
+import { ChangePassword, User, UserPage } from '../interfaces/auth.interface';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -36,6 +36,11 @@ export class UserService {
   deleteUserById(id:Number):Observable<User>{
     const url = `${this.baseUrl}/${id}`;
     return this.http.delete<User>(url)
+  }
+
+  changePassword(ChangePassword:ChangePassword):Observable<ChangePassword>{
+    const url = `${this.baseUrl}/change-password`;
+    return this.http.put<ChangePassword>(url,ChangePassword)
   }
 
 }

@@ -1,0 +1,49 @@
+<div class="w-full flex justify-center items-center flex-col">
+  <h1 mat-dialog-title>Verificar Solicitud</h1>
+  <h2 class="text-lg font-bold">{{data.solicitud.mascota.nombre}}</h2>
+  <div mat-dialog-content>
+    <div class="px-2 w-full">
+      <div class="py-2">
+        <p class="font-medium ">Motivo:</p>
+        <p>{{data.solicitud.motivo}}</p>
+      </div>
+      <div class="py-2">
+        <p class="font-medium ">Descripcion:</p>
+        <p>{{data.solicitud.descripcion}}</p>
+      </div>
+    </div>
+    <div  class="w-full p-3">
+      <form [formGroup]="solicitud" (ngSubmit)="submitForm()">
+
+        <mat-form-field appearance="outline" class="w-full p-2">
+          <mat-label>Comentarios a la solicitud</mat-label>
+          <textarea matInput formControlName="comentarios" rows="5" required></textarea>
+          <mat-error *ngFor="let validation of solicitudFormValidationMessage.comentarios">
+            <span *ngIf="solicitud.get('comentarios')?.hasError(validation.type) &&
+          (solicitud.get('comentarios')?.dirty || solicitud.get('comentarios')?.touched)">
+              {{validation.message}}</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-1/2 p-2">
+          <mat-label>Estado Solicitud</mat-label>
+          <mat-select formControlName="estado">
+            <mat-option [value]="1">Aprobado</mat-option>
+            <mat-option [value]="2">Desaprobado</mat-option>
+          </mat-select>
+          <mat-error *ngFor="let validation of solicitudFormValidationMessage.estado">
+            <span *ngIf="solicitud.get('estado')?.hasError(validation.type) &&
+          (solicitud.get('estado')?.dirty || solicitud.get('estado')?.touched)">
+              {{validation.message}}</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Los botones para enviar o cerrar el diálogo -->
+        <div mat-dialog-actions class="w-full flex items-center justify-between">
+          <button mat-button class="bg-red-500 text-white text-lg" (click)="closeDialog()">Salir</button>
+          <button mat-button class="bg-yellow-500 text-white text-lg" type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

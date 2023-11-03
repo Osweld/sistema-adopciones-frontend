@@ -128,6 +128,9 @@ export class FormularioMascotasComponent implements OnInit {
       })
     ).subscribe(razas => {
       this.razas = razas;
+      console.log(razas)
+    },error =>{
+      console.log(error)
     });
 
   }

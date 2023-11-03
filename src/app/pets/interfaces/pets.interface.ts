@@ -72,3 +72,14 @@ export interface Pagination {
   page: number;
   totalElements: number;
 }
+
+export interface MascotaId {
+  id: number;
+}
+
+export interface solicitudAdopcion {
+  idMascota:number;
+  titulo: string;
+  descripcion: string;
+}
+

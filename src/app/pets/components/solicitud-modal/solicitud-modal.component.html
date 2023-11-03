@@ -1,0 +1,35 @@
+<div class="w-full flex justify-center items-center flex-col">
+<h1 mat-dialog-title>Solicitud de Adopcion</h1>
+<h2 class="text-lg font-bold">{{data.nombreMascota}}</h2>
+<div class="w-full p-3">
+  <form [formGroup]="solicitud" (ngSubmit)="submitForm()">
+
+      <mat-form-field appearance="outline" class="w-full p-2">
+      <mat-label>Titulo</mat-label>
+      <input matInput formControlName="titulo" placeholder="¿Por que quiere adoptar a la mascota?" required>
+      <mat-error *ngFor="let validation of solicitudFormValidationMessage.titulo">
+        <span *ngIf="solicitud.get('titulo')?.hasError(validation.type) &&
+        (solicitud.get('titulo')?.dirty || solicitud.get('titulo')?.touched)">
+        {{validation.message}}</span>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full p-2">
+      <mat-label>Descripcion</mat-label>
+      <textarea matInput formControlName="descripcion" rows="10" placeholder="Se debe colocar informacion mas detallada del
+      por que se quiere adoptar la mascota. Ej: ¿posee un espacio adecuado para la mascota? ¿Ya ha tenido mascotas antes?" required></textarea>
+      <mat-error *ngFor="let validation of solicitudFormValidationMessage.descripcion">
+        <span *ngIf="solicitud.get('descripcion')?.hasError(validation.type) &&
+        (solicitud.get('descripcion')?.dirty || solicitud.get('descripcion')?.touched)">
+        {{validation.message}}</span>
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Los botones para enviar o cerrar el diálogo -->
+    <div mat-dialog-actions class="w-full flex items-center justify-between">
+      <button mat-button class="bg-red-500 text-white text-lg" (click)="closeDialog()">Salir</button>
+      <button mat-button class="bg-yellow-500 text-white text-lg" type="submit">Enviar</button>
+    </div>
+  </form>
+</div>
+</div>

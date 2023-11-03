@@ -166,7 +166,7 @@ export class FormularioUsuariosComponent implements OnInit {
         this.router.navigate(['/listaUsuario'])
       },
       error: error => {
-        this._sharedService.mostrarMensaje("red", "Error", "No se pudo modificar el usuario!!")
+        this._sharedService.mostrarMensaje("red", "Hubo problemas al modificar el usuario!!", error.error.message)
       }
     })
   }

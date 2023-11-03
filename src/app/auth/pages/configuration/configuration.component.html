@@ -1,0 +1,163 @@
+<div class="flex flex-col justify-center items-center my-10 mx-24">
+  <mat-card class="w-full h-full">
+    <mat-card-content>
+      <div class="flex flex-row justify-between pb-5">
+        <div class="text-2xl font-medium text-yellow-500">
+          Configurar informacion personal
+        </div>
+      </div>
+      <form [formGroup]="userForm" (ngSubmit)="modificarUsuario()">
+        <div>
+          <div class="d-flex align-items-center justify-content-between p-2">
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Nombres:</mat-label>
+              <input matInput formControlName="nombres" type="text" required>
+              <mat-error *ngFor="let validation of userFormValidationMessage.nombres">
+                <span *ngIf="userForm.get('nombres')?.hasError(validation.type) &&
+                (userForm.get('nombres')?.dirty || userForm.get('nombres')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Apellidos:</mat-label>
+              <input matInput formControlName="apellidos" type="text" required>
+              <mat-error *ngFor="let validation of userFormValidationMessage.nombres">
+                <span *ngIf="userForm.get('nombres')?.hasError(validation.type) &&
+                (userForm.get('nombres')?.dirty || userForm.get('nombres')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between p-2">
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Fecha de nacimiento:</mat-label>
+              <input matInput readonly="true" [matDatepicker]="picker" formControlName="fechaNacimiento" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngFor="let validation of userFormValidationMessage.fechaNacimiento">
+                <span *ngIf="userForm.get('fechaNacimiento')?.hasError(validation.type) &&
+                (userForm.get('fechaNacimiento')?.dirty || userForm.get('fechaNacimiento')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Numero de DUI:</mat-label>
+              <input matInput formControlName="numeroDui" type="text" placeholder="Agregue el numero con guion"
+                required>
+              <mat-error *ngFor="let validation of userFormValidationMessage.numeroDui">
+                <span *ngIf="userForm.get('numeroDui')?.hasError(validation.type) &&
+                (userForm.get('numeroDui')?.dirty || userForm.get('numeroDui')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between p-2">
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Direccion:</mat-label>
+              <input matInput formControlName="direccion" type="text" required>
+              <mat-error *ngFor="let validation of userFormValidationMessage.direccion">
+                <span *ngIf="userForm.get('direccion')?.hasError(validation.type) &&
+                (userForm.get('direccion')?.dirty || userForm.get('direccion')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Email:</mat-label>
+              <input matInput formControlName="email" type="text" required>
+              <mat-error *ngFor="let validation of userFormValidationMessage.email">
+                <span *ngIf="userForm.get('email')?.hasError(validation.type) &&
+                (userForm.get('email')?.dirty || userForm.get('email')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between p-2">
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Telefono:</mat-label>
+              <input matInput formControlName="telefono" type="text" required>
+              <mat-error *ngFor="let validation of userFormValidationMessage.telefono">
+                <span *ngIf="userForm.get('telefono')?.hasError(validation.type) &&
+                (userForm.get('telefono')?.dirty || userForm.get('telefono')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Genero</mat-label>
+              <mat-select formControlName="genero">
+                <mat-option *ngFor="let genero of generos" [value]="genero.id">
+                  {{genero.nombre}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngFor="let validation of userFormValidationMessage.genero">
+                <span *ngIf="userForm.get('genero')?.hasError(validation.type) &&
+        (userForm.get('genero')?.dirty || userForm.get('genero')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="d-flex card-footer align-items-center justify-content-center py-3 ">
+          <button class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+
+      <div class="flex flex-row justify-between pb-5">
+        <div class="text-2xl font-medium text-yellow-500">
+          Cambiar contraseña
+        </div>
+      </div>
+      <form [formGroup]="changePasswordForm" (ngSubmit)="sendChangePassword()">
+        <div>
+          <div class="d-flex align-items-center justify-content-between p-2 w-1/2">
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Contraseña actual</mat-label>
+              <input matInput formControlName="oldPassword" type="password" required>
+              <mat-error *ngFor="let validation of changePasswordFormValidationMessage.oldPassword">
+                <span *ngIf="changePasswordForm.get('password')?.hasError(validation.type) &&
+                (changePasswordForm.get('oldPassword')?.dirty || changePasswordForm.get('oldPassword')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="d-flex align-items-center justify-content-between p-2">
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Contraseña nueva</mat-label>
+              <input matInput formControlName="password" type="password" required>
+              <mat-error *ngFor="let validation of changePasswordFormValidationMessage.password">
+                <span *ngIf="changePasswordForm.get('password')?.hasError(validation.type) &&
+                (changePasswordForm.get('password')?.dirty || changePasswordForm.get('password')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-full p-2">
+              <mat-label>Repite tu contraseña</mat-label>
+              <input matInput formControlName="confirmPassword" type="password" required>
+              <mat-error *ngFor="let validation of changePasswordFormValidationMessage.password">
+                <span *ngIf="changePasswordForm.get('password')?.hasError(validation.type) &&
+                (changePasswordForm.get('password')?.dirty || changePasswordForm.get('password')?.touched)">
+                  {{validation.message}}</span>
+              </mat-error>
+              <mat-error *ngIf="changePasswordForm.errors?.['passwordError'] &&
+      (changePasswordForm.get('confirmPassword')?.dirty || changePasswordForm.get('confirmPassword')?.touched)">
+                Los password no coinciden</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="d-flex card-footer align-items-center justify-content-center py-3">
+          <button class="btn btn-primary">Guardar nueva contraseña</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+<app-floating-button></app-floating-button>

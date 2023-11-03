@@ -1,4 +1,4 @@
-<div class="flex flex-col">
+<div class="flex flex-col mb-4">
   <app-floating-button></app-floating-button>
 
     <div class="flex flex-row justify-between my-10 mx-24">
@@ -8,7 +8,7 @@
         <button mat-raised-button routerLink="/formUsuario" class="text-white bg-yellow-500 h-10 w-full rounded-lg text-lg">Agregar Usuario</button>
       </div>
     </div>
-    <div class="flex justify-center items-center mx-24" *ngIf="dataSource.length !== 0; else noRegistros">
+    <div class="flex justify-center items-center mx-24 mb-7" *ngIf="dataSource.length !== 0; else noRegistros">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
 
         <ng-container matColumnDef="nombres">

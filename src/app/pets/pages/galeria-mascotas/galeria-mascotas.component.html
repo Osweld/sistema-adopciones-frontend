@@ -18,12 +18,11 @@
                     <img [src]="mascota.fotoPrincipal" alt="imagen-pet">
                 </div>
                 <div class="menu-line"></div>
-                <div class="menu-item">
+                <div  class="menu-item">
                     <ul>
                         <li>
-                            <p><i class="fa fa-file"></i></p>
-                            <p><i class="fa fa-star"></i></p>
-                            <p><i class="fa fa-search-plus"></i></p>
+                            <p *ngIf="checkRol()" (click)="openDialog(mascota.id!,mascota.nombre)"><i class="fa fa-file"></i></p>
+                            <p *ngIf="checkRol()" (click)="like(mascota.id!)"><i class="fa fa-star" ngClass="getClassForLikeIcon(mascota.id!) | async"></i></p>
                         </li>
                     </ul>
                 </div>

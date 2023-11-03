@@ -31,6 +31,7 @@ import { ListEspeciesPageComponent } from './pages/especies/list-especies-page/l
 import { ListEstadosSaludPageComponent } from './pages/estados-salud/list-estados-salud-page/list-estados-salud-page.component';
 import { ListRazasPageComponent } from './pages/razas/list-razas-page/list-razas-page.component';
 import { NewRazaPageComponent } from './pages/razas/new-raza-page/new-raza-page.component';
+import { SolicitudModalComponent } from './components/solicitud-modal/solicitud-modal.component';
 
 
 @NgModule({
@@ -47,7 +48,9 @@ import { NewRazaPageComponent } from './pages/razas/new-raza-page/new-raza-page.
     ListEstadosSaludPageComponent,
     UploadPhotosComponent,
     ListRazasPageComponent,
-    NewRazaPageComponent
+    NewRazaPageComponent,
+    UploadPhotosComponent,
+    SolicitudModalComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +69,9 @@ import { NewRazaPageComponent } from './pages/razas/new-raza-page/new-raza-page.
     MatIconModule,
     MatDialogModule,
     SharedModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
+
   ]
 })
 export class PetsModule { }

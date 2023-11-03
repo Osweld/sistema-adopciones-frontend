@@ -106,7 +106,7 @@
                   {{raza.nombre}}
                 </mat-option>
               </mat-select>
-              <mat-error *ngFor="let validation of mascotaFormValidationMessage.genero">
+              <mat-error *ngFor="let validation of mascotaFormValidationMessage.raza">
                 <span *ngIf="mascotaForm.get('raza')?.hasError(validation.type) &&
                 (mascotaForm.get('raza')?.dirty || mascotaForm.get('raza')?.touched)">
                 {{validation.message}}</span>
