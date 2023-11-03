@@ -21,6 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthComponent } from './components/auth/auth.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ConfigurationComponent } from './pages/configuration/configuration.component';
 import { SolicitudAdopcionComponent } from './pages/solicitud-adopcion/solicitud-adopcion.component';
 import { AdminSolicitudComponent } from './pages/admin-solicitud/admin-solicitud.component';
@@ -38,12 +39,13 @@ import { AgendarCitaComponent } from './components/agendar-cita/agendar-cita.com
     FormularioUsuariosComponent,
     AuthComponent,
     DialogComponent,
+    ForgotPasswordComponent,
     ConfigurationComponent,
     SolicitudAdopcionComponent,
     AdminSolicitudComponent,
     VerificarSolicitudComponent,
     VerDetallesSolicitudComponent,
-    AgendarCitaComponent,
+    AgendarCitaComponent
 
   ],
   imports: [
